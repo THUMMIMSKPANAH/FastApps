@@ -1,6 +1,7 @@
 import subprocess
 import re
 import shutil
+import platform
 from pathlib import Path
 from dataclasses import dataclass
 from typing import Dict
@@ -40,8 +41,9 @@ class WidgetBuilder:
         # 2. Copy framework's build script to project (if not exists)
         self._ensure_build_script()
         
-        # 3. Run build
-        subprocess.run(["npx", "tsx", "build-all.mts"], cwd=self.project_root, check=True)
+        # 3. Run build (Windows-compatible)
+        npx_cmd = "npx.cmd" if platform.system() == "Windows" else "npx"
+        subprocess.run([npx_cmd, "tsx", "build-all.mts"], cwd=self.project_root, check=True)
         
         # 4. Parse results
         return self._parse_build_results()
