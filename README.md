@@ -146,6 +146,27 @@ python server/main.py
 
 Your widget is now live at `http://localhost:8001` 🎉
 
+### 7. Expose with ngrok (for ChatGPT Testing)
+
+To test your widget in ChatGPT, you need to expose your local server to the internet using ngrok:
+
+```bash
+# Install ngrok (if not already installed)
+# macOS: brew install ngrok
+# Or download from: https://ngrok.com/download
+
+# In a new terminal, expose your local server
+ngrok http 8001
+```
+
+You will get a public URL that you can use to add your local server to ChatGPT in Settings > Connectors.
+
+For example: https://<custom_endpoint>.ngrok-free.app/mcp
+
+**Important**: Keep both terminals running:
+- Terminal 1: `python server/main.py` (your FastApps server)
+- Terminal 2: `ngrok http 8001` (public tunnel)
+
 ---
 
 ## 📦 What You Need to Know
