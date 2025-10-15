@@ -62,7 +62,7 @@ class WidgetBuilder:
             if chatjs_build_script.exists():
                 # Copy from node_modules
                 shutil.copy(chatjs_build_script, project_build_script)
-                print(f"✓ Copied build script from chatjs-hooks package")
+                print("Copied build script from chatjs-hooks package")
             else:
                 raise FileNotFoundError(
                     "build-all.mts not found. Please install chatjs-hooks: npm install --save-dev chatjs-hooks"
@@ -85,10 +85,10 @@ class WidgetBuilder:
             
             if index_file.exists():
                 widget_count += 1
-                print(f"✓ Found widget: {widget_name}")
+                print(f"Found widget: {widget_name}")
         
         if widget_count > 0:
-            print(f"\n📦 Ready to build {widget_count} widget(s)")
+            print(f"\nReady to build {widget_count} widget(s)")
     
     def _parse_build_results(self) -> Dict[str, WidgetBuildResult]:
         """Parse built widget HTML files."""
@@ -103,4 +103,3 @@ class WidgetBuilder:
                     html=html_file.read_text()
                 )
         return results
-

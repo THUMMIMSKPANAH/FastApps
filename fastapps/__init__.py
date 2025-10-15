@@ -15,7 +15,7 @@ Example:
             return {"message": "Hello from FastApps!"}
 """
 
-__version__ = "1.0.1"
+__version__ = "1.0.3"
 __author__ = "FastApps Team"
 
 from .core.widget import BaseWidget

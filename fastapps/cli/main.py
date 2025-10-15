@@ -8,7 +8,7 @@ from .commands.init import init_project
 console = Console()
 
 @click.group()
-@click.version_option(version="1.0.1", prog_name="fastapps")
+@click.version_option(version="1.0.3", prog_name="fastapps")
 def cli():
     """FastApps - ChatGPT Widget Framework
     
