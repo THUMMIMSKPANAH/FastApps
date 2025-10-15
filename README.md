@@ -26,13 +26,13 @@ venv\Scripts\activate       # Windows
 
 ```bash
 pip install fastapps
-fastapps init my-widgets
+fastapps init my-app
 ```
 
 This generates the complete project structure:
 
 ```
-my-widgets/
+my-app/
 ├── server/
 │   ├── __init__.py
 │   ├── main.py              # Auto-discovery server
@@ -50,7 +50,7 @@ my-widgets/
 ### 3. Install Dependencies
 
 ```bash
-cd my-widgets
+cd my-app
 pip install -r requirements.txt
 npm install
 ```
@@ -64,7 +64,7 @@ fastapps create greeting
 This adds to your project:
 
 ```
-my-widgets/
+my-app/
 ├── server/
 │   └── tools/
 │       └── greeting_tool.py # ← Generated: Widget backend
@@ -238,7 +238,7 @@ fastapps create mywidget
 When you run `python -m fastapps.cli.main create greeting`, you get:
 
 ```
-my-widgets/
+my-app/
 ├── server/
 │   ├── __init__.py
 │   ├── main.py                  # ✅ Already setup (no edits needed)
