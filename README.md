@@ -58,7 +58,7 @@ npm install
 ### 4. Create Your First Widget
 
 ```bash
-fastapps create greeting
+fastapps create my-widget
 ```
 
 This adds to your project:
@@ -67,40 +67,40 @@ This adds to your project:
 my-app/
 ├── server/
 │   └── tools/
-│       └── greeting_tool.py # ← Generated: Widget backend
+│       └── my_widget_tool.py # ← Generated: Widget backend
 └── widgets/
-    └── greeting/
-        └── index.jsx        # ← Generated: Widget frontend
+    └── my-widget/
+        └── index.jsx         # ← Generated: Widget frontend
 ```
 
 ### 5. Edit Your Widget Code
 
 **You only need to edit these 2 files:**
 
-#### `server/tools/greeting_tool.py` - Backend Logic
+#### `server/tools/my_widget_tool.py` - Backend Logic
 
 ```python
 from fastapps import BaseWidget, Field, ConfigDict
 from pydantic import BaseModel
 from typing import Dict, Any
 
-class GreetingInput(BaseModel):
+class MyWidgetInput(BaseModel):
     model_config = ConfigDict(populate_by_name=True)
     name: str = Field(default="World")
 
-class GreetingTool(BaseWidget):
-    identifier = "greeting"
-    title = "Greeting Widget"
-    input_schema = GreetingInput
-    invoking = "Preparing greeting..."
-    invoked = "Greeting ready!"
+class MyWidgetTool(BaseWidget):
+    identifier = "my-widget"
+    title = "My Widget"
+    input_schema = MyWidgetInput
+    invoking = "Processing..."
+    invoked = "Done!"
     
     widget_csp = {
         "connect_domains": [],      # APIs you'll call
         "resource_domains": []      # Images/fonts you'll use
     }
     
-    async def execute(self, input_data: GreetingInput) -> Dict[str, Any]:
+    async def execute(self, input_data: MyWidgetInput) -> Dict[str, Any]:
         # Your logic here
         return {
             "name": input_data.name,
@@ -108,13 +108,13 @@ class GreetingTool(BaseWidget):
         }
 ```
 
-#### `widgets/greeting/index.jsx` - Frontend UI
+#### `widgets/my-widget/index.jsx` - Frontend UI
 
 ```jsx
 import React from 'react';
 import { useWidgetProps } from 'chatjs-hooks';
 
-export default function Greeting() {
+export default function MyWidget() {
   const props = useWidgetProps();
   
   return (
@@ -256,7 +256,7 @@ fastapps create mywidget
 
 ## 📖 Project Structure After `fastapps create`
 
-When you run `python -m fastapps.cli.main create greeting`, you get:
+When you run `python -m fastapps.cli.main create my-widget`, you get:
 
 ```
 my-app/
@@ -265,16 +265,16 @@ my-app/
 │   ├── main.py                  # ✅ Already setup (no edits needed)
 │   ├── tools/
 │   │   ├── __init__.py
-│   │   └── greeting_tool.py     # ← Edit this: Your widget logic
+│   │   └── my_widget_tool.py    # ← Edit this: Your widget logic
 │   └── api/                     # (optional: for shared APIs)
 │
 ├── widgets/
-│   └── greeting/
+│   └── my-widget/
 │       └── index.jsx            # ← Edit this: Your UI
 │
 ├── assets/                      # ⚙️ Auto-generated during build
-│   ├── greeting-HASH.html
-│   └── greeting-HASH.js
+│   ├── my-widget-HASH.html
+│   └── my-widget-HASH.js
 │
 ├── requirements.txt             # Python dependencies
 ├── package.json                 # JavaScript dependencies
