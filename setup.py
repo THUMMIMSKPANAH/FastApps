@@ -5,7 +5,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setup(
     name="fastapps",
-    version="1.0.3",
+    version="1.0.4",
     author="FastApps Team",
     author_email="hello@fastapps.dev",
     description="A zero-boilerplate framework for building interactive ChatGPT widgets",

@@ -1,72 +1,175 @@
 # Introduction to FastApps
 
-Welcome to FastApps - a zero-boilerplate framework for building interactive ChatGPT widgets!
+Welcome to FastApps - a zero-boilerplate framework for building interactive ChatGPT widgets powered by the Apps SDK!
 
 ## What is FastApps?
 
-FastApps is a Python framework that lets you build interactive, visual widgets for ChatGPT with minimal code. Instead of text-only responses, you can create rich, interactive UIs that run directly in ChatGPT.
+FastApps is a Python framework that eliminates the complexity of building Apps SDK widgets for ChatGPT. It handles all the MCP protocol boilerplate, auto-discovery, and build configuration so you can focus on writing your widget logic and UI.
 
-## Why FastApps?
+## The Problem: MCP is Powerful but Complex
 
-### Traditional ChatGPT Development
-```python
-# Just text responses
-def my_tool():
-    return "Here's the weather: 72°F, Sunny"
+OpenAI's Apps SDK lets you build rich, interactive widgets for ChatGPT using the Model Context Protocol (MCP). But the manual setup is extensive:
+
+### Building a Widget with Raw MCP
+```typescript
+// 1. Manually register HTML resources with specific mime types
+server.registerResource(
+  "widget-html",
+  "ui://widget/my-widget.html",
+  {},
+  async () => ({
+    contents: [{
+      uri: "ui://widget/my-widget.html",
+      mimeType: "text/html+skybridge",  // Must be exact
+      text: `
+        <div id="root"></div>
+        <style>${CSS}</style>
+        <script type="module">${JS}</script>
+      `,
+      _meta: {
+        "openai/widgetCSP": {
+          connect_domains: [],
+          resource_domains: []
+        }
+      }
+    }]
+  })
+);
+
+// 2. Manually wire tool metadata to resource URIs
+server.registerTool(
+  "my-widget",
+  {
+    title: "My Widget",
+    inputSchema: { /* ... */ },
+    _meta: {
+      "openai/outputTemplate": "ui://widget/my-widget.html",
+      "openai/widgetAccessible": true,
+      "openai/toolInvocation/invoking": "Loading...",
+      "openai/toolInvocation/invoked": "Done"
+    }
+  },
+  async (input) => {
+    return {
+      content: [{ type: "text", text: "Success" }],
+      structuredContent: { /* data */ }
+    };
+  }
+);
+
+// 3. Manually build and bundle assets
+// 4. Manually inject component mounting logic
+// 5. Manually configure CSP policies
+// 6. Manually set up server with proper protocol handlers
 ```
 
-### With FastApps
+**That's a lot of boilerplate for every widget you build.**
+
+## The Solution: FastApps Automates Everything
+
+With FastApps, you write **just 2 files** and everything else is automatic:
+
+### Python Tool (Backend)
 ```python
-# Rich, interactive widgets
-class WeatherWidget(BaseWidget):
-    async def execute(self, input_data):
+from fastapps import BaseWidget, Field
+from pydantic import BaseModel
+
+class MyInput(BaseModel):
+    name: str = Field(default="World")
+
+class MyWidgetTool(BaseWidget):
+    identifier = "my-widget"
+    title = "My Widget"
+    input_schema = MyInput
+    invoking = "Loading..."
+    invoked = "Done"
+    
+    widget_csp = {
+        "connect_domains": [],
+        "resource_domains": []
+    }
+    
+    async def execute(self, input_data: MyInput):
         return {
-            "temperature": 72,
-            "condition": "Sunny",
-            "forecast": [...]
+            "message": f"Hello, {input_data.name}!"
         }
 ```
 
+### React Component (Frontend)
 ```jsx
-// Beautiful UI
-<div style={{ background: 'linear-gradient(...)' }}>
-  <h1>{temperature}°F</h1>
-  <p>{condition}</p>
-  {/* Interactive charts, maps, etc */}
-</div>
+import React from 'react';
+import { useWidgetProps } from 'chatjs-hooks';
+
+export default function MyWidget() {
+  const props = useWidgetProps();
+  
+  return (
+    <div style={{
+      padding: '40px',
+      textAlign: 'center',
+      background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+      color: 'white',
+      borderRadius: '12px'
+    }}>
+      <h1>{props.message}</h1>
+    </div>
+  );
+}
 ```
+
+**That's it! FastApps handles:**
+- ✅ MCP server setup and protocol implementation
+- ✅ Tool and resource registration
+- ✅ HTML resource generation with proper mime types
+- ✅ Metadata wiring (`openai/outputTemplate`, CSP, etc.)
+- ✅ Asset building and bundling with Vite
+- ✅ Component mounting logic injection
+- ✅ Auto-discovery of widgets from your project structure
 
 ## Key Features
 
 ### Zero Boilerplate
-- No configuration files needed
-- No manual registration
-- No build configuration
-- Just write your widget code!
+No more manual MCP server setup:
+- ✅ **No resource registration** - FastApps auto-generates HTML resources
+- ✅ **No metadata wiring** - Tool metadata automatically configured
+- ✅ **No build scripts** - Vite integration built-in
+- ✅ **No mounting logic** - Component initialization injected automatically
 
 ### Auto-Discovery
+Drop a Python file in `server/tools/` and it's automatically discovered:
+
 ```python
-# Drop a file in server/tools/
-class MyWidget(BaseWidget):
-    identifier = "mywidget"
+# server/tools/my_widget_tool.py
+class MyWidgetTool(BaseWidget):
+    identifier = "my-widget"
     # ...
 
-# It's automatically registered! No imports needed.
+# That's it! No imports, no manual registration needed.
 ```
 
-### Fast Development
+FastApps scans your `server/tools/` directory, finds all `BaseWidget` subclasses, and automatically:
+- Registers them as MCP tools
+- Creates HTML resources with correct mime types
+- Wires metadata (`openai/outputTemplate`, CSP, etc.)
+- Links them to your React components in `widgets/`
+
+### Fast Development Workflow
 ```bash
-fastapps create mywidget  # Generate files
-# Edit 2 files
-npm run build           # Build
-python server/main.py   # Run
+fastapps create mywidget  # Generate boilerplate (2 files)
+# Edit server/tools/mywidget_tool.py (your logic)
+# Edit widgets/mywidget/index.jsx (your UI)
+npm run build             # Build assets
+python server/main.py     # Run MCP server
 ```
+
+That's it! No configuration files, no manual wiring.
 
 ### Modern Stack
-- **Backend**: Python + FastMCP
-- **Frontend**: React + Vite
+- **Backend**: Python + FastMCP (MCP protocol wrapper)
+- **Frontend**: React + Vite (fast builds)
 - **Protocol**: MCP (Model Context Protocol)
-- **Type Safety**: Pydantic + TypeScript
+- **Type Safety**: Pydantic (Python) + TypeScript (React)
+- **CLI**: Scaffolding commands for instant widget creation
 
 ## Architecture Overview
 
@@ -153,41 +256,57 @@ const props = useWidgetProps<MyProps>();
 - External service UIs
 - Real-time updates
 
-## Comparison
+## Comparison: Raw MCP vs FastApps
 
-| Feature | Traditional ChatGPT | FastApps Widgets |
-|---------|-------------------|----------------|
-| **Output** | Text only | Rich UI |
-| **Interactivity** | Limited | Full React |
-| **Visualization** | ASCII art | Charts, maps, images |
-| **State** | Conversation only | Persistent widget state |
-| **Styling** | None | Full CSS/styling |
+| Aspect | Raw MCP (Apps SDK) | FastApps |
+|--------|-------------------|----------|
+| **Setup** | Manual server config, protocol handlers | Auto-configured |
+| **Resource Registration** | Manual `registerResource()` calls | Auto-generated |
+| **Tool Registration** | Manual `registerTool()` with metadata | Auto-discovered |
+| **CSP Configuration** | Manual `_meta` object wiring | Simple `widget_csp` dict |
+| **Asset Bundling** | Custom build scripts | Built-in Vite integration |
+| **Component Mounting** | Manual injection logic | Auto-injected |
+| **Files to Write** | 5+ (server, resource, tool, build, component) | **2** (tool.py, index.jsx) |
+| **Lines of Boilerplate** | ~150+ per widget | **~0** |
 
-## How It Works
+## How It Works (Under the Hood)
 
-1. **You write**: Python tool + React component
-2. **FastApps discovers**: Automatically finds your widget
-3. **FastApps builds**: Bundles with Vite
-4. **FastApps serves**: MCP server handles requests
-5. **ChatGPT renders**: Your widget appears in chat
+When you run `python server/main.py`, FastApps:
+
+1. **Scans `server/tools/`** - Discovers all `BaseWidget` subclasses
+2. **Auto-registers resources** - Creates HTML resources with `text/html+skybridge` mime type
+3. **Auto-registers tools** - Wires tool metadata to resource URIs
+4. **Configures CSP** - Converts your `widget_csp` dict to proper MCP metadata
+5. **Serves MCP protocol** - Handles all protocol handshakes and requests
+6. **Injects data** - Passes your `execute()` return value to React via `window.openai.toolOutput`
+
+All the MCP complexity is handled for you - you just write business logic and UI.
 
 ## Design Philosophy
 
+### Abstraction Without Leakage
+FastApps hides MCP complexity but doesn't limit what you can build:
+- All Apps SDK features supported (CSP, state, tool access)
+- You control the data and UI completely
+- MCP protocol details abstracted away
+
 ### Minimal API Surface
-- 1 base class: `BaseWidget`
-- 3 React hooks: `useWidgetProps`, `useWidgetState`, `useOpenAiGlobal`
-- 2 CLI commands: `init`, `create`
+Learn once, build many:
+- **1 base class**: `BaseWidget` (handles all MCP wiring)
+- **3 React hooks**: `useWidgetProps`, `useWidgetState`, `useOpenAiGlobal`
+- **2 CLI commands**: `init` (scaffold project), `create` (add widget)
 
 ### Convention Over Configuration
-- Identifier must match folder name
-- Tools in `server/tools/`, components in `widgets/`
-- No config files needed
+Zero config files:
+- Widget identifier must match folder name (enforced automatically)
+- Tools in `server/tools/`, components in `widgets/` (auto-discovered)
+- Build and serve with standard commands
 
 ### Developer Experience First
-- Hot reload in development
-- Clear error messages
-- TypeScript support
-- Comprehensive docs
+- **Fast iterations** - Edit code, rebuild, reload
+- **Clear errors** - Helpful validation messages
+- **Type safety** - Pydantic + TypeScript
+- **No surprises** - Explicit over implicit
 
 ## Next Steps
 
@@ -205,7 +324,11 @@ const props = useWidgetProps<MyProps>();
 
 ## Philosophy
 
-> "You should only write the code that's unique to your widget. Everything else should be automatic."
+> **"You should write your widget logic and UI, not MCP boilerplate."**
 
-That's FastApps.
+FastApps is an abstraction layer over the Apps SDK. It handles all the protocol complexity so you can focus on building great widgets.
+
+---
+
+**Ready to get started?** → [Quick Start Guide](./QUICKSTART.md)
 
