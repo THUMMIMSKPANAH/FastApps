@@ -1,4 +1,4 @@
-"""Floydr CLI - Command-line interface for the Floydr framework."""
+"""FastApps CLI - Command-line interface for the FastApps framework."""
 
 import click
 from rich.console import Console
@@ -8,9 +8,9 @@ from .commands.init import init_project
 console = Console()
 
 @click.group()
-@click.version_option(version="1.0.5", prog_name="floydr")
+@click.version_option(version="1.0.1", prog_name="fastapps")
 def cli():
-    """Floydr - ChatGPT Widget Framework
+    """FastApps - ChatGPT Widget Framework
     
     Build interactive ChatGPT widgets with zero boilerplate.
     """
@@ -19,10 +19,10 @@ def cli():
 @cli.command()
 @click.argument("project_name")
 def init(project_name):
-    """Initialize a new Floydr project.
+    """Initialize a new FastApps project.
     
     Example:
-        floydr init myproject
+        fastapps init myproject
         
     Creates a complete project structure with:
     - server/main.py (auto-discovery)
@@ -39,8 +39,8 @@ def create(widget_name):
     """Create a new widget with tool and component files.
     
     Example:
-        floydr create mywidget
-        floydr create my-cool-widget
+        fastapps create mywidget
+        fastapps create my-cool-widget
     """
     create_widget(widget_name)
 

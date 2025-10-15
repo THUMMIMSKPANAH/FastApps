@@ -1,6 +1,6 @@
 # API Integration
 
-Learn how to integrate external APIs into your Floydr widgets.
+Learn how to integrate external APIs into your FastApps widgets.
 
 ## Overview
 
@@ -14,7 +14,7 @@ API integration happens in two places:
 
 ```python
 import httpx
-from floydr import BaseWidget, Field, ConfigDict
+from fastapps import BaseWidget, Field, ConfigDict
 from pydantic import BaseModel
 from typing import Dict, Any
 
@@ -329,7 +329,7 @@ class GitHubRepoTool(BaseWidget):
                 f"https://api.github.com/repos/{input_data.owner}/{input_data.repo}",
                 headers={
                     "Accept": "application/vnd.github.v3+json",
-                    "User-Agent": "Floydr-Widget"
+                    "User-Agent": "FastApps-Widget"
                 }
             )
             

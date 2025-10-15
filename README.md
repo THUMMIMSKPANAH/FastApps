@@ -1,13 +1,13 @@
-# Floydr Framework
+# FastApps Framework
 
 <p align="center">
   <strong>A zero-boilerplate framework for building interactive ChatGPT widgets</strong>
 </p>
 
 <p align="center">
-  <a href="https://pypi.org/project/floydr/"><img src="https://img.shields.io/pypi/v/floydr.svg" alt="PyPI"></a>
-  <a href="https://pypi.org/project/floydr/"><img src="https://img.shields.io/pypi/pyversions/floydr.svg" alt="Python"></a>
-  <a href="https://github.com/floydr-framework/floydr/blob/main/LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="License"></a>
+  <a href="https://pypi.org/project/fastapps/"><img src="https://img.shields.io/pypi/v/fastapps.svg" alt="PyPI"></a>
+  <a href="https://pypi.org/project/fastapps/"><img src="https://img.shields.io/pypi/pyversions/fastapps.svg" alt="Python"></a>
+  <a href="https://github.com/fastapps-framework/fastapps/blob/main/LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="License"></a>
 </p>
 
 ---
@@ -22,11 +22,11 @@ source venv/bin/activate    # macOS/Linux
 venv\Scripts\activate       # Windows
 ```
 
-### 2. Install Floydr & Create Project
+### 2. Install FastApps & Create Project
 
 ```bash
-pip install floydr
-floydr init my-widgets
+pip install fastapps
+fastapps init my-widgets
 ```
 
 This generates the complete project structure:
@@ -58,7 +58,7 @@ npm install
 ### 4. Create Your First Widget
 
 ```bash
-floydr create greeting
+fastapps create greeting
 ```
 
 This adds to your project:
@@ -80,7 +80,7 @@ my-widgets/
 #### `server/tools/greeting_tool.py` - Backend Logic
 
 ```python
-from floydr import BaseWidget, Field, ConfigDict
+from fastapps import BaseWidget, Field, ConfigDict
 from pydantic import BaseModel
 from typing import Dict, Any
 
@@ -174,7 +174,7 @@ Every widget has **exactly 2 files you write**:
 ### Input Schema
 
 ```python
-from floydr import Field, ConfigDict
+from fastapps import Field, ConfigDict
 from pydantic import BaseModel
 
 class MyInput(BaseModel):
@@ -225,17 +225,17 @@ function MyWidget() {
 
 ```bash
 # Create new widget (auto-generates both files)
-python -m floydr.cli.main create mywidget
+python -m fastapps.cli.main create mywidget
 
 # Or if installed globally:
-floydr create mywidget
+fastapps create mywidget
 ```
 
 ---
 
-## 📖 Project Structure After `floydr create`
+## 📖 Project Structure After `fastapps create`
 
-When you run `python -m floydr.cli.main create greeting`, you get:
+When you run `python -m fastapps.cli.main create greeting`, you get:
 
 ```
 my-widgets/
@@ -332,11 +332,11 @@ function Counter() {
 
 **Import errors?**
 ```bash
-pip install --upgrade floydr
+pip install --upgrade fastapps
 npm install chatjs-hooks@latest
 ```
 
-**Need help?** Check our [docs](./docs/) or [open an issue](https://github.com/floydr-framework/floydr/issues)
+**Need help?** Check our [docs](./docs/) or [open an issue](https://github.com/fastapps-framework/fastapps/issues)
 
 ---
 
@@ -346,11 +346,11 @@ See [CONTRIBUTING.md](../../CONTRIBUTING.md)
 
 ## 📄 License
 
-MIT © Floydr Team
+MIT © FastApps Team
 
 ## 🔗 Links
 
-- **PyPI**: https://pypi.org/project/floydr/
+- **PyPI**: https://pypi.org/project/fastapps/
 - **ChatJS Hooks**: https://www.npmjs.com/package/chatjs-hooks
-- **GitHub**: https://github.com/floydr-framework/floydr
+- **GitHub**: https://github.com/fastapps-framework/fastapps
 - **MCP Spec**: https://modelcontextprotocol.io/

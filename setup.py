@@ -4,14 +4,14 @@ with open("README.md", "r", encoding="utf-8") as fh:
     long_description = fh.read()
 
 setup(
-    name="floydr",
-    version="1.0.5",
-    author="Floydr Team",
-    author_email="hello@floydr.dev",
+    name="fastapps",
+    version="1.0.1",
+    author="FastApps Team",
+    author_email="hello@fastapps.dev",
     description="A zero-boilerplate framework for building interactive ChatGPT widgets",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/floydr-framework/floydr",
+    url="https://github.com/fastapps-framework/fastapps",
     packages=find_packages(),
     classifiers=[
         "Development Status :: 4 - Beta",
@@ -32,14 +32,14 @@ setup(
     ],
     entry_points={
         "console_scripts": [
-            "floydr=floydr.cli.main:cli",
+            "fastapps=fastapps.cli.main:cli",
         ],
     },
     keywords="chatgpt, widgets, mcp, framework, react",
     project_urls={
-        "Bug Reports": "https://github.com/floydr-framework/floydr/issues",
-        "Source": "https://github.com/floydr-framework/floydr",
-        "Documentation": "https://floydr.dev/docs",
+        "Bug Reports": "https://github.com/fastapps-framework/fastapps/issues",
+        "Source": "https://github.com/fastapps-framework/fastapps",
+        "Documentation": "https://fastapps.dev/docs",
     },
 )
 

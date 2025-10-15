@@ -13,7 +13,7 @@ A tool is a Python class that:
 ## Basic Tool Structure
 
 ```python
-from floydr import BaseWidget, Field, ConfigDict
+from fastapps import BaseWidget, Field, ConfigDict
 from pydantic import BaseModel
 from typing import Dict, Any
 
@@ -49,7 +49,7 @@ class MyWidgetTool(BaseWidget):
 ### Simple Fields
 
 ```python
-from floydr import Field, ConfigDict
+from fastapps import Field, ConfigDict
 from pydantic import BaseModel
 
 class MyInput(BaseModel):
@@ -360,7 +360,7 @@ async def execute(self, input_data):
 
 ```python
 import httpx
-from floydr import BaseWidget
+from fastapps import BaseWidget
 
 class APIWidget(BaseWidget):
     identifier = "api_widget"

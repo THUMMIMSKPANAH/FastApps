@@ -3,14 +3,14 @@ requires = ["setuptools>=61.0", "wheel", "setuptools-scm"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "floydr"
-version = "1.0.5"
+name = "fastapps"
+version = "1.0.1"
 description = "A zero-boilerplate framework for building interactive ChatGPT widgets"
 readme = "README.md"
 requires-python = ">=3.11"
 license = {text = "MIT"}
 authors = [
-    {name = "Floydr Team", email = "hello@floydr.dev"}
+    {name = "FastApps Team", email = "hello@fastapps.dev"}
 ]
 keywords = ["chatgpt", "widgets", "mcp", "framework", "react"]
 classifiers = [
@@ -40,19 +40,19 @@ dev = [
 ]
 
 [project.scripts]
-floydr = "floydr.cli.main:cli"
+fastapps = "fastapps.cli.main:cli"
 
 [project.urls]
-Homepage = "https://floydr.dev"
-Documentation = "https://floydr.dev/docs"
-Repository = "https://github.com/floydr-framework/floydr"
-"Bug Reports" = "https://github.com/floydr-framework/floydr/issues"
+Homepage = "https://fastapps.dev"
+Documentation = "https://fastapps.dev/docs"
+Repository = "https://github.com/fastapps-framework/fastapps"
+"Bug Reports" = "https://github.com/fastapps-framework/fastapps/issues"
 
 [tool.setuptools]
 package-dir = {"" = "."}
 
 [tool.setuptools.packages.find]
 where = ["."]
-include = ["floydr*"]
+include = ["fastapps*"]
 exclude = ["tests*"]
 

@@ -1,10 +1,10 @@
-# Floydr Quick Start Guide
+# FastApps Quick Start Guide
 
 Get your first ChatGPT widget running in 5 minutes!
 
 ## 📁 What Gets Created
 
-When you run `floydr create greeting`, this structure is generated:
+When you run `fastapps create greeting`, this structure is generated:
 
 ```
 my-widgets/
@@ -32,10 +32,10 @@ my-widgets/
 
 ---
 
-## Step 1: Install Floydr
+## Step 1: Install FastApps
 
 ```bash
-pip install floydr
+pip install fastapps
 ```
 
 ## Step 2: Create Project Structure
@@ -61,7 +61,7 @@ import inspect
 
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
-from floydr import WidgetBuilder, WidgetMCPServer, BaseWidget
+from fastapps import WidgetBuilder, WidgetMCPServer, BaseWidget
 import uvicorn
 
 PROJECT_ROOT = Path(__file__).parent.parent
@@ -105,7 +105,7 @@ touch server/tools/__init__.py
 ### Create `requirements.txt`
 
 ```
-floydr>=1.0.3
+fastapps>=1.0.3
 httpx>=0.28.0
 ```
 
@@ -144,7 +144,7 @@ npm install
 ## Step 5: Create Your First Widget
 
 ```bash
-python -m floydr.cli.main create hello
+python -m fastapps.cli.main create hello
 ```
 
 This creates:
@@ -179,7 +179,7 @@ The widget is automatically registered and ready to use in ChatGPT!
 ### Module not found
 
 ```bash
-pip install --upgrade floydr
+pip install --upgrade fastapps
 ```
 
 ### Build fails

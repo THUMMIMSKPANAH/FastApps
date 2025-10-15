@@ -1,15 +1,15 @@
-# Floydr API Reference
+# FastApps API Reference
 
-Complete API documentation for the Floydr framework.
+Complete API documentation for the FastApps framework.
 
 ## Core Classes
 
 ### BaseWidget
 
-The base class for all Floydr widgets.
+The base class for all FastApps widgets.
 
 ```python
-from floydr import BaseWidget
+from fastapps import BaseWidget
 ```
 
 #### Class Attributes
@@ -65,7 +65,7 @@ from floydr import BaseWidget
 #### Example
 
 ```python
-from floydr import BaseWidget, Field, ConfigDict
+from fastapps import BaseWidget, Field, ConfigDict
 from pydantic import BaseModel
 from typing import Dict, Any
 
@@ -96,7 +96,7 @@ class MyWidgetTool(BaseWidget):
 Builds all widgets in the project.
 
 ```python
-from floydr import WidgetBuilder
+from fastapps import WidgetBuilder
 ```
 
 #### Constructor
@@ -135,7 +135,7 @@ builder = WidgetBuilder(Path(__file__).parent.parent)
 MCP server for serving widgets.
 
 ```python
-from floydr import WidgetMCPServer
+from fastapps import WidgetMCPServer
 ```
 
 #### Constructor
@@ -176,7 +176,7 @@ server = WidgetMCPServer(
 Pydantic Field for defining widget inputs.
 
 ```python
-from floydr import Field
+from fastapps import Field
 ```
 
 **Common Parameters:**
@@ -190,7 +190,7 @@ from floydr import Field
 **Examples:**
 
 ```python
-from floydr import Field
+from fastapps import Field
 from pydantic import BaseModel
 
 class MyInput(BaseModel):
@@ -222,7 +222,7 @@ class MyInput(BaseModel):
 Pydantic configuration.
 
 ```python
-from floydr import ConfigDict
+from fastapps import ConfigDict
 from pydantic import BaseModel
 
 class MyInput(BaseModel):
@@ -348,7 +348,7 @@ function ThemedWidget() {
 ### Create Widget
 
 ```bash
-python -m floydr.cli.main create WIDGET_NAME
+python -m fastapps.cli.main create WIDGET_NAME
 ```
 
 **Creates:**
@@ -357,13 +357,13 @@ python -m floydr.cli.main create WIDGET_NAME
 
 **Example:**
 ```bash
-python -m floydr.cli.main create weather
+python -m fastapps.cli.main create weather
 ```
 
 ### Version
 
 ```bash
-python -m floydr.cli.main --version
+python -m fastapps.cli.main --version
 ```
 
 ---

@@ -1,4 +1,4 @@
-"""Initialize new Floydr project command."""
+"""Initialize new FastApps project command."""
 
 from pathlib import Path
 from rich.console import Console
@@ -14,8 +14,8 @@ import inspect
 # Add parent directory to path
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
-# Import Floydr framework
-from floydr import WidgetBuilder, WidgetMCPServer, BaseWidget
+# Import FastApps framework
+from fastapps import WidgetBuilder, WidgetMCPServer, BaseWidget
 import uvicorn
 
 PROJECT_ROOT = Path(__file__).parent.parent
@@ -57,7 +57,7 @@ if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=8001)
 '''
 
-REQUIREMENTS_TXT = '''floydr>=1.0.3
+REQUIREMENTS_TXT = '''fastapps>=1.0.1
 httpx>=0.28.0
 '''
 
@@ -88,7 +88,7 @@ def get_package_json(project_name: str) -> str:
 
 PROJECT_README = '''# {project_name}
 
-ChatGPT widgets built with [Floydr](https://pypi.org/project/floydr/).
+ChatGPT widgets built with [FastApps](https://pypi.org/project/fastapps/).
 
 ## Quick Start
 
@@ -105,7 +105,7 @@ npm install
 ### 2. Create Your First Widget
 
 ```bash
-python -m floydr.cli.main create mywidget
+python -m fastapps.cli.main create mywidget
 ```
 
 ### 3. Build and Run
@@ -153,9 +153,9 @@ python server/main.py
 
 ## Learn More
 
-- **Floydr Framework**: https://pypi.org/project/floydr/
+- **FastApps Framework**: https://pypi.org/project/fastapps/
 - **ChatJS Hooks**: https://www.npmjs.com/package/chatjs-hooks
-- **Documentation**: https://github.com/floydr-framework/floydr
+- **Documentation**: https://github.com/fastapps-framework/fastapps
 
 ## License
 
@@ -217,7 +217,7 @@ def init_project(project_name: str):
         console.print(f"[red]✗ Directory '{project_name}' already exists[/red]")
         return False
     
-    console.print(f"[green]Creating Floydr project: [bold]{project_name}[/bold][/green]\n")
+    console.print(f"[green]Creating FastApps project: [bold]{project_name}[/bold][/green]\n")
     
     try:
         # Create directory structure
@@ -258,7 +258,7 @@ def init_project(project_name: str):
         console.print(f"  [bold]cd {project_name}[/bold]")
         console.print(f"  [bold]pip install -r requirements.txt[/bold]")
         console.print(f"  [bold]npm install[/bold]")
-        console.print(f"  [bold]floydr create mywidget[/bold]")
+        console.print(f"  [bold]fastapps create mywidget[/bold]")
         console.print(f"  [bold]npm run build[/bold]")
         console.print(f"  [bold]python server/main.py[/bold]")
         console.print(f"\n[green]Happy building! 🚀[/green]\n")

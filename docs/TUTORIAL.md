@@ -1,4 +1,4 @@
-# Floydr Widget Tutorial
+# FastApps Widget Tutorial
 
 Learn to build ChatGPT widgets step by step.
 
@@ -12,7 +12,7 @@ Create a simple greeting widget that displays a personalized message.
 Create `server/tools/greeting_tool.py`:
 
 ```python
-from floydr import BaseWidget, Field, ConfigDict
+from fastapps import BaseWidget, Field, ConfigDict
 from pydantic import BaseModel
 from typing import Dict, Any
 
@@ -88,7 +88,7 @@ Fetch weather data from an external API and display it.
 ### Python Tool
 
 ```python
-from floydr import BaseWidget, Field, ConfigDict
+from fastapps import BaseWidget, Field, ConfigDict
 from pydantic import BaseModel
 from typing import Dict, Any
 import httpx
@@ -192,7 +192,7 @@ Create a counter widget that persists state across interactions.
 ### Python Tool
 
 ```python
-from floydr import BaseWidget, ConfigDict
+from fastapps import BaseWidget, ConfigDict
 from pydantic import BaseModel
 from typing import Dict, Any
 

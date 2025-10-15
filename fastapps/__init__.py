@@ -1,10 +1,10 @@
 """
-Floydr - ChatGPT Widget Framework
+FastApps - ChatGPT Widget Framework
 
 A zero-boilerplate framework for building interactive ChatGPT widgets.
 
 Example:
-    from floydr import BaseWidget, Field
+    from fastapps import BaseWidget, Field
     from typing import Dict, Any
     
     class MyWidget(BaseWidget):
@@ -12,11 +12,11 @@ Example:
         title = "My Widget"
         
         async def execute(self, input_data) -> Dict[str, Any]:
-            return {"message": "Hello from Floydr!"}
+            return {"message": "Hello from FastApps!"}
 """
 
-__version__ = "1.0.5"
-__author__ = "Floydr Team"
+__version__ = "1.0.1"
+__author__ = "FastApps Team"
 
 from .core.widget import BaseWidget
 from .core.server import WidgetMCPServer

@@ -1,12 +1,12 @@
-# Introduction to Floydr
+# Introduction to FastApps
 
-Welcome to Floydr - a zero-boilerplate framework for building interactive ChatGPT widgets!
+Welcome to FastApps - a zero-boilerplate framework for building interactive ChatGPT widgets!
 
-## What is Floydr?
+## What is FastApps?
 
-Floydr is a Python framework that lets you build interactive, visual widgets for ChatGPT with minimal code. Instead of text-only responses, you can create rich, interactive UIs that run directly in ChatGPT.
+FastApps is a Python framework that lets you build interactive, visual widgets for ChatGPT with minimal code. Instead of text-only responses, you can create rich, interactive UIs that run directly in ChatGPT.
 
-## Why Floydr?
+## Why FastApps?
 
 ### Traditional ChatGPT Development
 ```python
@@ -15,7 +15,7 @@ def my_tool():
     return "Here's the weather: 72°F, Sunny"
 ```
 
-### With Floydr
+### With FastApps
 ```python
 # Rich, interactive widgets
 class WeatherWidget(BaseWidget):
@@ -56,7 +56,7 @@ class MyWidget(BaseWidget):
 
 ### ⚡ Fast Development
 ```bash
-floydr create mywidget  # Generate files
+fastapps create mywidget  # Generate files
 # Edit 2 files
 npm run build           # Build
 python server/main.py   # Run
@@ -77,7 +77,7 @@ python server/main.py   # Run
                   │ MCP Protocol
                   ▼
 ┌─────────────────────────────────────────┐
-│         Floydr Framework                │
+│         FastApps Framework                │
 ├─────────────────────────────────────────┤
 │  Python Backend (Your Tool)             │
 │  ├── Input validation (Pydantic)        │
@@ -155,7 +155,7 @@ const props = useWidgetProps<MyProps>();
 
 ## Comparison
 
-| Feature | Traditional ChatGPT | Floydr Widgets |
+| Feature | Traditional ChatGPT | FastApps Widgets |
 |---------|-------------------|----------------|
 | **Output** | Text only | Rich UI |
 | **Interactivity** | Limited | Full React |
@@ -166,9 +166,9 @@ const props = useWidgetProps<MyProps>();
 ## How It Works
 
 1. **You write**: Python tool + React component
-2. **Floydr discovers**: Automatically finds your widget
-3. **Floydr builds**: Bundles with Vite
-4. **Floydr serves**: MCP server handles requests
+2. **FastApps discovers**: Automatically finds your widget
+3. **FastApps builds**: Bundles with Vite
+4. **FastApps serves**: MCP server handles requests
 5. **ChatGPT renders**: Your widget appears in chat
 
 ## Design Philosophy
@@ -207,5 +207,5 @@ const props = useWidgetProps<MyProps>();
 
 > "You should only write the code that's unique to your widget. Everything else should be automatic."
 
-That's Floydr. 🚀
+That's FastApps. 🚀
 

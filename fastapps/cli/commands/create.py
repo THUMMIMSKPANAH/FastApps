@@ -5,7 +5,7 @@ from rich.console import Console
 
 console = Console()
 
-TOOL_TEMPLATE = '''from floydr import BaseWidget, ConfigDict
+TOOL_TEMPLATE = '''from fastapps import BaseWidget, ConfigDict
 from pydantic import BaseModel
 from typing import Dict, Any
 
@@ -28,7 +28,7 @@ class {ClassName}Tool(BaseWidget):
     
     async def execute(self, input_data: {ClassName}Input) -> Dict[str, Any]:
         return {{
-            "message": "Welcome to Floydr"
+            "message": "Welcome to FastApps"
         }}
 '''
 
@@ -47,7 +47,7 @@ export default function {ClassName}() {{
       borderRadius: '8px',
       fontFamily: 'monospace'
     }}}}>
-      <h1>{{props.message || 'Welcome to Floydr'}}</h1>
+      <h1>{{props.message || 'Welcome to FastApps'}}</h1>
     </div>
   );
 }}
@@ -104,7 +104,7 @@ def create_widget(name: str):
     console.print(f"\n[yellow]Next steps:[/yellow]")
     console.print(f"  1. npm run build")
     console.print(f"  2. python server/main.py")
-    console.print(f"\n[green]Your widget will be automatically discovered by Floydr![/green]\n")
+    console.print(f"\n[green]Your widget will be automatically discovered by FastApps![/green]\n")
     
     return True
 

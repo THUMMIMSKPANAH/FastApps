@@ -1,6 +1,6 @@
 # Complete Project Setup
 
-This guide shows you exactly what files you need to create for a new Floydr project.
+This guide shows you exactly what files you need to create for a new FastApps project.
 
 ## 📁 Initial Project Structure
 
@@ -35,8 +35,8 @@ import inspect
 # Add parent directory to path
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
-# Import Floydr framework
-from floydr import WidgetBuilder, WidgetMCPServer, BaseWidget
+# Import FastApps framework
+from fastapps import WidgetBuilder, WidgetMCPServer, BaseWidget
 import uvicorn
 
 PROJECT_ROOT = Path(__file__).parent.parent
@@ -95,7 +95,7 @@ if __name__ == "__main__":
 ### `requirements.txt`
 
 ```
-floydr>=1.0.3
+fastapps>=1.0.3
 httpx>=0.28.0
 ```
 
@@ -137,7 +137,7 @@ npm install
 ## 🎨 Create Your First Widget
 
 ```bash
-python -m floydr.cli.main create greeting
+python -m fastapps.cli.main create greeting
 ```
 
 This creates:
