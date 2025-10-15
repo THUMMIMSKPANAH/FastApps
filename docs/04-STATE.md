@@ -122,7 +122,7 @@ return (
         <button onClick={handleSubmit}>Submit</button>
       </form>
     ) : (
-      <div>✅ Submitted: {state.name} ({state.email})</div>
+      <div>[OK] Submitted: {state.name} ({state.email})</div>
     )}
   </div>
 );
@@ -279,12 +279,12 @@ const [state, setState] = useWidgetState(
 
 ### What Persists?
 
-✅ **Persists:**
+**Persists:**
 - Data stored with `useWidgetState()`
 - Across widget refreshes
 - In the same conversation
 
-❌ **Doesn't Persist:**
+**Doesn't Persist:**
 - `React.useState()` - lost on rebuild
 - Local variables - lost on re-render
 - Browser localStorage - not accessible
@@ -341,10 +341,10 @@ export default function ShoppingCart() {
 ### 1. Avoid Frequent Updates
 
 ```jsx
-// ❌ Updates on every keystroke
+// Updates on every keystroke
 <input onChange={(e) => setState({ text: e.target.value })} />
 
-// ✅ Debounce or update on blur
+// Debounce or update on blur
 const [text, setText] = React.useState('');
 
 <input
@@ -357,14 +357,14 @@ const [text, setText] = React.useState('');
 ### 2. Batch Updates
 
 ```jsx
-// ❌ Multiple state updates
+// Multiple state updates
 const handleClick = () => {
   setState({ count: state.count + 1 });
   setState({ lastClicked: Date.now() });
   setState({ clicks: state.clicks + 1 });
 };
 
-// ✅ Single update
+// Single update
 const handleClick = () => {
   setState({
     count: state.count + 1,
@@ -377,14 +377,14 @@ const handleClick = () => {
 ### 3. Only Store What You Need
 
 ```jsx
-// ❌ Storing derived data
+// Storing derived data
 const [state, setState] = useWidgetState({
   items: [...],
   filteredItems: [...],  // Can be computed!
   itemCount: 5           // Can be computed!
 });
 
-// ✅ Store minimal state
+// Store minimal state
 const [state, setState] = useWidgetState({
   items: [...],
   filter: 'all'
@@ -402,7 +402,7 @@ const itemCount = filteredItems.length;
 ```jsx
 const handleClick = () => {
   setState({ count: state.count + 1 });
-  console.log(state.count);  // ❌ Still old value!
+  console.log(state.count);  // Still old value!
 };
 
 // Use React.useEffect to react to state changes
@@ -414,29 +414,29 @@ React.useEffect(() => {
 ### 2. Object/Array Updates
 
 ```jsx
-// ❌ Mutating state
+// Mutating state
 state.items.push(newItem);  // Doesn't trigger update!
 
-// ✅ Create new array
+// Create new array
 setState({ items: [...state.items, newItem] });
 
-// ❌ Mutating object
+// Mutating object
 state.user.name = "New Name";  // Doesn't work!
 
-// ✅ Create new object
+// Create new object
 setState({ user: { ...state.user, name: "New Name" } });
 ```
 
 ### 3. State Initialization
 
 ```jsx
-// ❌ State resets on every render
+// State resets on every render
 const props = useWidgetProps();
 const [state, setState] = useWidgetState({ 
   count: props.initialCount  // Resets if props change!
 });
 
-// ✅ Initialize once
+// Initialize once
 const props = useWidgetProps();
 const [state, setState] = useWidgetState({ count: 0 });
 

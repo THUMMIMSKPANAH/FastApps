@@ -36,7 +36,7 @@ class GreetingTool(BaseWidget):
         return {
             "name": input_data.name,
             "message": f"Hello, {input_data.name}!",
-            "emoji": "👋"
+            "emoji": "[wave]"
         }
 ```
 
@@ -163,7 +163,7 @@ export default function Weather() {
       fontFamily: 'system-ui'
     }}>
       <h1 style={{ margin: '0 0 20px 0' }}>
-        🌤️ Weather in {props.city}
+        Weather in {props.city}
       </h1>
       <div style={{ fontSize: '64px', margin: '20px 0' }}>
         {props.temperature}°C
@@ -175,7 +175,7 @@ export default function Weather() {
         {props.description}
       </p>
       <p style={{ fontSize: '14px', marginTop: '20px' }}>
-        💧 Humidity: {props.humidity}%
+        Humidity: {props.humidity}%
       </p>
     </div>
   );

@@ -2,7 +2,7 @@
 
 Get your first ChatGPT widget running in 5 minutes!
 
-## 📁 What Gets Created
+## What Gets Created
 
 When you run `fastapps create greeting`, this structure is generated:
 
@@ -19,11 +19,11 @@ my-widgets/
 │   └── greeting/
 │       └── index.jsx            # ← YOUR CODE: Widget frontend
 │
-├── assets/                      # ⚙️ Auto-generated during npm run build
+├── assets/                      # Auto-generated during npm run build
 │   ├── greeting-HASH.html
 │   └── greeting-HASH.js
 │
-├── build-all.mts                # ⚙️ Auto-copied from chatjs-hooks
+├── build-all.mts                # Auto-copied from chatjs-hooks
 ├── requirements.txt             # Python dependencies
 └── package.json                 # JavaScript dependencies
 ```
@@ -79,9 +79,9 @@ def auto_load_tools(build_results):
                     if tool_identifier in build_results:
                         tool_instance = obj(build_results[tool_identifier])
                         tools.append(tool_instance)
-                        print(f"✓ Loaded: {name}")
+                        print(f"[OK] Loaded: {name}")
         except Exception as e:
-            print(f"✗ Error: {e}")
+            print(f"[ERROR] Error: {e}")
     return tools
 
 builder = WidgetBuilder(PROJECT_ROOT)
@@ -91,7 +91,7 @@ server = WidgetMCPServer(name="my-widgets", widgets=tools)
 app = server.get_app()
 
 if __name__ == "__main__":
-    print(f"\n🚀 Starting with {len(tools)} tools")
+    print(f"\n[START] Starting with {len(tools)} tools")
     uvicorn.run(app, host="0.0.0.0", port=8001)
 ```
 
@@ -163,7 +163,7 @@ python server/main.py
 
 ## Step 7: Test It!
 
-Your server is now running on `http://localhost:8001` 🎉
+Your server is now running on `http://localhost:8001`
 
 The widget is automatically registered and ready to use in ChatGPT!
 

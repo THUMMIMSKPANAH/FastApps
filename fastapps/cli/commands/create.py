@@ -71,11 +71,11 @@ def create_widget(name: str):
     
     # Check if already exists
     if tool_file.exists():
-        console.print(f"[yellow]⚠ Tool already exists: {tool_file}[/yellow]")
+        console.print(f"[yellow][WARNING] Tool already exists: {tool_file}[/yellow]")
         return False
     
     if widget_file.exists():
-        console.print(f"[yellow]⚠ Widget already exists: {widget_file}[/yellow]")
+        console.print(f"[yellow][WARNING] Widget already exists: {widget_file}[/yellow]")
         return False
     
     # Create directories
@@ -97,10 +97,10 @@ def create_widget(name: str):
     tool_file.write_text(tool_content)
     widget_file.write_text(widget_content)
     
-    console.print(f"\n[green]✅ Widget created successfully![/green]")
+    console.print(f"\n[green][OK] Widget created successfully![/green]")
     console.print(f"\n[cyan]Created files:[/cyan]")
-    console.print(f"  📄 {tool_file}")
-    console.print(f"  📄 {widget_file}")
+    console.print(f"  - {tool_file}")
+    console.print(f"  - {widget_file}")
     console.print(f"\n[yellow]Next steps:[/yellow]")
     console.print(f"  1. npm run build")
     console.print(f"  2. python server/main.py")

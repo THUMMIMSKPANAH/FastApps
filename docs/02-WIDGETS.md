@@ -92,10 +92,10 @@ export default function MyWidget() {
 ```
 
 **Why inline styles?**
-- ✅ No build configuration needed
-- ✅ Scoped to component
-- ✅ Dynamic based on props
-- ✅ Works everywhere
+- No build configuration needed
+- Scoped to component
+- Dynamic based on props
+- Works everywhere
 
 ### Responsive Design
 
@@ -167,7 +167,7 @@ export default function MyWidget() {
         color: '#c00',
         borderRadius: '8px'
       }}>
-        ⚠️ Error: {props.error}
+        [Warning] Error: {props.error}
       </div>
     );
   }
@@ -247,7 +247,7 @@ export default function ButtonWidget() {
         fontWeight: 'bold'
       }}
     >
-      {state.clicked ? '✓ Clicked' : 'Click Me'}
+      {state.clicked ? '[OK] Clicked' : 'Click Me'}
     </button>
   );
 }
@@ -418,12 +418,12 @@ export default function MyWidget() {
 ### 2. Avoid Inline Functions in Loops
 
 ```jsx
-// ❌ Bad: Creates new function on every render
+// Bad: Creates new function on every render
 {items.map(item => (
   <button onClick={() => handleClick(item)}>...</button>
 ))}
 
-// ✅ Good: Stable references
+// Good: Stable references
 {items.map(item => (
   <button onClick={handleClick} data-id={item.id}>...</button>
 ))}
@@ -505,31 +505,31 @@ export default function MyWidget() {
 ### 1. Props Are Async
 
 ```jsx
-// ❌ Props might be empty initially
+// Props might be empty initially
 const props = useWidgetProps();
 console.log(props.data.value); // Error if data is undefined
 
-// ✅ Always check
+// Always check
 const value = props.data?.value || 'default';
 ```
 
 ### 2. State Doesn't Persist Across Rebuilds
 
 ```jsx
-// ❌ useState is lost on rebuild
+// useState is lost on rebuild
 const [count, setCount] = React.useState(0);
 
-// ✅ Use useWidgetState for persistence
+// Use useWidgetState for persistence
 const [state, setState] = useWidgetState({ count: 0 });
 ```
 
 ### 3. Styles Need Units
 
 ```jsx
-// ❌ Missing units
+// Missing units
 <div style={{ padding: 20 }}>
 
-// ✅ Include units
+// Include units
 <div style={{ padding: '20px' }}>
 ```
 

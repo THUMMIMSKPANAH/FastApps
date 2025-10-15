@@ -2,7 +2,7 @@
 
 This guide shows you exactly what files you need to create for a new FastApps project.
 
-## 📁 Initial Project Structure
+## Initial Project Structure
 
 ```bash
 my-chatgpt-widgets/
@@ -20,7 +20,7 @@ my-chatgpt-widgets/
 └── package.json
 ```
 
-## 🔧 File Contents
+## File Contents
 
 ### `server/main.py`
 
@@ -55,11 +55,11 @@ def auto_load_tools(build_results):
                     if tool_identifier in build_results:
                         tool_instance = obj(build_results[tool_identifier])
                         tools.append(tool_instance)
-                        print(f"✓ Loaded tool: {name} (identifier: {tool_identifier})")
+                        print(f"[OK] Loaded tool: {name} (identifier: {tool_identifier})")
                     else:
-                        print(f"⚠ Warning: No build result for '{tool_identifier}'")
+                        print(f"[WARNING] Warning: No build result for '{tool_identifier}'")
         except Exception as e:
-            print(f"✗ Error loading {tool_file.name}: {e}")
+            print(f"[ERROR] Error loading {tool_file.name}: {e}")
     return tools
 
 # Build all widgets
@@ -74,7 +74,7 @@ server = WidgetMCPServer(name="my-widgets", widgets=tools)
 app = server.get_app()
 
 if __name__ == "__main__":
-    print(f"\n🚀 Starting server with {len(tools)} tools")
+    print(f"\n[START] Starting server with {len(tools)} tools")
     uvicorn.run(app, host="0.0.0.0", port=8001)
 ```
 
@@ -124,7 +124,7 @@ httpx>=0.28.0
 }
 ```
 
-## 📦 Install Dependencies
+## Install Dependencies
 
 ```bash
 # Python
@@ -134,7 +134,7 @@ pip install -r requirements.txt
 npm install
 ```
 
-## 🎨 Create Your First Widget
+## Create Your First Widget
 
 ```bash
 python -m fastapps.cli.main create greeting
@@ -152,7 +152,7 @@ my-chatgpt-widgets/
         └── index.jsx            # ← Generated with template
 ```
 
-## 🏗️ Build and Run
+## Build and Run
 
 ```bash
 # Build widgets
@@ -162,11 +162,11 @@ npm run build
 python server/main.py
 ```
 
-Done! 🎉
+Done!
 
 ---
 
-## 📁 Project Structure After Building
+## Project Structure After Building
 
 ```
 my-chatgpt-widgets/
@@ -181,24 +181,24 @@ my-chatgpt-widgets/
 │   └── greeting/
 │       └── index.jsx            # ← Your UI component
 │
-├── assets/                      # ⚙️ Auto-generated
+├── assets/                      # Auto-generated
 │   ├── greeting-HASH.html
 │   └── greeting-HASH.js
 │
-├── build-all.mts                # ⚙️ Auto-copied from chatjs-hooks
+├── build-all.mts                # Auto-copied from chatjs-hooks
 ├── requirements.txt
 └── package.json
 ```
 
 **Key Points:**
-- ✅ `server/main.py` - Already setup, no edits needed
-- ✅ `assets/` - Auto-generated during build
-- ✅ `build-all.mts` - Auto-copied from chatjs-hooks
-- ✨ You only edit files in `server/tools/` and `widgets/`!
+- `server/main.py` - Already setup, no edits needed
+- `assets/` - Auto-generated during build
+- `build-all.mts` - Auto-copied from chatjs-hooks
+- You only edit files in `server/tools/` and `widgets/`!
 
 ---
 
-## 🎓 Next Steps
+## Next Steps
 
 1. [Tutorial: Build Your First Widget](./docs/TUTORIAL.md)
 2. [API Reference](./docs/API.md)

@@ -79,7 +79,7 @@ export default function Weather() {
   
   return (
     <div style={{ padding: '20px' }}>
-      <h1>🌤️ Weather in {props.city}</h1>
+      <h1>Weather in {props.city}</h1>
       <div style={{ fontSize: '48px' }}>{props.temperature}°C</div>
       <p>{props.condition}</p>
       <p>Humidity: {props.humidity}%</p>
@@ -301,10 +301,10 @@ widget_csp = {
 ### Wildcard Subdomains (Not Supported)
 
 ```python
-# ❌ Doesn't work
+# Doesn't work
 "connect_domains": ["https://*.example.com"]
 
-# ✅ List each subdomain
+# List each subdomain
 "connect_domains": [
     "https://api.example.com",
     "https://api2.example.com",

@@ -30,7 +30,7 @@ class WeatherWidget(BaseWidget):
 ```jsx
 // Beautiful UI
 <div style={{ background: 'linear-gradient(...)' }}>
-  <h1>🌤️ {temperature}°F</h1>
+  <h1>{temperature}°F</h1>
   <p>{condition}</p>
   {/* Interactive charts, maps, etc */}
 </div>
@@ -38,13 +38,13 @@ class WeatherWidget(BaseWidget):
 
 ## Key Features
 
-### 🚀 Zero Boilerplate
+### Zero Boilerplate
 - No configuration files needed
 - No manual registration
 - No build configuration
 - Just write your widget code!
 
-### 🔄 Auto-Discovery
+### Auto-Discovery
 ```python
 # Drop a file in server/tools/
 class MyWidget(BaseWidget):
@@ -54,7 +54,7 @@ class MyWidget(BaseWidget):
 # It's automatically registered! No imports needed.
 ```
 
-### ⚡ Fast Development
+### Fast Development
 ```bash
 fastapps create mywidget  # Generate files
 # Edit 2 files
@@ -62,7 +62,7 @@ npm run build           # Build
 python server/main.py   # Run
 ```
 
-### 🎨 Modern Stack
+### Modern Stack
 - **Backend**: Python + FastMCP
 - **Frontend**: React + Vite
 - **Protocol**: MCP (Model Context Protocol)
@@ -207,5 +207,5 @@ const props = useWidgetProps<MyProps>();
 
 > "You should only write the code that's unique to your widget. Everything else should be automatic."
 
-That's FastApps. 🚀
+That's FastApps.
 

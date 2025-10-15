@@ -503,11 +503,11 @@ async def test_api_call(mock_get):
 ### Identifier Mismatch
 
 ```python
-# ❌ Wrong
+# Wrong
 class MyTool(BaseWidget):
     identifier = "my_tool"    # But folder is widgets/mywidget/
 
-# ✅ Correct
+# Correct
 class MyTool(BaseWidget):
     identifier = "mywidget"   # Matches widgets/mywidget/
 ```
@@ -515,12 +515,12 @@ class MyTool(BaseWidget):
 ### Missing CSP
 
 ```python
-# ❌ API call without CSP
+# API call without CSP
 async def execute(self, input_data):
     response = await client.get("https://api.example.com")
     # Will fail! CSP blocks it
 
-# ✅ With proper CSP
+# With proper CSP
 widget_csp = {
     "connect_domains": ["https://api.example.com"]
 }
@@ -529,12 +529,12 @@ widget_csp = {
 ### Synchronous Code
 
 ```python
-# ❌ Blocking synchronous code
+# Blocking synchronous code
 def execute(self, input_data):  # Should be async!
     result = requests.get("...")  # Blocks event loop
     return {"data": result.json()}
 
-# ✅ Async code
+# Async code
 async def execute(self, input_data):
     async with httpx.AsyncClient() as client:
         response = await client.get("...")

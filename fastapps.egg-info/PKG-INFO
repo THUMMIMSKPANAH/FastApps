@@ -1,6 +1,6 @@
 Metadata-Version: 2.4
 Name: fastapps
-Version: 1.0.1
+Version: 1.0.2
 Summary: A zero-boilerplate framework for building interactive ChatGPT widgets
 Home-page: https://github.com/fastapps-framework/fastapps
 Author: FastApps Team
@@ -64,13 +64,13 @@ venv\Scripts\activate       # Windows
 
 ```bash
 pip install fastapps
-fastapps init my-widgets
+fastapps init my-app
 ```
 
 This generates the complete project structure:
 
 ```
-my-widgets/
+my-app/
 ├── server/
 │   ├── __init__.py
 │   ├── main.py              # Auto-discovery server
@@ -88,7 +88,7 @@ my-widgets/
 ### 3. Install Dependencies
 
 ```bash
-cd my-widgets
+cd my-app
 pip install -r requirements.txt
 npm install
 ```
@@ -96,49 +96,49 @@ npm install
 ### 4. Create Your First Widget
 
 ```bash
-fastapps create greeting
+fastapps create my-widget
 ```
 
 This adds to your project:
 
 ```
-my-widgets/
+my-app/
 ├── server/
 │   └── tools/
-│       └── greeting_tool.py # ← Generated: Widget backend
+│       └── my_widget_tool.py # ← Generated: Widget backend
 └── widgets/
-    └── greeting/
-        └── index.jsx        # ← Generated: Widget frontend
+    └── my-widget/
+        └── index.jsx         # ← Generated: Widget frontend
 ```
 
 ### 5. Edit Your Widget Code
 
 **You only need to edit these 2 files:**
 
-#### `server/tools/greeting_tool.py` - Backend Logic
+#### `server/tools/my_widget_tool.py` - Backend Logic
 
 ```python
 from fastapps import BaseWidget, Field, ConfigDict
 from pydantic import BaseModel
 from typing import Dict, Any
 
-class GreetingInput(BaseModel):
+class MyWidgetInput(BaseModel):
     model_config = ConfigDict(populate_by_name=True)
     name: str = Field(default="World")
 
-class GreetingTool(BaseWidget):
-    identifier = "greeting"
-    title = "Greeting Widget"
-    input_schema = GreetingInput
-    invoking = "Preparing greeting..."
-    invoked = "Greeting ready!"
+class MyWidgetTool(BaseWidget):
+    identifier = "my-widget"
+    title = "My Widget"
+    input_schema = MyWidgetInput
+    invoking = "Processing..."
+    invoked = "Done!"
     
     widget_csp = {
         "connect_domains": [],      # APIs you'll call
         "resource_domains": []      # Images/fonts you'll use
     }
     
-    async def execute(self, input_data: GreetingInput) -> Dict[str, Any]:
+    async def execute(self, input_data: MyWidgetInput) -> Dict[str, Any]:
         # Your logic here
         return {
             "name": input_data.name,
@@ -146,13 +146,13 @@ class GreetingTool(BaseWidget):
         }
 ```
 
-#### `widgets/greeting/index.jsx` - Frontend UI
+#### `widgets/my-widget/index.jsx` - Frontend UI
 
 ```jsx
 import React from 'react';
 import { useWidgetProps } from 'chatjs-hooks';
 
-export default function Greeting() {
+export default function MyWidget() {
   const props = useWidgetProps();
   
   return (
@@ -183,6 +183,28 @@ python server/main.py
 ```
 
 Your widget is now live at `http://localhost:8001` 🎉
+
+### 7. Expose with ngrok (for ChatGPT Testing)
+
+To test your widget in ChatGPT, you need to expose your local server to the internet using ngrok:
+
+```bash
+# Install ngrok (if not already installed)
+# macOS: brew install ngrok
+# Windows: choco install ngrok  (or scoop install ngrok)
+# Or download from: https://ngrok.com/download
+
+# In a new terminal, expose your local server
+ngrok http 8001
+```
+
+You will get a public URL that you can use to add your local server to ChatGPT in Settings > Connectors.
+
+For example: https://<custom_endpoint>.ngrok-free.app/mcp
+
+**Important**: Keep both terminals running:
+- Terminal 1: `python server/main.py` (your FastApps server)
+- Terminal 2: `ngrok http 8001` (public tunnel)
 
 ---
 
@@ -273,25 +295,25 @@ fastapps create mywidget
 
 ## 📖 Project Structure After `fastapps create`
 
-When you run `python -m fastapps.cli.main create greeting`, you get:
+When you run `python -m fastapps.cli.main create my-widget`, you get:
 
 ```
-my-widgets/
+my-app/
 ├── server/
 │   ├── __init__.py
 │   ├── main.py                  # ✅ Already setup (no edits needed)
 │   ├── tools/
 │   │   ├── __init__.py
-│   │   └── greeting_tool.py     # ← Edit this: Your widget logic
+│   │   └── my_widget_tool.py    # ← Edit this: Your widget logic
 │   └── api/                     # (optional: for shared APIs)
 │
 ├── widgets/
-│   └── greeting/
+│   └── my-widget/
 │       └── index.jsx            # ← Edit this: Your UI
 │
 ├── assets/                      # ⚙️ Auto-generated during build
-│   ├── greeting-HASH.html
-│   └── greeting-HASH.js
+│   ├── my-widget-HASH.html
+│   └── my-widget-HASH.js
 │
 ├── requirements.txt             # Python dependencies
 ├── package.json                 # JavaScript dependencies

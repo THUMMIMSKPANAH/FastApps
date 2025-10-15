@@ -12,7 +12,7 @@
 
 ---
 
-## 🚀 Quick Start
+## Quick Start
 
 ### 1. Create Virtual Environment (Recommended)
 
@@ -125,7 +125,7 @@ export default function MyWidget() {
       color: 'white',
       borderRadius: '12px'
     }}>
-      <h1>👋 {props.message}</h1>
+      <h1>{props.message}</h1>
       <p>Welcome, {props.name}!</p>
     </div>
   );
@@ -144,7 +144,7 @@ npm run build
 python server/main.py
 ```
 
-Your widget is now live at `http://localhost:8001` 🎉
+Your widget is now live at `http://localhost:8001`
 
 ### 7. Expose with ngrok (for ChatGPT Testing)
 
@@ -170,7 +170,7 @@ For example: https://<custom_endpoint>.ngrok-free.app/mcp
 
 ---
 
-## 📦 What You Need to Know
+## What You Need to Know
 
 ### Widget Structure
 
@@ -187,11 +187,11 @@ Every widget has **exactly 2 files you write**:
    - Use inline styles
 
 **Everything else is automatic:**
-- ✅ Widget discovery
-- ✅ Registration
-- ✅ Build process
-- ✅ Server setup
-- ✅ Mounting logic
+- Widget discovery
+- Registration
+- Build process
+- Server setup
+- Mounting logic
 
 ### Input Schema
 
@@ -234,7 +234,7 @@ function MyWidget() {
 
 ---
 
-## 📚 Documentation
+## Documentation
 
 - **[Quick Start Guide](./docs/QUICKSTART.md)** - Detailed setup instructions
 - **[Tutorial](./docs/TUTORIAL.md)** - Step-by-step widget examples
@@ -243,7 +243,7 @@ function MyWidget() {
 
 ---
 
-## 🔧 CLI Commands
+## CLI Commands
 
 ```bash
 # Create new widget (auto-generates both files)
@@ -255,7 +255,7 @@ fastapps create mywidget
 
 ---
 
-## 📖 Project Structure After `fastapps create`
+## Project Structure After `fastapps create`
 
 When you run `python -m fastapps.cli.main create my-widget`, you get:
 
@@ -263,7 +263,7 @@ When you run `python -m fastapps.cli.main create my-widget`, you get:
 my-app/
 ├── server/
 │   ├── __init__.py
-│   ├── main.py                  # ✅ Already setup (no edits needed)
+│   ├── main.py                  # Already setup (no edits needed)
 │   ├── tools/
 │   │   ├── __init__.py
 │   │   └── my_widget_tool.py    # ← Edit this: Your widget logic
@@ -273,31 +273,31 @@ my-app/
 │   └── my-widget/
 │       └── index.jsx            # ← Edit this: Your UI
 │
-├── assets/                      # ⚙️ Auto-generated during build
+├── assets/                      # Auto-generated during build
 │   ├── my-widget-HASH.html
 │   └── my-widget-HASH.js
 │
 ├── requirements.txt             # Python dependencies
 ├── package.json                 # JavaScript dependencies
-└── build-all.mts                # ⚙️ Auto-copied from chatjs-hooks
+└── build-all.mts                # Auto-copied from chatjs-hooks
 ```
 
 **You only edit the 2 files marked with ←**
 
 ---
 
-## 🎯 Key Features
+## Key Features
 
-- ✅ **Zero Boilerplate** - Just write your widget code
-- ✅ **Auto-Discovery** - Widgets automatically registered
-- ✅ **Type-Safe** - Pydantic for Python, TypeScript for React
-- ✅ **CLI Tools** - Scaffold widgets instantly
-- ✅ **React Hooks** - Modern React patterns via `chatjs-hooks`
-- ✅ **MCP Protocol** - Native ChatGPT integration
+- **Zero Boilerplate** - Just write your widget code
+- **Auto-Discovery** - Widgets automatically registered
+- **Type-Safe** - Pydantic for Python, TypeScript for React
+- **CLI Tools** - Scaffold widgets instantly
+- **React Hooks** - Modern React patterns via `chatjs-hooks`
+- **MCP Protocol** - Native ChatGPT integration
 
 ---
 
-## 💡 Examples
+## Examples
 
 ### Simple Widget
 
@@ -345,7 +345,7 @@ function Counter() {
 
 ---
 
-## 🐛 Troubleshooting
+## Troubleshooting
 
 **Widget not loading?**
 - Check `identifier` matches folder name
@@ -362,15 +362,15 @@ npm install chatjs-hooks@latest
 
 ---
 
-## 🤝 Contributing
+## Contributing
 
 See [CONTRIBUTING.md](../../CONTRIBUTING.md)
 
-## 📄 License
+## License
 
 MIT © FastApps Team
 
-## 🔗 Links
+## Links
 
 - **PyPI**: https://pypi.org/project/fastapps/
 - **ChatJS Hooks**: https://www.npmjs.com/package/chatjs-hooks

@@ -6,14 +6,14 @@ Learn how to create beautiful, responsive widgets with great UX.
 
 ### Why Inline Styles?
 
-✅ **Advantages:**
+**Advantages:**
 - No build configuration needed
 - Scoped to component automatically
 - Dynamic based on props/state
 - Works in all environments
 - Simple and straightforward
 
-❌ **No need for:**
+**No need for:**
 - CSS files
 - CSS modules
 - Styled-components
@@ -423,12 +423,12 @@ const [isVisible, setIsVisible] = React.useState(false);
 ### Semantic HTML
 
 ```jsx
-// ✅ Good
+// Good
 <button onClick={handleClick}>Click</button>
 <input type="text" placeholder="Name" />
 <label>Name: <input /></label>
 
-// ❌ Avoid
+// Avoid
 <div onClick={handleClick}>Click</div>  // Not keyboard accessible
 ```
 
