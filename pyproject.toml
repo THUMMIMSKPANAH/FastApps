@@ -3,14 +3,14 @@ requires = ["setuptools>=61.0", "wheel", "setuptools-scm"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "flicky"
+name = "floydr"
 version = "1.0.2"
 description = "A zero-boilerplate framework for building interactive ChatGPT widgets"
 readme = "README.md"
 requires-python = ">=3.11"
 license = {text = "MIT"}
 authors = [
-    {name = "Flick Team", email = "hello@flick.dev"}
+    {name = "Floydr Team", email = "hello@floydr.dev"}
 ]
 keywords = ["chatgpt", "widgets", "mcp", "framework", "react"]
 classifiers = [
@@ -40,19 +40,19 @@ dev = [
 ]
 
 [project.scripts]
-flick = "flick.cli.main:cli"
+floydr = "floydr.cli.main:cli"
 
 [project.urls]
-Homepage = "https://flick.dev"
-Documentation = "https://flick.dev/docs"
-Repository = "https://github.com/flick-framework/flick"
-"Bug Reports" = "https://github.com/flick-framework/flick/issues"
+Homepage = "https://floydr.dev"
+Documentation = "https://floydr.dev/docs"
+Repository = "https://github.com/floydr-framework/floydr"
+"Bug Reports" = "https://github.com/floydr-framework/floydr/issues"
 
 [tool.setuptools]
 package-dir = {"" = "."}
 
 [tool.setuptools.packages.find]
 where = ["."]
-include = ["flick*"]
+include = ["floydr*"]
 exclude = ["tests*"]
 

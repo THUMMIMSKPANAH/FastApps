@@ -1,15 +1,15 @@
 Metadata-Version: 2.4
-Name: flicky
+Name: floydr
 Version: 1.0.2
 Summary: A zero-boilerplate framework for building interactive ChatGPT widgets
-Home-page: https://github.com/flick-framework/flick
-Author: Flick Team
-Author-email: Flick Team <hello@flick.dev>
+Home-page: https://github.com/floydr-framework/floydr
+Author: Floydr Team
+Author-email: Floydr Team <hello@floydr.dev>
 License: MIT
-Project-URL: Homepage, https://flick.dev
-Project-URL: Documentation, https://flick.dev/docs
-Project-URL: Repository, https://github.com/flick-framework/flick
-Project-URL: Bug Reports, https://github.com/flick-framework/flick/issues
+Project-URL: Homepage, https://floydr.dev
+Project-URL: Documentation, https://floydr.dev/docs
+Project-URL: Repository, https://github.com/floydr-framework/floydr
+Project-URL: Bug Reports, https://github.com/floydr-framework/floydr/issues
 Keywords: chatgpt,widgets,mcp,framework,react
 Classifier: Development Status :: 4 - Beta
 Classifier: Intended Audience :: Developers

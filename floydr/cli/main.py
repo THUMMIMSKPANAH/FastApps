@@ -1,4 +1,4 @@
-"""Flicky CLI - Command-line interface for the Flick framework."""
+"""Floydr CLI - Command-line interface for the Floydr framework."""
 
 import click
 from rich.console import Console
@@ -7,9 +7,9 @@ from .commands.create import create_widget
 console = Console()
 
 @click.group()
-@click.version_option(version="1.0.1", prog_name="flicky")
+@click.version_option(version="1.0.2", prog_name="floydr")
 def cli():
-    """Flicky - ChatGPT Widget Framework
+    """Floydr - ChatGPT Widget Framework
     
     Build interactive ChatGPT widgets with zero boilerplate.
     """
@@ -18,11 +18,11 @@ def cli():
 @cli.command()
 @click.argument("project_name")
 def init(project_name):
-    """Initialize a new Flicky project."""
-    console.print(f"[green]Creating new Flicky project: {project_name}[/green]")
+    """Initialize a new Floydr project."""
+    console.print(f"[green]Creating new Floydr project: {project_name}[/green]")
     console.print("[yellow]This feature will be implemented in Phase 4[/yellow]")
     console.print("\n[cyan]For now, see the example project:[/cyan]")
-    console.print("  https://github.com/flick-framework/flicky/tree/main/example")
+    console.print("  https://github.com/floydr-framework/floydr/tree/main/example")
 
 @cli.command()
 @click.argument("widget_name")
@@ -30,8 +30,8 @@ def create(widget_name):
     """Create a new widget with tool and component files.
     
     Example:
-        flicky create mywidget
-        flicky create my-cool-widget
+        floydr create mywidget
+        floydr create my-cool-widget
     """
     create_widget(widget_name)
 

@@ -4,14 +4,14 @@ with open("README.md", "r", encoding="utf-8") as fh:
     long_description = fh.read()
 
 setup(
-    name="flicky",
+    name="floydr",
     version="1.0.2",
-    author="Flick Team",
-    author_email="hello@flick.dev",
+    author="Floydr Team",
+    author_email="hello@floydr.dev",
     description="A zero-boilerplate framework for building interactive ChatGPT widgets",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/flick-framework/flick",
+    url="https://github.com/floydr-framework/floydr",
     packages=find_packages(),
     classifiers=[
         "Development Status :: 4 - Beta",
@@ -32,14 +32,14 @@ setup(
     ],
     entry_points={
         "console_scripts": [
-            "flick=flick.cli.main:cli",
+            "floydr=floydr.cli.main:cli",
         ],
     },
     keywords="chatgpt, widgets, mcp, framework, react",
     project_urls={
-        "Bug Reports": "https://github.com/flick-framework/flick/issues",
-        "Source": "https://github.com/flick-framework/flick",
-        "Documentation": "https://flick.dev/docs",
+        "Bug Reports": "https://github.com/floydr-framework/floydr/issues",
+        "Source": "https://github.com/floydr-framework/floydr",
+        "Documentation": "https://floydr.dev/docs",
     },
 )
 

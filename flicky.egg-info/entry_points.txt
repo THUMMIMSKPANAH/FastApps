@@ -1,2 +1,0 @@
-[console_scripts]
-flick = flick.cli.main:cli

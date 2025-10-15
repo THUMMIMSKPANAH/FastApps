@@ -56,16 +56,16 @@ class WidgetBuilder:
         project_build_script = self.project_root / "build-all.mts"
         
         # Check if flick-react is installed in node_modules
-        flick_react_build_script = self.project_root / "node_modules" / "flick-react" / "build-all.mts"
+        floydr_build_script = self.project_root / "node_modules" / "floydr" / "build-all.mts"
         
         if not project_build_script.exists():
-            if flick_react_build_script.exists():
+            if floydr_build_script.exists():
                 # Copy from node_modules
-                shutil.copy(flick_react_build_script, project_build_script)
-                print(f"✓ Copied build script from flick-react package")
+                shutil.copy(floydr_build_script, project_build_script)
+                print(f"✓ Copied build script from floydr package")
             else:
                 raise FileNotFoundError(
-                    "build-all.mts not found. Please install flick-react: npm install --save-dev flick-react"
+                    "build-all.mts not found. Please install floydr: npm install --save-dev floydr"
                 )
     
     def _discover_widgets(self):
