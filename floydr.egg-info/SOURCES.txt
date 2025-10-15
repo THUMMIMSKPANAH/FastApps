@@ -37,6 +37,7 @@ floydr/cli/__init__.py
 floydr/cli/main.py
 floydr/cli/commands/__init__.py
 floydr/cli/commands/create.py
+floydr/cli/commands/init.py
 floydr/core/__init__.py
 floydr/core/server.py
 floydr/core/widget.py

@@ -8,7 +8,7 @@ from .commands.init import init_project
 console = Console()
 
 @click.group()
-@click.version_option(version="1.0.4", prog_name="floydr")
+@click.version_option(version="1.0.5", prog_name="floydr")
 def cli():
     """Floydr - ChatGPT Widget Framework
     

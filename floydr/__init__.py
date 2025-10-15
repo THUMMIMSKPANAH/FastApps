@@ -15,7 +15,7 @@ Example:
             return {"message": "Hello from Floydr!"}
 """
 
-__version__ = "1.0.4"
+__version__ = "1.0.5"
 __author__ = "Floydr Team"
 
 from .core.widget import BaseWidget

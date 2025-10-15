@@ -1,6 +1,6 @@
 Metadata-Version: 2.4
 Name: floydr
-Version: 1.0.4
+Version: 1.0.5
 Summary: A zero-boilerplate framework for building interactive ChatGPT widgets
 Home-page: https://github.com/floydr-framework/floydr
 Author: Floydr Team
@@ -60,15 +60,10 @@ source venv/bin/activate    # macOS/Linux
 venv\Scripts\activate       # Windows
 ```
 
-### 2. Install Floydr
+### 2. Install Floydr & Create Project
 
 ```bash
 pip install floydr
-```
-
-### 3. Create Project
-
-```bash
 floydr init my-widgets
 ```
 
@@ -90,19 +85,15 @@ my-widgets/
 └── README.md
 ```
 
-### 4. Install Dependencies
+### 3. Install Dependencies
 
 ```bash
 cd my-widgets
-
-# Python dependencies
 pip install -r requirements.txt
-
-# JavaScript dependencies
 npm install
 ```
 
-### 5. Create Your First Widget
+### 4. Create Your First Widget
 
 ```bash
 floydr create greeting
@@ -120,7 +111,7 @@ my-widgets/
         └── index.jsx        # ← Generated: Widget frontend
 ```
 
-### 6. Edit Your Widget Code
+### 5. Edit Your Widget Code
 
 **You only need to edit these 2 files:**
 
@@ -181,7 +172,7 @@ export default function Greeting() {
 
 **That's it! These are the only files you need to write.**
 
-### 7. Build and Run
+### 6. Build and Run
 
 ```bash
 # Build
