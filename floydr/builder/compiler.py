@@ -56,16 +56,16 @@ class WidgetBuilder:
         project_build_script = self.project_root / "build-all.mts"
         
         # Check if flick-react is installed in node_modules
-        floydr_build_script = self.project_root / "node_modules" / "floydr" / "build-all.mts"
+        chatjs_build_script = self.project_root / "node_modules" / "chatjs-hooks" / "build-all.mts"
         
         if not project_build_script.exists():
-            if floydr_build_script.exists():
+            if chatjs_build_script.exists():
                 # Copy from node_modules
-                shutil.copy(floydr_build_script, project_build_script)
-                print(f"✓ Copied build script from floydr package")
+                shutil.copy(chatjs_build_script, project_build_script)
+                print(f"✓ Copied build script from chatjs-hooks package")
             else:
                 raise FileNotFoundError(
-                    "build-all.mts not found. Please install floydr: npm install --save-dev floydr"
+                    "build-all.mts not found. Please install chatjs-hooks: npm install --save-dev chatjs-hooks"
                 )
     
     def _discover_widgets(self):

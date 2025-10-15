@@ -7,7 +7,7 @@ from .commands.create import create_widget
 console = Console()
 
 @click.group()
-@click.version_option(version="1.0.2", prog_name="floydr")
+@click.version_option(version="1.0.3", prog_name="floydr")
 def cli():
     """Floydr - ChatGPT Widget Framework
     

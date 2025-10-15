@@ -5,7 +5,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setup(
     name="floydr",
-    version="1.0.2",
+    version="1.0.3",
     author="Floydr Team",
     author_email="hello@floydr.dev",
     description="A zero-boilerplate framework for building interactive ChatGPT widgets",

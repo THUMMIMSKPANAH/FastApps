@@ -33,7 +33,7 @@ class {ClassName}Tool(BaseWidget):
 '''
 
 WIDGET_TEMPLATE = '''import React from 'react';
-import {{ useWidgetProps }} from 'floydr';
+import {{ useWidgetProps }} from 'chatjs-hooks';
 
 export default function {ClassName}() {{
   const props = useWidgetProps();
