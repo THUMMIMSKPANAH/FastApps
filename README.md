@@ -153,6 +153,7 @@ To test your widget in ChatGPT, you need to expose your local server to the inte
 ```bash
 # Install ngrok (if not already installed)
 # macOS: brew install ngrok
+# Windows: choco install ngrok  (or scoop install ngrok)
 # Or download from: https://ngrok.com/download
 
 # In a new terminal, expose your local server
