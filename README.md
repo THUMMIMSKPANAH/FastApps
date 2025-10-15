@@ -12,6 +12,10 @@
 
 ---
 
+📚 **Documentation**: [https://www.fastapps.org/](https://www.fastapps.org/)
+
+---
+
 ## Quick Start
 
 ### 1. Create Virtual Environment (Recommended)
