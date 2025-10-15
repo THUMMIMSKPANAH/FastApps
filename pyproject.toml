@@ -3,8 +3,8 @@ requires = ["setuptools>=61.0", "wheel", "setuptools-scm"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "flick"
-version = "1.0.0"
+name = "flicky"
+version = "1.0.2"
 description = "A zero-boilerplate framework for building interactive ChatGPT widgets"
 readme = "README.md"
 requires-python = ">=3.11"

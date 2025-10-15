@@ -4,8 +4,8 @@ with open("README.md", "r", encoding="utf-8") as fh:
     long_description = fh.read()
 
 setup(
-    name="flick",
-    version="1.0.0",
+    name="flicky",
+    version="1.0.2",
     author="Flick Team",
     author_email="hello@flick.dev",
     description="A zero-boilerplate framework for building interactive ChatGPT widgets",

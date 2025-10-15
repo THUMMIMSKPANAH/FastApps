@@ -1,6 +1,6 @@
 Metadata-Version: 2.4
-Name: flick
-Version: 1.0.0
+Name: flicky
+Version: 1.0.2
 Summary: A zero-boilerplate framework for building interactive ChatGPT widgets
 Home-page: https://github.com/flick-framework/flick
 Author: Flick Team
