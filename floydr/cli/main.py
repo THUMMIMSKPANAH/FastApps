@@ -3,11 +3,12 @@
 import click
 from rich.console import Console
 from .commands.create import create_widget
+from .commands.init import init_project
 
 console = Console()
 
 @click.group()
-@click.version_option(version="1.0.3", prog_name="floydr")
+@click.version_option(version="1.0.4", prog_name="floydr")
 def cli():
     """Floydr - ChatGPT Widget Framework
     
@@ -18,11 +19,19 @@ def cli():
 @cli.command()
 @click.argument("project_name")
 def init(project_name):
-    """Initialize a new Floydr project."""
-    console.print(f"[green]Creating new Floydr project: {project_name}[/green]")
-    console.print("[yellow]This feature will be implemented in Phase 4[/yellow]")
-    console.print("\n[cyan]For now, see the example project:[/cyan]")
-    console.print("  https://github.com/floydr-framework/floydr/tree/main/example")
+    """Initialize a new Floydr project.
+    
+    Example:
+        floydr init myproject
+        
+    Creates a complete project structure with:
+    - server/main.py (auto-discovery)
+    - server/tools/ (for widget backends)
+    - widgets/ (for React components)
+    - requirements.txt
+    - package.json
+    """
+    init_project(project_name)
 
 @cli.command()
 @click.argument("widget_name")

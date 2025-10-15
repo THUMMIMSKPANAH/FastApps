@@ -14,62 +14,75 @@
 
 ## 🚀 Quick Start
 
-### 1. Installation
+### 1. Create Virtual Environment (Recommended)
+
+```bash
+python -m venv venv
+source venv/bin/activate    # macOS/Linux
+venv\Scripts\activate       # Windows
+```
+
+### 2. Install Floydr
 
 ```bash
 pip install floydr
 ```
 
-### 2. Create Project
-
-Use our starter template or create manually:
+### 3. Create Project
 
 ```bash
-mkdir my-widgets && cd my-widgets
-
-# Create structure
-mkdir -p server/tools server/api widgets
-touch server/__init__.py server/tools/__init__.py
-
-# Copy server/main.py from our example (see docs/QUICKSTART.md)
-# Copy package.json from our example
+floydr init my-widgets
 ```
 
-**Or use our example project:** [examples/pizza-widgets](../examples/pizza-widgets/)
-
-### 3. Install Dependencies
-
-```bash
-# Python
-pip install floydr httpx
-
-# JavaScript
-npm install
-```
-
-### 4. Create Your First Widget
-
-```bash
-python -m floydr.cli.main create greeting
-```
-
-This generates the folder structure:
+This generates the complete project structure:
 
 ```
 my-widgets/
 ├── server/
-│   ├── main.py              # Server (auto-discovery, no edits needed)
-│   └── tools/
-│       └── greeting_tool.py # ← YOUR CODE: Widget logic
-├── widgets/
-│   └── greeting/
-│       └── index.jsx        # ← YOUR CODE: UI component
-├── assets/                  # (auto-generated during build)
-├── requirements.txt
-└── package.json
+│   ├── __init__.py
+│   ├── main.py              # Auto-discovery server
+│   ├── tools/               # Widget backends
+│   │   └── __init__.py
+│   └── api/                 # (optional) Shared APIs
+│       └── __init__.py
+├── widgets/                 # Widget frontends (empty initially)
+├── requirements.txt         # Python dependencies
+├── package.json             # JavaScript dependencies
+├── .gitignore
+└── README.md
 ```
 
-### 5. Write Your Widget Code
+### 4. Install Dependencies
+
+```bash
+cd my-widgets
+
+# Python dependencies
+pip install -r requirements.txt
+
+# JavaScript dependencies
+npm install
+```
+
+### 5. Create Your First Widget
+
+```bash
+floydr create greeting
+```
+
+This adds to your project:
+
+```
+my-widgets/
+├── server/
+│   └── tools/
+│       └── greeting_tool.py # ← Generated: Widget backend
+└── widgets/
+    └── greeting/
+        └── index.jsx        # ← Generated: Widget frontend
+```
+
+### 6. Edit Your Widget Code
 
 **You only need to edit these 2 files:**
 
@@ -130,7 +143,7 @@ export default function Greeting() {
 
 **That's it! These are the only files you need to write.**
 
-### 6. Build and Run
+### 7. Build and Run
 
 ```bash
 # Build
