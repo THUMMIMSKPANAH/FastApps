@@ -4,6 +4,42 @@ from pydantic import BaseModel
 import mcp.types as types
 
 
+class ClientContext:
+    """
+    Client context information passed to widget execute method.
+    Contains metadata about the client environment and user.
+    """
+    def __init__(self, meta: Dict[str, Any]):
+        self._meta = meta
+    
+    @property
+    def user_agent(self) -> Optional[str]:
+        """Client user agent string (e.g., 'ChatGPT/1.2025.012')"""
+        return self._meta.get("openai/userAgent")
+    
+    @property
+    def user_location(self) -> Optional[Dict[str, Any]]:
+        """
+        Coarse user location information.
+        May include: country, region, city, timezone, coordinates.
+        """
+        return self._meta.get("openai/userLocation")
+    
+    @property
+    def locale(self) -> Optional[str]:
+        """
+        User's preferred locale (IETF BCP 47 format).
+        Examples: 'en-US', 'fr-FR', 'es-419'
+        Falls back to 'webplus/i18n' for older clients.
+        """
+        return self._meta.get("openai/locale") or self._meta.get("webplus/i18n")
+    
+    @property
+    def raw_meta(self) -> Dict[str, Any]:
+        """Access to raw _meta dictionary"""
+        return self._meta
+
+
 class BaseWidget(ABC):
     """
     Base class for Flick widgets.
@@ -22,16 +58,60 @@ class BaseWidget(ABC):
     widget_description: Optional[str] = None
     widget_csp: Optional[Dict[str, List[str]]] = None
     widget_prefers_border: bool = False
+    widget_domain: Optional[str] = None
     read_only: bool = True
+    
+    # Localization support
+    supported_locales: Optional[List[str]] = None  # e.g., ["en", "en-US", "es", "fr-FR"]
+    default_locale: str = "en"
     
     def __init__(self, build_result: 'WidgetBuildResult'):
         self.build_result = build_result
         self.template_uri = f"ui://widget/{self.identifier}.html"
+        self.resolved_locale = self.default_locale
     
     @abstractmethod
-    async def execute(self, input_data: BaseModel) -> Dict[str, Any]:
-        """Execute the widget logic and return data for the UI."""
+    async def execute(self, input_data: BaseModel, context: Optional[ClientContext] = None) -> Dict[str, Any]:
+        """
+        Execute the widget logic and return data for the UI.
+        
+        Args:
+            input_data: Validated input parameters from ChatGPT
+            context: Optional client context with user agent, location, and locale
+        
+        Returns:
+            Dictionary of data to pass to the React component
+        """
         pass
+    
+    def negotiate_locale(self, requested_locale: Optional[str]) -> str:
+        """
+        Negotiate locale using RFC 4647 lookup rules.
+        
+        Args:
+            requested_locale: Client's requested locale (e.g., 'en-US', 'fr-FR')
+        
+        Returns:
+            Best matching supported locale or default locale
+        """
+        if not requested_locale or not self.supported_locales:
+            return self.default_locale
+        
+        # Exact match
+        if requested_locale in self.supported_locales:
+            return requested_locale
+        
+        # Try language-only match (e.g., 'en' for 'en-US')
+        language_only = requested_locale.split('-')[0]
+        if language_only in self.supported_locales:
+            return language_only
+        
+        # Try finding any locale with matching language
+        for locale in self.supported_locales:
+            if locale.startswith(language_only):
+                return locale
+        
+        return self.default_locale
     
     def get_input_schema(self) -> Dict[str, Any]:
         """Convert Pydantic model to JSON Schema."""
@@ -49,10 +129,15 @@ class BaseWidget(ABC):
                 "readOnlyHint": self.read_only,
             }
         }
+        
+        # Add locale if widget supports localization
+        if self.resolved_locale:
+            meta["openai/locale"] = self.resolved_locale
+        
         return meta
     
     def get_resource_meta(self) -> Dict[str, Any]:
-        """Resource metadata (CSP, border settings)."""
+        """Resource metadata (CSP, border settings, domain, locale)."""
         meta = {}
         if self.widget_csp:
             meta["openai/widgetCSP"] = self.widget_csp
@@ -60,6 +145,10 @@ class BaseWidget(ABC):
             meta["openai/widgetPrefersBorder"] = True
         if self.widget_description:
             meta["openai/widgetDescription"] = self.widget_description
+        if self.widget_domain:
+            meta["openai/widgetDomain"] = self.widget_domain
+        if self.resolved_locale:
+            meta["openai/locale"] = self.resolved_locale
         return meta
     
     def get_embedded_resource(self) -> types.EmbeddedResource:

@@ -18,13 +18,14 @@ Example:
 __version__ = "1.0.5"
 __author__ = "FastApps Team"
 
-from .core.widget import BaseWidget
+from .core.widget import BaseWidget, ClientContext
 from .core.server import WidgetMCPServer
 from .builder.compiler import WidgetBuilder, WidgetBuildResult
 from .types.schema import Field, ConfigDict
 
 __all__ = [
     "BaseWidget",
+    "ClientContext",
     "WidgetMCPServer",
     "WidgetBuilder",
     "WidgetBuildResult",

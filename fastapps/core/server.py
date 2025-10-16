@@ -1,7 +1,7 @@
-from typing import List, Any, Dict
+from typing import List, Any, Dict, Optional
 from fastmcp import FastMCP
 from mcp import types
-from .widget import BaseWidget
+from .widget import BaseWidget, ClientContext
 
 
 class WidgetMCPServer:
@@ -14,6 +14,7 @@ class WidgetMCPServer:
     def __init__(self, name: str, widgets: List[BaseWidget]):
         self.widgets_by_id = {w.identifier: w for w in widgets}
         self.widgets_by_uri = {w.template_uri: w for w in widgets}
+        self.client_locale: Optional[str] = None
         
         self.mcp = FastMCP(name=name)
         self._register_handlers()
@@ -21,6 +22,36 @@ class WidgetMCPServer:
     def _register_handlers(self):
         """Register all MCP handlers for widget support."""
         server = self.mcp._mcp_server
+        
+        # Handle MCP initialization to negotiate locale
+        original_initialize = server.request_handlers.get(types.InitializeRequest)
+        
+        async def initialize_handler(req: types.InitializeRequest) -> types.ServerResult:
+            # Extract requested locale from _meta
+            meta = req.params._meta if hasattr(req.params, '_meta') else {}
+            requested_locale = meta.get("openai/locale") or meta.get("webplus/i18n")
+            
+            # Negotiate locale with each widget
+            if requested_locale:
+                self.client_locale = requested_locale
+                for widget in self.widgets_by_id.values():
+                    resolved = widget.negotiate_locale(requested_locale)
+                    widget.resolved_locale = resolved
+            
+            # Call original handler if it exists
+            if original_initialize:
+                return await original_initialize(req)
+            
+            # Default response if no original handler
+            return types.ServerResult(
+                types.InitializeResult(
+                    protocolVersion=req.params.protocolVersion,
+                    capabilities=types.ServerCapabilities(),
+                    serverInfo=types.Implementation(name="FastApps", version="1.0.5")
+                )
+            )
+        
+        server.request_handlers[types.InitializeRequest] = initialize_handler
         
         @server.list_tools()
         async def list_tools_handler() -> List[types.Tool]:
@@ -101,7 +132,20 @@ class WidgetMCPServer:
             try:
                 arguments = req.params.arguments or {}
                 input_data = widget.input_schema.model_validate(arguments)
-                result_data = await widget.execute(input_data)
+                
+                # Extract client context from request metadata
+                meta = req.params._meta if hasattr(req.params, '_meta') else {}
+                
+                # Re-negotiate locale if provided in this request
+                requested_locale = meta.get("openai/locale") or meta.get("webplus/i18n")
+                if requested_locale:
+                    widget.resolved_locale = widget.negotiate_locale(requested_locale)
+                
+                # Create client context
+                context = ClientContext(meta)
+                
+                # Call execute with context
+                result_data = await widget.execute(input_data, context)
             except Exception as exc:
                 return types.ServerResult(
                     types.CallToolResult(
@@ -124,6 +168,10 @@ class WidgetMCPServer:
                 "openai/widgetAccessible": widget.widget_accessible,
                 "openai/resultCanProduceWidget": True,
             }
+            
+            # Add resolved locale to response
+            if widget.resolved_locale:
+                meta["openai/locale"] = widget.resolved_locale
             
             return types.ServerResult(
                 types.CallToolResult(
