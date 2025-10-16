@@ -1,6 +1,6 @@
 Metadata-Version: 2.4
 Name: fastapps
-Version: 1.0.5
+Version: 1.0.6
 Summary: A zero-boilerplate framework for building interactive ChatGPT widgets
 Home-page: https://github.com/fastapps-framework/fastapps
 Author: FastApps Team
@@ -47,6 +47,10 @@ Dynamic: requires-python
   <a href="https://pypi.org/project/fastapps/"><img src="https://img.shields.io/pypi/pyversions/fastapps.svg" alt="Python"></a>
   <a href="https://github.com/fastapps-framework/fastapps/blob/main/LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="License"></a>
 </p>
+
+---
+
+📚 **Documentation**: [https://www.fastapps.org/](https://www.fastapps.org/)
 
 ---
 

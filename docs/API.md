@@ -310,18 +310,30 @@ function Counter() {
 
 ### useOpenAiGlobal
 
-Access ChatGPT global values.
+Access ChatGPT global values and environment information.
 
 ```typescript
-function useOpenAiGlobal(key: string): any
+function useOpenAiGlobal<K extends keyof OpenAiGlobals>(
+  key: K
+): OpenAiGlobals[K] | null
 ```
 
 **Parameters:**
-- `key`: Global property name
+- `key`: Global property name (see available keys below)
 
 **Available Keys:**
-- `"theme"`: `"light"` or `"dark"`
-- `"displayMode"`: Display mode setting
+
+| Key | Type | Description | Example |
+|-----|------|-------------|---------|
+| `theme` | `'light' \| 'dark'` | ChatGPT's current theme | `'dark'` |
+| `displayMode` | `'inline' \| 'pip' \| 'fullscreen'` | Current display mode | `'inline'` |
+| `locale` | `string` | User's preferred locale (IETF BCP 47) | `'en-US'`, `'fr-FR'` |
+| `maxHeight` | `number` | Maximum height constraint in pixels | `600` |
+| `safeArea` | `SafeArea` | Safe area insets for mobile | `{ insets: { top: 20, ... }}` |
+| `userAgent` | `UserAgent` | Device and capability info | `{ device: { type: 'mobile' }}` |
+| `toolInput` | `object` | Input parameters | `{ city: 'NYC' }` |
+| `toolOutput` | `object` | Tool output (same as `useWidgetProps()`) | `{ message: 'Hello' }` |
+| `widgetState` | `object` | Persistent state (same as `useWidgetState()`) | `{ count: 5 }` |
 
 **Example:**
 ```jsx
@@ -329,16 +341,203 @@ import { useOpenAiGlobal } from 'chatjs-hooks';
 
 function ThemedWidget() {
   const theme = useOpenAiGlobal('theme');
+  const displayMode = useOpenAiGlobal('displayMode');
+  const maxHeight = useOpenAiGlobal('maxHeight');
+  const userAgent = useOpenAiGlobal('userAgent');
   
   return (
     <div style={{
-      background: theme === 'dark' ? '#000' : '#fff',
-      color: theme === 'dark' ? '#fff' : '#000'
+      background: theme === 'dark' ? '#1a1a1a' : '#ffffff',
+      color: theme === 'dark' ? '#ffffff' : '#000000',
+      maxHeight: `${maxHeight}px`,
+      padding: userAgent?.device.type === 'mobile' ? '8px' : '16px'
     }}>
-      Theme: {theme}
+      <p>Theme: {theme}</p>
+      <p>Mode: {displayMode}</p>
     </div>
   );
 }
+```
+
+---
+
+## window.openai API
+
+For advanced use cases, access the raw `window.openai` API directly:
+
+### callTool
+
+Call an MCP tool from your component.
+
+```typescript
+window.openai.callTool(
+  name: string,
+  args: Record<string, unknown>
+): Promise<CallToolResponse>
+```
+
+**Requirements:**
+- Set `widget_accessible = True` in your Python tool
+
+**Example:**
+```jsx
+const handleRefresh = async () => {
+  await window.openai.callTool('refresh_data', {
+    city: 'New York'
+  });
+};
+```
+
+---
+
+### sendFollowUpMessage
+
+Inject a message into the ChatGPT conversation.
+
+```typescript
+window.openai.sendFollowUpMessage(args: {
+  prompt: string
+}): Promise<void>
+```
+
+**Example:**
+```jsx
+const askMore = async () => {
+  await window.openai.sendFollowUpMessage({
+    prompt: 'Tell me more about this topic'
+  });
+};
+```
+
+---
+
+### requestDisplayMode
+
+Request a display mode change (inline, PiP, fullscreen).
+
+```typescript
+window.openai.requestDisplayMode(args: {
+  mode: 'inline' | 'pip' | 'fullscreen'
+}): Promise<{ mode: DisplayMode }>
+```
+
+**Notes:**
+- Host may reject or coerce the request
+- On mobile, PiP is always coerced to fullscreen
+
+**Example:**
+```jsx
+const goFullscreen = async () => {
+  const result = await window.openai.requestDisplayMode({
+    mode: 'fullscreen'
+  });
+  console.log('Granted mode:', result.mode);
+};
+```
+
+---
+
+### openExternal
+
+Open an external URL in a new window.
+
+```typescript
+window.openai.openExternal(payload: {
+  href: string
+}): void
+```
+
+**Example:**
+```jsx
+const openLink = (url: string) => {
+  window.openai.openExternal({ href: url });
+};
+```
+
+---
+
+### setWidgetState
+
+Update persistent widget state (also available via `useWidgetState`).
+
+```typescript
+window.openai.setWidgetState(
+  state: Record<string, unknown>
+): Promise<void>
+```
+
+**Example:**
+```jsx
+await window.openai.setWidgetState({
+  favorites: ['item1', 'item2']
+});
+```
+
+---
+
+## TypeScript Types (chatjs-hooks)
+
+```typescript
+import type {
+  OpenAiGlobals,
+  Theme,
+  DisplayMode,
+  UserAgent,
+  SafeArea,
+  SafeAreaInsets,
+  DeviceType,
+  CallToolResponse
+} from 'chatjs-hooks';
+
+// Theme
+type Theme = 'light' | 'dark';
+
+// Display mode
+type DisplayMode = 'pip' | 'inline' | 'fullscreen';
+
+// Device type
+type DeviceType = 'mobile' | 'tablet' | 'desktop' | 'unknown';
+
+// User agent
+type UserAgent = {
+  device: { type: DeviceType };
+  capabilities: {
+    hover: boolean;
+    touch: boolean;
+  };
+};
+
+// Safe area
+type SafeAreaInsets = {
+  top: number;
+  bottom: number;
+  left: number;
+  right: number;
+};
+
+type SafeArea = {
+  insets: SafeAreaInsets;
+};
+
+// OpenAI Globals
+type OpenAiGlobals<
+  ToolInput = any,
+  ToolOutput = any,
+  ToolResponseMetadata = any,
+  WidgetState = any
+> = {
+  theme: Theme;
+  userAgent: UserAgent;
+  locale: string;
+  maxHeight: number;
+  displayMode: DisplayMode;
+  safeArea: SafeArea;
+  toolInput: ToolInput;
+  toolOutput: ToolOutput | null;
+  toolResponseMetadata: ToolResponseMetadata | null;
+  widgetState: WidgetState | null;
+  setWidgetState: (state: WidgetState) => Promise<void>;
+};
 ```
 
 ---
