@@ -151,7 +151,7 @@ const colors = {
 ### Light/Dark Mode
 
 ```jsx
-import { useOpenAiGlobal } from 'chatjs-hooks';
+import { useOpenAiGlobal } from 'fastapps';
 
 export default function ThemedWidget() {
   const theme = useOpenAiGlobal('theme');

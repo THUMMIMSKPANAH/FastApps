@@ -23,7 +23,7 @@ my-widgets/
 │   ├── greeting-HASH.html
 │   └── greeting-HASH.js
 │
-├── build-all.mts                # Auto-copied from chatjs-hooks
+├── build-all.mts                # Auto-copied from fastapps
 ├── requirements.txt             # Python dependencies
 └── package.json                 # JavaScript dependencies
 ```
@@ -117,10 +117,10 @@ httpx>=0.28.0
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "build": "npx tsx node_modules/chatjs-hooks/build-all.mts"
+    "build": "npx tsx node_modules/fastapps/build-all.mts"
   },
   "dependencies": {
-    "chatjs-hooks": "^1.0.0",
+    "fastapps": "^1.0.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1"
   },
@@ -185,7 +185,7 @@ pip install --upgrade fastapps
 ### Build fails
 
 ```bash
-npm install chatjs-hooks@latest --force
+npm install fastapps@latest --force
 ```
 
 ### Widget not loading

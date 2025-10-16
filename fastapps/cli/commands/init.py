@@ -70,10 +70,10 @@ def get_package_json(project_name: str) -> str:
         "type": "module",
         "description": "Floydr ChatGPT widgets project",
         "scripts": {
-            "build": "npx tsx node_modules/chatjs-hooks/build-all.mts"
+            "build": "npx tsx node_modules/fastapps/build-all.mts"
         },
         "dependencies": {
-            "chatjs-hooks": "^1.0.0",
+            "fastapps": "^1.0.0",
             "react": "^18.3.1",
             "react-dom": "^18.3.1"
         },
@@ -154,7 +154,7 @@ python server/main.py
 ## Learn More
 
 - **FastApps Framework**: https://pypi.org/project/fastapps/
-- **ChatJS Hooks**: https://www.npmjs.com/package/chatjs-hooks
+- **FastApps (React)**: https://www.npmjs.com/package/fastapps
 - **Documentation**: https://github.com/fastapps-framework/fastapps
 
 ## License

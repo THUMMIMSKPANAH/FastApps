@@ -107,10 +107,10 @@ httpx>=0.28.0
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "build": "npx tsx node_modules/chatjs-hooks/build-all.mts"
+    "build": "npx tsx node_modules/fastapps/build-all.mts"
   },
   "dependencies": {
-    "chatjs-hooks": "^1.0.0",
+    "fastapps": "^1.0.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1"
   },
@@ -185,7 +185,7 @@ my-chatgpt-widgets/
 │   ├── greeting-HASH.html
 │   └── greeting-HASH.js
 │
-├── build-all.mts                # Auto-copied from chatjs-hooks
+├── build-all.mts                # Auto-copied from fastapps
 ├── requirements.txt
 └── package.json
 ```
@@ -193,7 +193,7 @@ my-chatgpt-widgets/
 **Key Points:**
 - `server/main.py` - Already setup, no edits needed
 - `assets/` - Auto-generated during build
-- `build-all.mts` - Auto-copied from chatjs-hooks
+- `build-all.mts` - Auto-copied from fastapps
 - You only edit files in `server/tools/` and `widgets/`!
 
 ---

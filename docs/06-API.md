@@ -68,7 +68,7 @@ class WeatherTool(BaseWidget):
 ### React Component
 
 ```jsx
-import { useWidgetProps } from 'chatjs-hooks';
+import { useWidgetProps } from 'fastapps';
 
 export default function Weather() {
   const props = useWidgetProps();

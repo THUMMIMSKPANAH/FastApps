@@ -116,7 +116,7 @@ class MyWidgetTool(BaseWidget):
 
 ```jsx
 import React from 'react';
-import { useWidgetProps } from 'chatjs-hooks';
+import { useWidgetProps } from 'fastapps';
 
 export default function MyWidget() {
   const props = useWidgetProps();
@@ -225,7 +225,7 @@ widget_csp = {
 ### React Hooks
 
 ```jsx
-import { useWidgetProps, useWidgetState, useOpenAiGlobal } from 'chatjs-hooks';
+import { useWidgetProps, useWidgetState, useOpenAiGlobal } from 'fastapps';
 
 function MyWidget() {
   const props = useWidgetProps();              // Data from Python
@@ -283,7 +283,7 @@ my-app/
 │
 ├── requirements.txt             # Python dependencies
 ├── package.json                 # JavaScript dependencies
-└── build-all.mts                # Auto-copied from chatjs-hooks
+└── build-all.mts                # Auto-copied from fastapps
 ```
 
 **You only edit the 2 files marked with ←**
@@ -296,7 +296,7 @@ my-app/
 - **Auto-Discovery** - Widgets automatically registered
 - **Type-Safe** - Pydantic for Python, TypeScript for React
 - **CLI Tools** - Scaffold widgets instantly
-- **React Hooks** - Modern React patterns via `chatjs-hooks`
+- **React Hooks** - Modern React patterns via `fastapps`
 - **MCP Protocol** - Native ChatGPT integration
 
 ---
@@ -359,7 +359,7 @@ function Counter() {
 **Import errors?**
 ```bash
 pip install --upgrade fastapps
-npm install chatjs-hooks@latest
+npm install fastapps@latest
 ```
 
 **Need help?** Check our [docs](./docs/) or [open an issue](https://github.com/fastapps-framework/fastapps/issues)
@@ -377,6 +377,6 @@ MIT © FastApps Team
 ## Links
 
 - **PyPI**: https://pypi.org/project/fastapps/
-- **ChatJS Hooks**: https://www.npmjs.com/package/chatjs-hooks
+- **ChatJS Hooks**: https://www.npmjs.com/package/fastapps
 - **GitHub**: https://github.com/fastapps-framework/fastapps
 - **MCP Spec**: https://modelcontextprotocol.io/

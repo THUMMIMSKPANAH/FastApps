@@ -98,7 +98,7 @@ class MyWidgetTool(BaseWidget):
 ### React Component (Frontend)
 ```jsx
 import React from 'react';
-import { useWidgetProps } from 'chatjs-hooks';
+import { useWidgetProps } from 'fastapps';
 
 export default function MyWidget() {
   const props = useWidgetProps();

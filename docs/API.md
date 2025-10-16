@@ -232,7 +232,7 @@ class MyInput(BaseModel):
 
 ---
 
-## React Hooks (chatjs-hooks)
+## React Hooks (fastapps)
 
 ### useWidgetProps
 
@@ -246,7 +246,7 @@ function useWidgetProps<T = any>(): T
 
 **Example:**
 ```jsx
-import { useWidgetProps } from 'chatjs-hooks';
+import { useWidgetProps } from 'fastapps';
 
 function MyWidget() {
   const props = useWidgetProps();
@@ -288,7 +288,7 @@ function useWidgetState<T>(
 
 **Example:**
 ```jsx
-import { useWidgetState } from 'chatjs-hooks';
+import { useWidgetState } from 'fastapps';
 
 function Counter() {
   const [state, setState] = useWidgetState({ count: 0 });
@@ -337,7 +337,7 @@ function useOpenAiGlobal<K extends keyof OpenAiGlobals>(
 
 **Example:**
 ```jsx
-import { useOpenAiGlobal } from 'chatjs-hooks';
+import { useOpenAiGlobal } from 'fastapps';
 
 function ThemedWidget() {
   const theme = useOpenAiGlobal('theme');
@@ -475,7 +475,7 @@ await window.openai.setWidgetState({
 
 ---
 
-## TypeScript Types (chatjs-hooks)
+## TypeScript Types (fastapps)
 
 ```typescript
 import type {
@@ -487,7 +487,7 @@ import type {
   SafeAreaInsets,
   DeviceType,
   CallToolResponse
-} from 'chatjs-hooks';
+} from 'fastapps';
 
 // Theme
 type Theme = 'light' | 'dark';

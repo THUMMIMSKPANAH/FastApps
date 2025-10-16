@@ -14,7 +14,7 @@ A widget is a React component that:
 
 ```jsx
 import React from 'react';
-import { useWidgetProps } from 'chatjs-hooks';
+import { useWidgetProps } from 'fastapps';
 
 export default function MyWidget() {
   // 1. Get data from Python backend
@@ -113,7 +113,7 @@ export default function MyWidget() {
 ### Theme Support
 
 ```jsx
-import { useOpenAiGlobal } from 'chatjs-hooks';
+import { useOpenAiGlobal } from 'fastapps';
 
 export default function ThemedWidget() {
   const theme = useOpenAiGlobal('theme');
@@ -360,7 +360,7 @@ export default function MyWidget() {
 ### Custom Hooks
 
 ```jsx
-import { useWidgetProps } from 'chatjs-hooks';
+import { useWidgetProps } from 'fastapps';
 import React from 'react';
 
 // Custom hook for derived data

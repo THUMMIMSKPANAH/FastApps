@@ -46,7 +46,7 @@ Create `widgets/greeting/index.jsx`:
 
 ```jsx
 import React from 'react';
-import { useWidgetProps } from 'chatjs-hooks';
+import { useWidgetProps } from 'fastapps';
 
 export default function Greeting() {
   const props = useWidgetProps();
@@ -141,7 +141,7 @@ class WeatherTool(BaseWidget):
 
 ```jsx
 import React from 'react';
-import { useWidgetProps } from 'chatjs-hooks';
+import { useWidgetProps } from 'fastapps';
 
 export default function Weather() {
   const props = useWidgetProps();
@@ -221,7 +221,7 @@ class CounterTool(BaseWidget):
 
 ```jsx
 import React from 'react';
-import { useWidgetProps, useWidgetState } from 'chatjs-hooks';
+import { useWidgetProps, useWidgetState } from 'fastapps';
 
 export default function Counter() {
   const props = useWidgetProps();
@@ -301,7 +301,7 @@ Create a widget that adapts to ChatGPT's dark/light theme.
 
 ```jsx
 import React from 'react';
-import { useWidgetProps, useOpenAiGlobal } from 'chatjs-hooks';
+import { useWidgetProps, useOpenAiGlobal } from 'fastapps';
 
 export default function ThemedWidget() {
   const props = useWidgetProps();

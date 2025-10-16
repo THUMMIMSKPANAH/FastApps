@@ -15,7 +15,7 @@ Widget state is data that:
 ### useWidgetState Hook
 
 ```jsx
-import { useWidgetState } from 'chatjs-hooks';
+import { useWidgetState } from 'fastapps';
 
 export default function Counter() {
   const [state, setState] = useWidgetState({ count: 0 });
