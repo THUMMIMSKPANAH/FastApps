@@ -4,6 +4,65 @@ from pydantic import BaseModel
 import mcp.types as types
 
 
+class UserContext:
+    """
+    Authenticated user context from OAuth token.
+    Available in widget execute() when user is authenticated.
+    
+    Example:
+        async def execute(self, input_data, context, user: UserContext):
+            if user.is_authenticated:
+                return {"user_id": user.subject, "scopes": user.scopes}
+            return {"message": "Anonymous user"}
+    """
+    
+    def __init__(self, access_token: Optional[Any] = None):
+        """
+        Initialize user context with access token.
+        
+        Args:
+            access_token: AccessToken object from OAuth verification (optional)
+        """
+        self._access_token = access_token
+    
+    @property
+    def is_authenticated(self) -> bool:
+        """Whether user is authenticated"""
+        return self._access_token is not None
+    
+    @property
+    def subject(self) -> Optional[str]:
+        """User identifier (sub claim from JWT)"""
+        return self._access_token.subject if self._access_token else None
+    
+    @property
+    def client_id(self) -> Optional[str]:
+        """OAuth client ID"""
+        return self._access_token.client_id if self._access_token else None
+    
+    @property
+    def scopes(self) -> List[str]:
+        """Granted OAuth scopes"""
+        return self._access_token.scopes if self._access_token else []
+    
+    @property
+    def claims(self) -> Dict[str, Any]:
+        """Full JWT claims"""
+        return self._access_token.claims if self._access_token else {}
+    
+    def has_scope(self, scope: str) -> bool:
+        """
+        Check if user has specific scope.
+        
+        Args:
+            scope: Scope to check (e.g., "user", "write:data")
+        
+        Returns:
+            True if user has the scope, False otherwise
+        """
+        return scope in self.scopes
+
+
 class ClientContext:
     """
     Client context information passed to widget execute method.
@@ -71,16 +130,28 @@ class BaseWidget(ABC):
         self.resolved_locale = self.default_locale
     
     @abstractmethod
-    async def execute(self, input_data: BaseModel, context: Optional[ClientContext] = None) -> Dict[str, Any]:
+    async def execute(
+        self,
+        input_data: BaseModel,
+        context: Optional[ClientContext] = None,
+        user: Optional[UserContext] = None
+    ) -> Dict[str, Any]:
         """
         Execute the widget logic and return data for the UI.
         
         Args:
             input_data: Validated input parameters from ChatGPT
             context: Optional client context with user agent, location, and locale
+            user: Optional user context with authenticated user information
         
         Returns:
             Dictionary of data to pass to the React component
+        
+        Example:
+            async def execute(self, input_data, context, user):
+                if user and user.is_authenticated:
+                    return {"message": f"Hello, {user.subject}!"}
+                return {"message": "Hello, guest!"}
         """
         pass
     
@@ -129,6 +200,10 @@ class BaseWidget(ABC):
                 "readOnlyHint": self.read_only,
             }
         }
+        
+        # Add security schemes if defined (per MCP spec)
+        if hasattr(self, '_security_schemes'):
+            meta["securitySchemes"] = self._security_schemes
         
         # Add locale if widget supports localization
         if self.resolved_locale:

@@ -1,10 +1,12 @@
 """
 FastApps Authentication Module
 
-Provides built-in JWT verification and re-exports FastMCP auth components.
+Provides built-in JWT verification, per-widget auth decorators,
+and re-exports FastMCP auth components.
 """
 
 from .verifier import JWTVerifier
+from .decorators import auth_required, no_auth, optional_auth
 
 # Re-export FastMCP auth components for convenience
 try:
@@ -18,5 +20,8 @@ __all__ = [
     "JWTVerifier",
     "TokenVerifier",
     "AccessToken",
+    "auth_required",
+    "no_auth",
+    "optional_auth",
 ]
 

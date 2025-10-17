@@ -1,7 +1,7 @@
 from typing import List, Any, Dict, Optional
 from fastmcp import FastMCP
 from mcp import types
-from .widget import BaseWidget, ClientContext
+from .widget import BaseWidget, ClientContext, UserContext
 
 # Auth imports (optional, graceful degradation if not available)
 try:
@@ -67,6 +67,11 @@ class WidgetMCPServer:
         self.widgets_by_uri = {w.template_uri: w for w in widgets}
         self.client_locale: Optional[str] = None
         
+        # Store server auth configuration for per-widget inheritance
+        self.server_requires_auth = bool(auth_issuer_url and auth_resource_server_url)
+        self.server_auth_scopes = auth_required_scopes or []
+        self.token_verifier_instance = None
+        
         # Configure authentication if provided
         auth_settings = None
         verifier = token_verifier
@@ -93,6 +98,9 @@ class WidgetMCPServer:
                 resource_server_url=auth_resource_server_url,
                 required_scopes=auth_required_scopes or [],
             )
+            
+            # Store verifier for per-widget validation
+            self.token_verifier_instance = verifier
         
         # Initialize FastMCP with or without auth
         if auth_settings:
@@ -143,16 +151,28 @@ class WidgetMCPServer:
         
         @server.list_tools()
         async def list_tools_handler() -> List[types.Tool]:
-            return [
-                types.Tool(
-                    name=w.identifier,
-                    title=w.title,
-                    description=w.description or w.title,
-                    inputSchema=w.get_input_schema(),
-                    _meta=w.get_tool_meta(),
+            tools_list = []
+            for w in self.widgets_by_id.values():
+                tool_meta = w.get_tool_meta()
+                
+                # Per MCP spec: "Missing field: inherit server default policy"
+                # If widget doesn't have explicit securitySchemes and server has auth,
+                # inherit server's auth requirement
+                if 'securitySchemes' not in tool_meta and self.server_requires_auth:
+                    tool_meta['securitySchemes'] = [
+                        {"type": "oauth2", "scopes": self.server_auth_scopes}
+                    ]
+                
+                tools_list.append(
+                    types.Tool(
+                        name=w.identifier,
+                        title=w.title,
+                        description=w.description or w.title,
+                        inputSchema=w.get_input_schema(),
+                        _meta=tool_meta,
+                    )
                 )
-                for w in self.widgets_by_id.values()
-            ]
+            return tools_list
         
         @server.list_resources()
         async def list_resources_handler() -> List[types.Resource]:
@@ -218,6 +238,57 @@ class WidgetMCPServer:
                 )
             
             try:
+                # Extract verified access token
+                # FastMCP verifies token before this handler if auth is enabled
+                access_token = None
+                if hasattr(req, 'context') and hasattr(req.context, 'access_token'):
+                    access_token = req.context.access_token
+                elif hasattr(req.params, '_meta'):
+                    # Fallback: check _meta for token info
+                    meta_token = req.params._meta.get('access_token')
+                    if meta_token:
+                        access_token = meta_token
+                
+                # Determine if auth is required for this widget
+                widget_requires_auth = getattr(widget, '_auth_required', None)
+                
+                # Per MCP spec: Inheritance - widget without decorator inherits server policy
+                if widget_requires_auth is None and self.server_requires_auth:
+                    widget_requires_auth = True
+                
+                # Per MCP spec: "Servers must enforce regardless of client hints"
+                if widget_requires_auth is True and not access_token:
+                    return types.ServerResult(
+                        types.CallToolResult(
+                            content=[
+                                types.TextContent(
+                                    type="text",
+                                    text="Authentication required for this tool"
+                                )
+                            ],
+                            isError=True
+                        )
+                    )
+                
+                # Enforce widget-specific scope requirements
+                if access_token and hasattr(widget, '_auth_scopes') and widget._auth_scopes:
+                    user_scopes = getattr(access_token, 'scopes', [])
+                    missing_scopes = set(widget._auth_scopes) - set(user_scopes)
+                    
+                    if missing_scopes:
+                        return types.ServerResult(
+                            types.CallToolResult(
+                                content=[
+                                    types.TextContent(
+                                        type="text",
+                                        text=f"Missing required scopes: {', '.join(missing_scopes)}"
+                                    )
+                                ],
+                                isError=True
+                            )
+                        )
+                
+                # Validate input
                 arguments = req.params.arguments or {}
                 input_data = widget.input_schema.model_validate(arguments)
                 
@@ -229,11 +300,12 @@ class WidgetMCPServer:
                 if requested_locale:
                     widget.resolved_locale = widget.negotiate_locale(requested_locale)
                 
-                # Create client context
+                # Create contexts
                 context = ClientContext(meta)
+                user = UserContext(access_token)
                 
-                # Call execute with context
-                result_data = await widget.execute(input_data, context)
+                # Call execute with user context
+                result_data = await widget.execute(input_data, context, user)
             except Exception as exc:
                 return types.ServerResult(
                     types.CallToolResult(

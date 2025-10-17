@@ -18,7 +18,7 @@ Example:
 __version__ = "1.0.7"
 __author__ = "FastApps Team"
 
-from .core.widget import BaseWidget, ClientContext
+from .core.widget import BaseWidget, ClientContext, UserContext
 from .core.server import WidgetMCPServer
 from .builder.compiler import WidgetBuilder, WidgetBuildResult
 from .types.schema import Field, ConfigDict
@@ -27,13 +27,22 @@ from .types.schema import Field, ConfigDict
 try:
     from .auth.verifier import JWTVerifier
     from .auth import TokenVerifier, AccessToken
-    _auth_exports = ["JWTVerifier", "TokenVerifier", "AccessToken"]
+    from .auth.decorators import auth_required, no_auth, optional_auth
+    _auth_exports = [
+        "JWTVerifier",
+        "TokenVerifier",
+        "AccessToken",
+        "auth_required",
+        "no_auth",
+        "optional_auth",
+    ]
 except ImportError:
     _auth_exports = []
 
 __all__ = [
     "BaseWidget",
     "ClientContext",
+    "UserContext",
     "WidgetMCPServer",
     "WidgetBuilder",
     "WidgetBuildResult",
