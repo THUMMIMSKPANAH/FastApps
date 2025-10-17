@@ -140,39 +140,48 @@ export default function MyWidget() {
 
 **That's it! These are the only files you need to write.**
 
-### 6. Build and Run
+### 6. Build Widgets
 
 ```bash
-# Build
 npm run build
+```
 
+### 7. Start Development Server with Public Access
+
+**Option A: Using `fastapps dev` (Recommended)**
+
+The easiest way to run and expose your server:
+
+```bash
+fastapps dev
+```
+
+On first run, you'll be prompted for your ngrok auth token:
+- Get it free at: https://dashboard.ngrok.com/get-started/your-authtoken
+- Token is saved and won't be asked again
+
+You'll see:
+```
+🚀 FastApps Development Server
+┌─────────┬─────────────────────────┐
+│ Local   │ http://0.0.0.0:8001    │
+│ Public  │ https://xyz.ngrok.io   │
+└─────────┴─────────────────────────┘
+
+📡 MCP Server Endpoint: https://xyz.ngrok.io
+```
+
+Use the public URL in ChatGPT Settings > Connectors.
+
+**Option B: Manual Setup**
+
+```bash
 # Start server
 python server/main.py
-```
 
-Your widget is now live at `http://localhost:8001`
-
-### 7. Expose with ngrok (for ChatGPT Testing)
-
-To test your widget in ChatGPT, you need to expose your local server to the internet using ngrok:
-
-```bash
-# Install ngrok (if not already installed)
-# macOS: brew install ngrok
-# Windows: choco install ngrok  (or scoop install ngrok)
-# Or download from: https://ngrok.com/download
-
-# In a new terminal, expose your local server
+# In a separate terminal, create tunnel
 ngrok http 8001
 ```
-
-You will get a public URL that you can use to add your local server to ChatGPT in Settings > Connectors.
-
-For example: https://<custom_endpoint>.ngrok-free.app/mcp
-
-**Important**: Keep both terminals running:
-- Terminal 1: `python server/main.py` (your FastApps server)
-- Terminal 2: `ngrok http 8001` (public tunnel)
 
 ---
 
@@ -244,19 +253,37 @@ function MyWidget() {
 
 - **[Quick Start Guide](./docs/QUICKSTART.md)** - Detailed setup instructions
 - **[Tutorial](./docs/TUTORIAL.md)** - Step-by-step widget examples
+- **[Python API](./docs/PYTHON_API.md)** - Programmatic dev server control
 - **[API Reference](./docs/API.md)** - Complete API documentation
-- **[Examples](../examples/)** - Real-world widget examples
+- **[Examples](./examples/)** - Real-world code examples
 
 ---
 
 ## CLI Commands
 
 ```bash
-# Create new widget (auto-generates both files)
-python -m fastapps.cli.main create mywidget
+# Initialize new project
+fastapps init my-app
 
-# Or if installed globally:
+# Create new widget (auto-generates both files)
 fastapps create mywidget
+
+# Start development server with ngrok tunnel
+fastapps dev
+
+# Start on custom port
+fastapps dev --port 8080
+
+# Reset ngrok auth token
+fastapps reset-token
+
+# View authentication guide
+fastapps auth-info
+```
+
+**Tip**: If `fastapps` command is not found, use:
+```bash
+python -m fastapps.cli.main <command>
 ```
 
 ---
@@ -298,8 +325,37 @@ my-app/
 - **Auto-Discovery** - Widgets automatically registered
 - **Type-Safe** - Pydantic for Python, TypeScript for React
 - **CLI Tools** - Scaffold widgets instantly
+- **Python API** - Programmatic server control
+- **ngrok Integration** - Public URLs with one command
 - **React Hooks** - Modern React patterns via `fastapps`
 - **MCP Protocol** - Native ChatGPT integration
+
+---
+
+## Python API
+
+Start dev servers programmatically:
+
+```python
+from fastapps import start_dev_server
+
+# Simple usage
+start_dev_server()
+
+# With configuration
+start_dev_server(
+    port=8080,
+    auto_reload=True,
+    ngrok_token="your_token"
+)
+
+# Get server info without starting
+from fastapps import get_server_info
+info = get_server_info(port=8001)
+print(f"Public URL: {info.public_url}")
+```
+
+See [Python API Documentation](./docs/PYTHON_API.md) for more details.
 
 ---
 

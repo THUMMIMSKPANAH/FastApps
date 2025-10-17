@@ -4,6 +4,7 @@ import click
 from rich.console import Console
 from .commands.create import create_widget
 from .commands.init import init_project
+from .commands.dev import start_dev_server, reset_ngrok_token
 
 console = Console()
 
@@ -76,12 +77,22 @@ def create(widget_name, auth, public, optional_auth, scopes):
     create_widget(widget_name, auth_type=auth_type, scopes=scope_list)
 
 @cli.command()
-def dev():
-    """Start development server with hot reload."""
-    console.print("[green]Starting development server...[/green]")
-    console.print("[yellow]This feature will be implemented in Phase 4[/yellow]")
-    console.print("\n[cyan]For now, use:[/cyan]")
-    console.print("  python server/main.py")
+@click.option("--port", default=8001, help="Port to run the server on (default: 8001)")
+@click.option("--host", default="0.0.0.0", help="Host to bind the server to (default: 0.0.0.0)")
+def dev(port, host):
+    """Start development server with ngrok tunnel.
+
+    This command will:
+    1. Prompt for ngrok auth token (first time only)
+    2. Start a public ngrok tunnel
+    3. Launch the FastApps development server
+    4. Display public and local URLs
+
+    Example:
+        fastapps dev
+        fastapps dev --port 8080
+    """
+    start_dev_server(port=port, host=host)
 
 @cli.command()
 def build():
@@ -128,6 +139,18 @@ def auth_info():
     console.print("  Server auth: docs/08-AUTH.md")
     console.print("  Per-widget auth: docs/09-PER-WIDGET-AUTH.md")
     console.print()
+
+@cli.command()
+def reset_token():
+    """Reset stored ngrok auth token.
+
+    Use this command if you want to change your ngrok auth token.
+    The next time you run 'fastapps dev', you'll be prompted for a new token.
+
+    Example:
+        fastapps reset-token
+    """
+    reset_ngrok_token()
 
 if __name__ == "__main__":
     cli()

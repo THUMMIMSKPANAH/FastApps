@@ -152,15 +152,29 @@ my-chatgpt-widgets/
         └── index.jsx            # ← Generated with template
 ```
 
-## Build and Run
+## Build Widgets
 
 ```bash
-# Build widgets
 npm run build
+```
 
-# Start server
+## Run Development Server
+
+**Recommended: Using `fastapps dev`**
+
+```bash
+fastapps dev
+```
+
+This starts your server with automatic ngrok tunnel for public access. Perfect for ChatGPT testing!
+
+**Alternative: Manual Start**
+
+```bash
 python server/main.py
 ```
+
+Server runs on `http://localhost:8001`. For public access, run `ngrok http 8001` in another terminal.
 
 Done!
 
