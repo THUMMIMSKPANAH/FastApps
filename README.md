@@ -13,7 +13,9 @@
 ---
 
 📚 **Documentation**: [https://www.fastapps.org/](https://www.fastapps.org/)
+
 👥 **Community**: [Join Our Discord](https://discord.gg/5cEy3Jqek3)
+
 ---
 
 ## Quick Start
