@@ -405,6 +405,78 @@ function Counter() {
 }
 ```
 
+### Development Server with ngrok (pyngrok)
+
+#### Programmatic Start
+```python
+from fastapps import start_dev_server
+
+# Start with automatic ngrok tunnel
+start_dev_server(port=8001)
+
+# With custom configuration
+start_dev_server(
+    port=8080,
+    ngrok_token="your_token",
+    auto_reload=True
+)
+```
+
+#### Get Server URLs for Testing
+```python
+from fastapps import get_server_info
+
+# Create tunnel and get URLs
+info = get_server_info(port=8001)
+print(f"Local: {info.local_url}")
+print(f"Public: {info.public_url}")
+
+# Use in integration tests
+import requests
+response = requests.get(f"{info.public_url}/health")
+```
+
+#### Environment Variable Token
+```python
+import os
+from fastapps import start_dev_server
+
+# Get token from environment (great for CI/CD)
+token = os.getenv("NGROK_TOKEN")
+start_dev_server(ngrok_token=token)
+```
+
+#### Error Handling
+```python
+from fastapps import start_dev_server, DevServerError, NgrokError
+
+try:
+    start_dev_server(port=8001)
+except NgrokError as e:
+    print(f"ngrok tunnel failed: {e}")
+except DevServerError as e:
+    print(f"Server error: {e}")
+```
+
+#### Automation Script
+```python
+#!/usr/bin/env python3
+from fastapps import start_dev_server
+import sys
+
+if __name__ == "__main__":
+    try:
+        print("🚀 Starting FastApps with ngrok...")
+        start_dev_server(
+            port=8001,
+            auto_reload=True,
+            log_level="info"
+        )
+    except KeyboardInterrupt:
+        print("\n✅ Server stopped")
+        sys.exit(0)
+```
+
 ---
 
 ## Troubleshooting
