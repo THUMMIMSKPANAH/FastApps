@@ -15,13 +15,21 @@ Example:
             return {"message": "Hello from FastApps!"}
 """
 
-__version__ = "1.0.6"
+__version__ = "1.0.7"
 __author__ = "FastApps Team"
 
 from .core.widget import BaseWidget, ClientContext
 from .core.server import WidgetMCPServer
 from .builder.compiler import WidgetBuilder, WidgetBuildResult
 from .types.schema import Field, ConfigDict
+
+# Auth exports (optional, graceful if not available)
+try:
+    from .auth.verifier import JWTVerifier
+    from .auth import TokenVerifier, AccessToken
+    _auth_exports = ["JWTVerifier", "TokenVerifier", "AccessToken"]
+except ImportError:
+    _auth_exports = []
 
 __all__ = [
     "BaseWidget",
@@ -31,5 +39,5 @@ __all__ = [
     "WidgetBuildResult",
     "Field",
     "ConfigDict",
-]
+] + _auth_exports
 

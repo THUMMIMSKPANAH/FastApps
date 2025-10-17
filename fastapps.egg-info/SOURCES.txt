@@ -4,6 +4,8 @@ README.md
 pyproject.toml
 setup.py
 ./fastapps/__init__.py
+./fastapps/auth/__init__.py
+./fastapps/auth/verifier.py
 ./fastapps/builder/__init__.py
 ./fastapps/builder/compiler.py
 ./fastapps/cli/__init__.py

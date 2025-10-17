@@ -3,20 +3,108 @@ from fastmcp import FastMCP
 from mcp import types
 from .widget import BaseWidget, ClientContext
 
+# Auth imports (optional, graceful degradation if not available)
+try:
+    from mcp.server.auth.settings import AuthSettings
+    from mcp.server.auth.provider import TokenVerifier
+    MCP_AUTH_AVAILABLE = True
+except ImportError:
+    MCP_AUTH_AVAILABLE = False
+    AuthSettings = None
+    TokenVerifier = None
+
 
 class WidgetMCPServer:
     """
     FastMCP-based MCP server with widget metadata support.
     
     Handles tool registration, resource templates, and widget execution.
+    Supports optional OAuth 2.1 authentication.
     """
     
-    def __init__(self, name: str, widgets: List[BaseWidget]):
+    def __init__(
+        self,
+        name: str,
+        widgets: List[BaseWidget],
+        # OAuth 2.1 authentication parameters (optional)
+        auth_issuer_url: Optional[str] = None,
+        auth_resource_server_url: Optional[str] = None,
+        auth_required_scopes: Optional[List[str]] = None,
+        auth_audience: Optional[str] = None,
+        token_verifier: Optional['TokenVerifier'] = None,
+    ):
+        """
+        Initialize MCP server with optional OAuth authentication.
+        
+        Args:
+            name: Server name
+            widgets: List of widget instances
+            auth_issuer_url: OAuth issuer URL (e.g., https://tenant.auth0.com)
+            auth_resource_server_url: Your MCP server URL (e.g., https://example.com/mcp)
+            auth_required_scopes: Required OAuth scopes (e.g., ["user", "read:data"])
+            auth_audience: JWT audience claim (optional)
+            token_verifier: Custom TokenVerifier (optional, uses JWTVerifier if not provided)
+        
+        Example (Simple):
+            server = WidgetMCPServer(
+                name="my-widgets",
+                widgets=tools,
+                auth_issuer_url="https://tenant.auth0.com",
+                auth_resource_server_url="https://example.com/mcp",
+                auth_required_scopes=["user"],
+            )
+        
+        Example (Custom Verifier):
+            server = WidgetMCPServer(
+                name="my-widgets",
+                widgets=tools,
+                auth_issuer_url="https://tenant.auth0.com",
+                auth_resource_server_url="https://example.com/mcp",
+                token_verifier=MyCustomVerifier(),
+            )
+        """
         self.widgets_by_id = {w.identifier: w for w in widgets}
         self.widgets_by_uri = {w.template_uri: w for w in widgets}
         self.client_locale: Optional[str] = None
         
-        self.mcp = FastMCP(name=name)
+        # Configure authentication if provided
+        auth_settings = None
+        verifier = token_verifier
+        
+        if auth_issuer_url and auth_resource_server_url:
+            if not MCP_AUTH_AVAILABLE:
+                raise ImportError(
+                    "FastMCP auth support not available. "
+                    "Please upgrade fastmcp: pip install --upgrade fastmcp"
+                )
+            
+            # Use built-in JWTVerifier if no custom verifier provided
+            if verifier is None:
+                from ..auth.verifier import JWTVerifier
+                verifier = JWTVerifier(
+                    issuer_url=auth_issuer_url,
+                    audience=auth_audience,
+                    required_scopes=auth_required_scopes or []
+                )
+            
+            # Create AuthSettings for FastMCP
+            auth_settings = AuthSettings(
+                issuer_url=auth_issuer_url,
+                resource_server_url=auth_resource_server_url,
+                required_scopes=auth_required_scopes or [],
+            )
+        
+        # Initialize FastMCP with or without auth
+        if auth_settings:
+            self.mcp = FastMCP(
+                name=name,
+                stateless_http=True,
+                token_verifier=verifier,
+                auth=auth_settings,
+            )
+        else:
+            self.mcp = FastMCP(name=name)
+        
         self._register_handlers()
     
     def _register_handlers(self):

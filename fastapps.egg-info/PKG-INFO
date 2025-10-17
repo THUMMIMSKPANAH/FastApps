@@ -1,6 +1,6 @@
-Metadata-Version: 2.1
+Metadata-Version: 2.4
 Name: fastapps
-Version: 1.0.6
+Version: 1.0.7
 Summary: A zero-boilerplate framework for building interactive ChatGPT widgets
 Home-page: https://github.com/fastapps-framework/fastapps
 Author: FastApps Team
@@ -20,8 +20,24 @@ Classifier: Programming Language :: Python :: 3.11
 Classifier: Programming Language :: Python :: 3.12
 Requires-Python: >=3.11
 Description-Content-Type: text/markdown
-Provides-Extra: dev
 License-File: LICENSE
+Requires-Dist: fastmcp>=0.1.0
+Requires-Dist: pydantic>=2.0.0
+Requires-Dist: uvicorn>=0.20.0
+Requires-Dist: click>=8.0.0
+Requires-Dist: rich>=13.0.0
+Requires-Dist: httpx>=0.28.0
+Requires-Dist: PyJWT>=2.8.0
+Requires-Dist: cryptography>=41.0.0
+Provides-Extra: dev
+Requires-Dist: pytest>=7.0.0; extra == "dev"
+Requires-Dist: pytest-asyncio>=0.21.0; extra == "dev"
+Requires-Dist: black>=23.0.0; extra == "dev"
+Requires-Dist: ruff>=0.1.0; extra == "dev"
+Dynamic: author
+Dynamic: home-page
+Dynamic: license-file
+Dynamic: requires-python
 
 # FastApps Framework
 

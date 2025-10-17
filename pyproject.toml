@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "fastapps"
-version = "1.0.6"
+version = "1.0.7"
 description = "A zero-boilerplate framework for building interactive ChatGPT widgets"
 readme = "README.md"
 requires-python = ">=3.11"
@@ -29,6 +29,9 @@ dependencies = [
     "uvicorn>=0.20.0",
     "click>=8.0.0",
     "rich>=13.0.0",
+    "httpx>=0.28.0",
+    "PyJWT>=2.8.0",
+    "cryptography>=41.0.0",
 ]
 
 [project.optional-dependencies]

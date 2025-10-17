@@ -50,6 +50,20 @@ tools = auto_load_tools(build_results)
 
 # Create MCP server
 server = WidgetMCPServer(name="my-widgets", widgets=tools)
+
+# Optional: Enable OAuth 2.1 authentication
+# Uncomment and configure to protect your widgets with OAuth:
+#
+# server = WidgetMCPServer(
+#     name="my-widgets",
+#     widgets=tools,
+#     auth_issuer_url="https://your-tenant.us.auth0.com",
+#     auth_resource_server_url="https://yourdomain.com/mcp",
+#     auth_required_scopes=["user"],
+# )
+#
+# See docs: https://fastapps.dev/docs/auth
+
 app = server.get_app()
 
 if __name__ == "__main__":
