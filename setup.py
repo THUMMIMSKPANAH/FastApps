@@ -32,7 +32,7 @@ setup(
         "httpx>=0.28.0",
         "PyJWT>=2.8.0",
         "cryptography>=41.0.0",
-        "pyngrok>=7.0.0",
+        "pyngrok>=7.4.0",
     ],
     entry_points={
         "console_scripts": [
