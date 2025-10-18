@@ -10,7 +10,7 @@ readme = "README.md"
 requires-python = ">=3.11"
 license = {text = "MIT"}
 authors = [
-    {name = "FastApps Team", email = "hello@fastapps.dev"}
+    {name = "FastApps Team", email = "david@dooi.ai"}
 ]
 keywords = ["chatgpt", "widgets", "mcp", "framework", "react"]
 classifiers = [
@@ -48,8 +48,8 @@ dev = [
 fastapps = "fastapps.cli.main:cli"
 
 [project.urls]
-Homepage = "https://fastapps.dev"
-Documentation = "https://fastapps.dev/docs"
+Homepage = "https://fastapps.org"
+Documentation = "https://fastapps.org/docs"
 Repository = "https://github.com/fastapps-framework/fastapps"
 "Bug Reports" = "https://github.com/fastapps-framework/fastapps/issues"
 

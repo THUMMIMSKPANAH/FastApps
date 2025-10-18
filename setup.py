@@ -7,7 +7,7 @@ setup(
     name="fastapps",
     version="1.0.9",
     author="FastApps Team",
-    author_email="hello@fastapps.dev",
+    author_email="david@dooi.ai",
     description="A zero-boilerplate framework for building interactive ChatGPT widgets",
     long_description=long_description,
     long_description_content_type="text/markdown",
@@ -43,6 +43,6 @@ setup(
     project_urls={
         "Bug Reports": "https://github.com/fastapps-framework/fastapps/issues",
         "Source": "https://github.com/fastapps-framework/fastapps",
-        "Documentation": "https://fastapps.dev/docs",
+        "Documentation": "https://fastapps.org/docs",
     },
 )
