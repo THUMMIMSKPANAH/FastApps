@@ -49,7 +49,7 @@ fastapps = "fastapps.cli.main:cli"
 
 [project.urls]
 Homepage = "https://www.fastapps.org"
-Documentation = "https://www.fastapps.org/docs"
+Documentation = "https://www.fastapps.org/quickstart"
 Repository = "https://github.com/DooiLabs/FastApps"
 "Bug Reports" = "https://github.com/DooiLabs/FastApps/issues"
 

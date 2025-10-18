@@ -43,6 +43,6 @@ setup(
     project_urls={
         "Bug Reports": "https://github.com/DooiLabs/FastApps/issues",
         "Source": "https://github.com/DooiLabs/FastApps",
-        "Documentation": "https://www.fastapps.org/docs",
+        "Documentation": "https://www.fastapps.org/quickstart",
     },
 )
