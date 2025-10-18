@@ -11,7 +11,7 @@ setup(
     description="A zero-boilerplate framework for building interactive ChatGPT widgets",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/fastapps-framework/fastapps",
+    url="https://github.com/DooiLabs/FastApps",
     packages=find_packages(),
     classifiers=[
         "Development Status :: 4 - Beta",
@@ -41,8 +41,8 @@ setup(
     },
     keywords="chatgpt, widgets, mcp, framework, react",
     project_urls={
-        "Bug Reports": "https://github.com/fastapps-framework/fastapps/issues",
-        "Source": "https://github.com/fastapps-framework/fastapps",
+        "Bug Reports": "https://github.com/DooiLabs/FastApps/issues",
+        "Source": "https://github.com/DooiLabs/FastApps",
         "Documentation": "https://fastapps.org/docs",
     },
 )

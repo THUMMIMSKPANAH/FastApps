@@ -50,8 +50,8 @@ fastapps = "fastapps.cli.main:cli"
 [project.urls]
 Homepage = "https://fastapps.org"
 Documentation = "https://fastapps.org/docs"
-Repository = "https://github.com/fastapps-framework/fastapps"
-"Bug Reports" = "https://github.com/fastapps-framework/fastapps/issues"
+Repository = "https://github.com/DooiLabs/FastApps"
+"Bug Reports" = "https://github.com/DooiLabs/FastApps/issues"
 
 [tool.setuptools]
 package-dir = {"" = "."}
