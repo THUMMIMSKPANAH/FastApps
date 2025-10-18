@@ -19,7 +19,4 @@ if __name__ == "__main__":
 
     print("Starting server with provided ngrok token...")
 
-    start_dev_server(
-        port=8001,
-        ngrok_token=ngrok_token
-    )
+    start_dev_server(port=8001, ngrok_token=ngrok_token)

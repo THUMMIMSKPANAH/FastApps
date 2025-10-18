@@ -14,15 +14,15 @@ if __name__ == "__main__":
 
         info = get_server_info(port=8001)
 
-        print("\n" + "="*50)
+        print("\n" + "=" * 50)
         print("Server Information")
-        print("="*50)
+        print("=" * 50)
         print(f"Local URL:     {info.local_url}")
         print(f"Public URL:    {info.public_url}")
         print(f"MCP Endpoint:  {info.mcp_endpoint}")
         print(f"Port:          {info.port}")
         print(f"Host:          {info.host}")
-        print("="*50)
+        print("=" * 50)
 
         # You can also convert to dict
         print("\nAs dictionary:")
@@ -34,6 +34,7 @@ if __name__ == "__main__":
         # Keep tunnel alive
         print("\nPress Ctrl+C to close tunnel...")
         import time
+
         while True:
             time.sleep(1)
 

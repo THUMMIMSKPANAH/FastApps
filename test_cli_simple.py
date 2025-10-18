@@ -18,12 +18,12 @@ create_code = create_file.read_text()
 
 if "def generate_tool_code(" in create_code:
     print("✓ generate_tool_code function defined")
-    
+
     # Check function signature
-    sig_match = re.search(r'def generate_tool_code\((.*?)\):', create_code, re.DOTALL)
+    sig_match = re.search(r"def generate_tool_code\((.*?)\):", create_code, re.DOTALL)
     if sig_match:
         sig = sig_match.group(1)
-        params = ['class_name', 'identifier', 'title', 'auth_type', 'scopes']
+        params = ["class_name", "identifier", "title", "auth_type", "scopes"]
         missing = [p for p in params if p not in sig]
         if not missing:
             print(f"✓ Function signature includes all parameters: {', '.join(params)}")
@@ -59,9 +59,9 @@ for check_str, description in main_checks:
 print("\n[TEST 3] Checking decorator generation logic...")
 
 decorator_patterns = {
-    "required": '@auth_required(scopes=',
-    "none": '@no_auth',
-    "optional": '@optional_auth(scopes=',
+    "required": "@auth_required(scopes=",
+    "none": "@no_auth",
+    "optional": "@optional_auth(scopes=",
 }
 
 for auth_type, pattern in decorator_patterns.items():
@@ -136,7 +136,10 @@ if "def generate_tool_code" in create_code:
 # Test 8: Check create_widget signature
 print("\n[TEST 8] Checking create_widget signature...")
 
-if "def create_widget(name: str, auth_type: str = None, scopes: list = None):" in create_code:
+if (
+    "def create_widget(name: str, auth_type: str = None, scopes: list = None):"
+    in create_code
+):
     print("✓ create_widget accepts auth_type and scopes parameters")
 else:
     print("✗ create_widget signature not updated")
@@ -146,7 +149,7 @@ print("\n[TEST 9] Checking tool_content generation...")
 
 if "tool_content = generate_tool_code(" in create_code:
     print("✓ tool_content uses generate_tool_code function")
-    
+
     # Check parameters are passed
     params = ["class_name=", "identifier=", "title=", "auth_type=", "scopes="]
     for param in params:
@@ -161,7 +164,8 @@ else:
 print("\n" + "=" * 70)
 print("Test Summary")
 print("=" * 70)
-print("""
+print(
+    """
 ✓ generate_tool_code function defined with correct signature
 ✓ CLI main.py updated with auth flags
 ✓ auth_info command added
@@ -184,6 +188,6 @@ To test with real project:
   1. Install dependencies: pip install click rich pydantic
   2. Run: fastapps create test --auth --scopes user
   3. Check generated files in server/tools/ and widgets/
-""")
+"""
+)
 print("=" * 70)
-

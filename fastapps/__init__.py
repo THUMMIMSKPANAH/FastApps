@@ -6,11 +6,11 @@ A zero-boilerplate framework for building interactive ChatGPT widgets.
 Example:
     from fastapps import BaseWidget, Field
     from typing import Dict, Any
-    
+
     class MyWidget(BaseWidget):
         identifier = "my_widget"
         title = "My Widget"
-        
+
         async def execute(self, input_data) -> Dict[str, Any]:
             return {"message": "Hello from FastApps!"}
 """
@@ -39,6 +39,7 @@ try:
     from .auth.verifier import JWTVerifier
     from .auth import TokenVerifier, AccessToken
     from .auth.decorators import auth_required, no_auth, optional_auth
+
     _auth_exports = [
         "JWTVerifier",
         "TokenVerifier",
@@ -71,4 +72,3 @@ __all__ = [
     "ProjectNotFoundError",
     "NgrokError",
 ] + _auth_exports
-

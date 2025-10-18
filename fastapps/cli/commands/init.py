@@ -71,36 +71,40 @@ if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=8001)
 '''
 
-REQUIREMENTS_TXT = '''fastapps>=1.0.1
+REQUIREMENTS_TXT = """fastapps>=1.0.1
 httpx>=0.28.0
-'''
+"""
+
 
 def get_package_json(project_name: str) -> str:
     """Generate package.json content."""
     import json
-    return json.dumps({
-        "name": project_name,
-        "version": "1.0.0",
-        "type": "module",
-        "description": "Floydr ChatGPT widgets project",
-        "scripts": {
-            "build": "npx tsx node_modules/fastapps/build-all.mts"
-        },
-        "dependencies": {
-            "fastapps": "^1.0.0",
-            "react": "^18.3.1",
-            "react-dom": "^18.3.1"
-        },
-        "devDependencies": {
-            "@vitejs/plugin-react": "^4.3.4",
-            "fast-glob": "^3.3.2",
-            "tsx": "^4.19.2",
-            "typescript": "^5.7.2",
-            "vite": "^6.0.5"
-        }
-    }, indent=2)
 
-PROJECT_README = '''# {project_name}
+    return json.dumps(
+        {
+            "name": project_name,
+            "version": "1.0.0",
+            "type": "module",
+            "description": "Floydr ChatGPT widgets project",
+            "scripts": {"build": "npx tsx node_modules/fastapps/build-all.mts"},
+            "dependencies": {
+                "fastapps": "^1.0.0",
+                "react": "^18.3.1",
+                "react-dom": "^18.3.1",
+            },
+            "devDependencies": {
+                "@vitejs/plugin-react": "^4.3.4",
+                "fast-glob": "^3.3.2",
+                "tsx": "^4.19.2",
+                "typescript": "^5.7.2",
+                "vite": "^6.0.5",
+            },
+        },
+        indent=2,
+    )
+
+
+PROJECT_README = """# {project_name}
 
 ChatGPT widgets built with [FastApps](https://pypi.org/project/fastapps/).
 
@@ -174,9 +178,9 @@ python server/main.py
 ## License
 
 MIT
-'''
+"""
 
-GITIGNORE = '''# Python
+GITIGNORE = """# Python
 __pycache__/
 *.py[cod]
 *$py.class
@@ -218,56 +222,60 @@ build-all.mts
 .idea/
 *.swp
 .DS_Store
-'''
+"""
 
 
 def init_project(project_name: str):
     """Initialize a new Floydr project."""
-    
+
     project_path = Path(project_name)
-    
+
     # Check if directory exists
     if project_path.exists():
         console.print(f"[red][ERROR] Directory '{project_name}' already exists[/red]")
         return False
-    
-    console.print(f"[green]Creating FastApps project: [bold]{project_name}[/bold][/green]\n")
-    
+
+    console.print(
+        f"[green]Creating FastApps project: [bold]{project_name}[/bold][/green]\n"
+    )
+
     try:
         # Create directory structure
         console.print("Creating directory structure...")
         (project_path / "server" / "tools").mkdir(parents=True)
         (project_path / "server" / "api").mkdir(parents=True)
         (project_path / "widgets").mkdir(parents=True)
-        
+
         # Create empty __init__.py files
         console.print("Creating Python modules...")
         (project_path / "server" / "__init__.py").write_text("")
         (project_path / "server" / "tools" / "__init__.py").write_text("")
         (project_path / "server" / "api" / "__init__.py").write_text("")
-        
+
         # Create server/main.py
         console.print("Creating server...")
         (project_path / "server" / "main.py").write_text(SERVER_MAIN_TEMPLATE)
-        
+
         # Create requirements.txt
         console.print("Creating requirements.txt...")
         (project_path / "requirements.txt").write_text(REQUIREMENTS_TXT)
-        
+
         # Create package.json
         console.print("Creating package.json...")
         (project_path / "package.json").write_text(get_package_json(project_name))
-        
+
         # Create README.md
         console.print("Creating README.md...")
         readme_content = PROJECT_README.format(project_name=project_name)
         (project_path / "README.md").write_text(readme_content)
-        
+
         # Create .gitignore
         console.print("Creating .gitignore...")
         (project_path / ".gitignore").write_text(GITIGNORE)
-        
-        console.print(f"\n[green][OK] Project '{project_name}' created successfully![/green]")
+
+        console.print(
+            f"\n[green][OK] Project '{project_name}' created successfully![/green]"
+        )
         console.print(f"\n[cyan]Next steps:[/cyan]")
         console.print(f"  [bold]cd {project_name}[/bold]")
         console.print(f"  [bold]pip install -r requirements.txt[/bold]")
@@ -276,10 +284,9 @@ def init_project(project_name: str):
         console.print(f"  [bold]npm run build[/bold]")
         console.print(f"  [bold]python server/main.py[/bold]")
         console.print(f"\n[green]Happy building![/green]\n")
-        
+
         return True
-        
+
     except Exception as e:
         console.print(f"[red][ERROR] Error creating project: {e}[/red]")
         return False
-

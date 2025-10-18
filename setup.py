@@ -46,4 +46,3 @@ setup(
         "Documentation": "https://fastapps.dev/docs",
     },
 )
-

@@ -4,7 +4,9 @@ CLI_UPDATE_SUMMARY.md
 LICENSE
 MANIFEST.in
 OAUTH_TESTING_GUIDE.md
+PYPI_RELEASE_v1.0.8.md
 README.md
+RELEASE_SUMMARY.md
 TESTING_SUMMARY.md
 create_auth_test.sh
 pyproject.toml
@@ -21,12 +23,15 @@ test_cli_simple.py
 ./fastapps/cli/main.py
 ./fastapps/cli/commands/__init__.py
 ./fastapps/cli/commands/create.py
+./fastapps/cli/commands/dev.py
 ./fastapps/cli/commands/init.py
 ./fastapps/core/__init__.py
 ./fastapps/core/server.py
 ./fastapps/core/widget.py
 ./fastapps/types/__init__.py
 ./fastapps/types/schema.py
+dist/fastapps-1.0.8-py3-none-any.whl
+dist/fastapps-1.0.8.tar.gz
 docs/01-INTRO.md
 docs/02-WIDGETS.md
 docs/03-TOOLS.md

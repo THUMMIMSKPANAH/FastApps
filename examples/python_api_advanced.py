@@ -14,7 +14,7 @@ if __name__ == "__main__":
         port=8080,
         host="127.0.0.1",
         log_level="debug",
-        auto_reload=True  # Enable hot reload
+        auto_reload=True,  # Enable hot reload
     )
 
     # Option 2: Using config object (alternative, not run in this example)
