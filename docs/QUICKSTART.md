@@ -151,21 +151,51 @@ This creates:
 - `server/tools/hello_tool.py`
 - `widgets/hello/index.jsx`
 
-## Step 6: Build and Run
+## Step 6: Build Widgets
 
 ```bash
-# Build widgets
 npm run build
+```
 
-# Start server
+## Step 7: Start Development Server
+
+**Recommended: Using `fastapps dev`**
+
+```bash
+fastapps dev
+```
+
+This will:
+1. Prompt for your ngrok token (first time only)
+2. Start your FastApps server
+3. Create a public ngrok tunnel
+4. Display both local and public URLs
+
+Output:
+```
+🚀 FastApps Development Server
+┌─────────┬─────────────────────────┐
+│ Local   │ http://0.0.0.0:8001    │
+│ Public  │ https://xyz.ngrok.io   │
+└─────────┴─────────────────────────┘
+
+📡 MCP Server Endpoint: https://xyz.ngrok.io
+```
+
+**Alternative: Manual Start**
+
+```bash
 python server/main.py
 ```
 
-## Step 7: Test It!
+Your server runs on `http://localhost:8001`. For ChatGPT testing, you'll need to expose it with ngrok manually.
 
-Your server is now running on `http://localhost:8001`
+## Step 8: Test in ChatGPT!
 
-The widget is automatically registered and ready to use in ChatGPT!
+1. Copy your public ngrok URL
+2. Go to ChatGPT Settings > Connectors
+3. Add new connector with your ngrok URL
+4. Your widget is ready to use!
 
 ## Next Steps
 

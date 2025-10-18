@@ -159,10 +159,10 @@ fastapps create mywidget  # Generate boilerplate (2 files)
 # Edit server/tools/mywidget_tool.py (your logic)
 # Edit widgets/mywidget/index.jsx (your UI)
 npm run build             # Build assets
-python server/main.py     # Run MCP server
+fastapps dev              # Run server with public ngrok tunnel
 ```
 
-That's it! No configuration files, no manual wiring.
+That's it! No configuration files, no manual wiring, no separate ngrok setup.
 
 ### Modern Stack
 - **Backend**: Python + FastMCP (MCP protocol wrapper)
@@ -294,7 +294,7 @@ FastApps hides MCP complexity but doesn't limit what you can build:
 Learn once, build many:
 - **1 base class**: `BaseWidget` (handles all MCP wiring)
 - **3 React hooks**: `useWidgetProps`, `useWidgetState`, `useOpenAiGlobal`
-- **2 CLI commands**: `init` (scaffold project), `create` (add widget)
+- **3 CLI commands**: `init` (scaffold project), `create` (add widget), `dev` (run with ngrok)
 
 ### Convention Over Configuration
 Zero config files:
