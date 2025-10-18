@@ -5,7 +5,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setup(
     name="fastapps",
-    version="1.1.0",
+    version="1.1.1",
     author="FastApps Team",
     author_email="david@dooi.ai",
     description="A zero-boilerplate framework for building interactive ChatGPT widgets",
@@ -43,6 +43,6 @@ setup(
     project_urls={
         "Bug Reports": "https://github.com/DooiLabs/FastApps/issues",
         "Source": "https://github.com/DooiLabs/FastApps",
-        "Documentation": "https://fastapps.org/docs",
+        "Documentation": "https://www.fastapps.org/quickstart",
     },
 )
