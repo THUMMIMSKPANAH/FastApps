@@ -4,7 +4,7 @@ Advanced Python API Usage for FastApps Dev Server
 This example shows how to configure the dev server with custom settings.
 """
 
-from fastapps import start_dev_server, DevServerConfig
+from fastapps import start_dev_server
 
 if __name__ == "__main__":
     # Option 1: Using keyword arguments

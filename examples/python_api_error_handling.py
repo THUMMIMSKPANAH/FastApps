@@ -4,7 +4,12 @@ Error Handling with Python API
 This example shows how to handle errors when using the dev server API.
 """
 
-from fastapps import start_dev_server, DevServerError, ProjectNotFoundError, NgrokError
+from fastapps import (
+    DevServerError,
+    NgrokError,
+    ProjectNotFoundError,
+    start_dev_server,
+)
 
 if __name__ == "__main__":
     try:
