@@ -29,9 +29,11 @@ Requires-Dist: rich>=13.0.0
 Requires-Dist: httpx>=0.28.0
 Requires-Dist: PyJWT>=2.8.0
 Requires-Dist: cryptography>=41.0.0
+Requires-Dist: pyngrok>=7.4.0
 Provides-Extra: dev
 Requires-Dist: pytest>=7.0.0; extra == "dev"
 Requires-Dist: pytest-asyncio>=0.21.0; extra == "dev"
+Requires-Dist: pytest-cov>=4.0.0; extra == "dev"
 Requires-Dist: black>=23.0.0; extra == "dev"
 Requires-Dist: ruff>=0.1.0; extra == "dev"
 Dynamic: author
@@ -49,6 +51,8 @@ Dynamic: requires-python
   <a href="https://pypi.org/project/fastapps/"><img src="https://img.shields.io/pypi/v/fastapps.svg" alt="PyPI"></a>
   <a href="https://pypi.org/project/fastapps/"><img src="https://img.shields.io/pypi/pyversions/fastapps.svg" alt="Python"></a>
   <a href="https://github.com/fastapps-framework/fastapps/blob/main/LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="License"></a>
+  <a href="https://github.com/fastapps-framework/fastapps/actions/workflows/ci.yml"><img src="https://github.com/fastapps-framework/fastapps/actions/workflows/ci.yml/badge.svg" alt="CI"></a>
+  <a href="https://github.com/psf/black"><img src="https://img.shields.io/badge/code%20style-black-000000.svg" alt="Code style: black"></a>
 </p>
 
 ---
@@ -181,39 +185,48 @@ export default function MyWidget() {
 
 **That's it! These are the only files you need to write.**
 
-### 6. Build and Run
+### 6. Build Widgets
 
 ```bash
-# Build
 npm run build
+```
 
+### 7. Start Development Server with Public Access
+
+**Option A: Using `fastapps dev` (Recommended)**
+
+The easiest way to run and expose your server:
+
+```bash
+fastapps dev
+```
+
+On first run, you'll be prompted for your ngrok auth token:
+- Get it free at: https://dashboard.ngrok.com/get-started/your-authtoken
+- Token is saved and won't be asked again
+
+You'll see:
+```
+🚀 FastApps Development Server
+┌─────────┬─────────────────────────┐
+│ Local   │ http://0.0.0.0:8001    │
+│ Public  │ https://xyz.ngrok.io   │
+└─────────┴─────────────────────────┘
+
+📡 MCP Server Endpoint: https://xyz.ngrok.io
+```
+
+Use the public URL in ChatGPT Settings > Connectors.
+
+**Option B: Manual Setup**
+
+```bash
 # Start server
 python server/main.py
-```
 
-Your widget is now live at `http://localhost:8001`
-
-### 7. Expose with ngrok (for ChatGPT Testing)
-
-To test your widget in ChatGPT, you need to expose your local server to the internet using ngrok:
-
-```bash
-# Install ngrok (if not already installed)
-# macOS: brew install ngrok
-# Windows: choco install ngrok  (or scoop install ngrok)
-# Or download from: https://ngrok.com/download
-
-# In a new terminal, expose your local server
+# In a separate terminal, create tunnel
 ngrok http 8001
 ```
-
-You will get a public URL that you can use to add your local server to ChatGPT in Settings > Connectors.
-
-For example: https://<custom_endpoint>.ngrok-free.app/mcp
-
-**Important**: Keep both terminals running:
-- Terminal 1: `python server/main.py` (your FastApps server)
-- Terminal 2: `ngrok http 8001` (public tunnel)
 
 ---
 
@@ -285,19 +298,37 @@ function MyWidget() {
 
 - **[Quick Start Guide](./docs/QUICKSTART.md)** - Detailed setup instructions
 - **[Tutorial](./docs/TUTORIAL.md)** - Step-by-step widget examples
+- **[Python API](./docs/PYTHON_API.md)** - Programmatic dev server control
 - **[API Reference](./docs/API.md)** - Complete API documentation
-- **[Examples](../examples/)** - Real-world widget examples
+- **[Examples](./examples/)** - Real-world code examples
 
 ---
 
 ## CLI Commands
 
 ```bash
-# Create new widget (auto-generates both files)
-python -m fastapps.cli.main create mywidget
+# Initialize new project
+fastapps init my-app
 
-# Or if installed globally:
+# Create new widget (auto-generates both files)
 fastapps create mywidget
+
+# Start development server with ngrok tunnel
+fastapps dev
+
+# Start on custom port
+fastapps dev --port 8080
+
+# Reset ngrok auth token
+fastapps reset-token
+
+# View authentication guide
+fastapps auth-info
+```
+
+**Tip**: If `fastapps` command is not found, use:
+```bash
+python -m fastapps.cli.main <command>
 ```
 
 ---
@@ -339,8 +370,37 @@ my-app/
 - **Auto-Discovery** - Widgets automatically registered
 - **Type-Safe** - Pydantic for Python, TypeScript for React
 - **CLI Tools** - Scaffold widgets instantly
+- **Python API** - Programmatic server control
+- **ngrok Integration** - Public URLs with one command
 - **React Hooks** - Modern React patterns via `fastapps`
 - **MCP Protocol** - Native ChatGPT integration
+
+---
+
+## Python API
+
+Start dev servers programmatically:
+
+```python
+from fastapps import start_dev_server
+
+# Simple usage
+start_dev_server()
+
+# With configuration
+start_dev_server(
+    port=8080,
+    auto_reload=True,
+    ngrok_token="your_token"
+)
+
+# Get server info without starting
+from fastapps import get_server_info
+info = get_server_info(port=8001)
+print(f"Public URL: {info.public_url}")
+```
+
+See [Python API Documentation](./docs/PYTHON_API.md) for more details.
 
 ---
 
@@ -390,6 +450,196 @@ function Counter() {
 }
 ```
 
+### Development Server with ngrok (pyngrok)
+
+**Real-World Use Cases:**
+
+| Use Case | Scenario | Benefits |
+|----------|----------|----------|
+| 🤖 **ChatGPT Development** | Develop ChatGPT custom actions locally | Test widgets in ChatGPT without deployment |
+| 🪝 **Webhook Testing** | Test webhooks from Stripe, GitHub, Slack | Get real webhook events on localhost |
+| 👥 **Remote Collaboration** | Share your local dev server with team | Instant demos without pushing code |
+| 📱 **Mobile Testing** | Test mobile apps against local backend | Access localhost from phone/tablet |
+| 🔌 **API Integration** | Third-party APIs need public callback URLs | Receive OAuth callbacks locally |
+| 🏢 **Client Demos** | Show work-in-progress to clients | Professional public URL instantly |
+| 🎓 **Workshops/Teaching** | Students access instructor's local server | Share examples in real-time |
+| 🌐 **Cross-Browser Testing** | Test on BrowserStack, Sauce Labs | Cloud browsers access your localhost |
+| 🔄 **CI/CD Preview** | Preview branches before deployment | Test PRs with temporary URLs |
+| 🛠️ **IoT Development** | IoT devices callback to local server | Hardware talks to dev environment |
+
+#### Programmatic Start
+```python
+from fastapps import start_dev_server
+
+# Start with automatic ngrok tunnel
+start_dev_server(port=8001)
+
+# With custom configuration
+start_dev_server(
+    port=8080,
+    ngrok_token="your_token",
+    auto_reload=True
+)
+```
+
+#### Get Server URLs for Testing
+```python
+from fastapps import get_server_info
+
+# Create tunnel and get URLs
+info = get_server_info(port=8001)
+print(f"Local: {info.local_url}")
+print(f"Public: {info.public_url}")
+
+# Use in integration tests
+import requests
+response = requests.get(f"{info.public_url}/health")
+```
+
+#### Environment Variable Token
+```python
+import os
+from fastapps import start_dev_server
+
+# Get token from environment (great for CI/CD)
+token = os.getenv("NGROK_TOKEN")
+start_dev_server(ngrok_token=token)
+```
+
+#### Error Handling
+```python
+from fastapps import start_dev_server, DevServerError, NgrokError
+
+try:
+    start_dev_server(port=8001)
+except NgrokError as e:
+    print(f"ngrok tunnel failed: {e}")
+except DevServerError as e:
+    print(f"Server error: {e}")
+```
+
+#### Automation Script
+```python
+#!/usr/bin/env python3
+from fastapps import start_dev_server
+import sys
+
+if __name__ == "__main__":
+    try:
+        print("🚀 Starting FastApps with ngrok...")
+        start_dev_server(
+            port=8001,
+            auto_reload=True,
+            log_level="info"
+        )
+    except KeyboardInterrupt:
+        print("\n✅ Server stopped")
+        sys.exit(0)
+```
+
+#### Real-World Example Scenarios
+
+**Scenario 1: ChatGPT Custom Action Development**
+```python
+# Start server for ChatGPT testing
+from fastapps import start_dev_server
+
+# Auto-reload when you edit widgets
+start_dev_server(
+    port=8001,
+    auto_reload=True  # Restart on code changes
+)
+# Copy ngrok URL → ChatGPT Settings → Connectors → Add your URL
+# Test widgets live in ChatGPT while developing!
+```
+
+**Scenario 2: Webhook Testing (Stripe, GitHub, etc.)**
+```python
+from fastapps import get_server_info
+
+# Get public URL for webhook configuration
+info = get_server_info(port=8001)
+print(f"Configure webhook URL: {info.public_url}/webhooks")
+
+# Add this URL to Stripe Dashboard → Webhooks
+# Receive real webhook events on your localhost!
+```
+
+**Scenario 3: Team Demo / Client Preview**
+```python
+from fastapps import start_dev_server
+
+# Share work-in-progress with team
+start_dev_server(port=8001)
+
+# Send the ngrok URL to your team/client
+# They can access your local server instantly!
+# No deployment needed
+```
+
+**Scenario 4: Mobile App Testing**
+```python
+from fastapps import get_server_info
+
+info = get_server_info(port=8001)
+
+# Use public URL in your mobile app config
+print(f"API Base URL for mobile app: {info.public_url}")
+
+# Test your iOS/Android app against local backend
+# No need for deployed staging server
+```
+
+**Scenario 5: OAuth Callback (Third-Party APIs)**
+```python
+from fastapps import start_dev_server
+
+# OAuth providers need public callback URL
+start_dev_server(port=8001)
+
+# Register callback: https://your-ngrok-url.ngrok.io/auth/callback
+# Test OAuth flow locally:
+# 1. User clicks "Login with Google"
+# 2. Google redirects to your ngrok URL
+# 3. Your local server receives the callback
+```
+
+**Scenario 6: CI/CD Integration Testing**
+```python
+# .github/workflows/test.yml
+import os
+from fastapps import start_dev_server
+import threading
+import requests
+
+# Start server in background
+def run_server():
+    start_dev_server(
+        port=8001,
+        ngrok_token=os.getenv("NGROK_TOKEN")
+    )
+
+# Run server in separate thread
+server_thread = threading.Thread(target=run_server, daemon=True)
+server_thread.start()
+
+# Run integration tests against public URL
+# Perfect for testing webhooks, OAuth, etc. in CI
+```
+
+**Scenario 7: IoT/Embedded Device Testing**
+```python
+from fastapps import get_server_info
+
+# IoT devices need to callback to your server
+info = get_server_info(port=8001)
+
+# Configure IoT device with this URL
+print(f"Configure device callback: {info.public_url}/iot/callback")
+
+# Your Raspberry Pi, Arduino, etc. can now reach your localhost!
+```
+
 ---
 
 ## Troubleshooting
@@ -411,7 +661,33 @@ npm install fastapps@latest
 
 ## Contributing
 
-See [CONTRIBUTING.md](../../CONTRIBUTING.md)
+We welcome contributions! Please see our contributing guidelines:
+
+- **[Contributing Guide](./CONTRIBUTING.md)** - How to contribute to FastApps
+- **[Code Style Guide](./CODE_STYLE.md)** - Code formatting and style standards
+- **[GitHub Workflows](/.github/WORKFLOWS.md)** - CI/CD documentation
+
+### Quick Start for Contributors
+
+```bash
+# Fork and clone the repository
+git clone https://github.com/YOUR_USERNAME/fastapps.git
+cd fastapps
+
+# Install development dependencies
+pip install -e ".[dev]"
+
+# Install pre-commit hooks
+pip install pre-commit
+pre-commit install
+
+# Make changes and ensure they pass checks
+black .
+ruff check --fix .
+pytest
+
+# Submit a pull request
+```
 
 ## License
 

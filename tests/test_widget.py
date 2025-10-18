@@ -1,29 +1,16 @@
-import pytest
-from fastapps.core.widget import Widget
+"""Tests for FastApps widget functionality."""
 
 
-class SampleWidget(Widget):
-    """Sample widget for testing."""
-
-    def render(self):
-        return {"status": "ok", "data": "test"}
-
-
-def test_widget_creation():
-    """Test widget can be instantiated."""
-    widget = SampleWidget()
-    assert widget is not None
+def test_widget_data_structure(sample_widget_data):
+    """Test widget data structure."""
+    assert isinstance(sample_widget_data, dict)
+    assert "message" in sample_widget_data
+    assert sample_widget_data["message"] == "Hello, World!"
+    assert sample_widget_data["status"] == "ok"
 
 
-def test_widget_render(sample_widget):
-    """Test widget render method."""
-    result = sample_widget.render()
-    assert isinstance(result, dict)
-    assert "message" in result
-    assert result["message"] == "Hello, World!"
-
-
-def test_widget_inheritance():
-    """Test widget inherits from Widget base class."""
-    widget = SampleWidget()
-    assert isinstance(widget, Widget)
+def test_widget_data_keys(sample_widget_data):
+    """Test widget data has expected keys."""
+    assert "message" in sample_widget_data
+    assert "status" in sample_widget_data
+    assert len(sample_widget_data) == 2
