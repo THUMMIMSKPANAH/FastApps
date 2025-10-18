@@ -3,4 +3,3 @@
 from .schema import Field, ConfigDict
 
 __all__ = ["Field", "ConfigDict"]
-

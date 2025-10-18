@@ -12,49 +12,56 @@ from rich.table import Table
 
 console = Console()
 
+
 def get_config_dir():
     """Get FastApps config directory."""
     config_dir = Path.home() / ".fastapps"
     config_dir.mkdir(exist_ok=True)
     return config_dir
 
+
 def get_config_file():
     """Get config file path."""
     return get_config_dir() / "config.json"
+
 
 def load_config():
     """Load configuration from file."""
     config_file = get_config_file()
     if config_file.exists():
         try:
-            with open(config_file, 'r') as f:
+            with open(config_file, "r") as f:
                 return json.load(f)
         except Exception as e:
             console.print(f"[yellow]Warning: Could not load config: {e}[/yellow]")
     return {}
 
+
 def save_config(config):
     """Save configuration to file."""
     config_file = get_config_file()
     try:
-        with open(config_file, 'w') as f:
+        with open(config_file, "w") as f:
             json.dump(config, f, indent=2)
         return True
     except Exception as e:
         console.print(f"[red]Error: Could not save config: {e}[/red]")
         return False
 
+
 def get_ngrok_token():
     """Get ngrok auth token from config or prompt user."""
     config = load_config()
 
     # Check if token exists
-    if 'ngrok_token' in config and config['ngrok_token']:
-        return config['ngrok_token']
+    if "ngrok_token" in config and config["ngrok_token"]:
+        return config["ngrok_token"]
 
     # Prompt for token
     console.print("\n[cyan]ngrok authentication required[/cyan]")
-    console.print("Get your free auth token at: [link]https://dashboard.ngrok.com/get-started/your-authtoken[/link]\n")
+    console.print(
+        "Get your free auth token at: [link]https://dashboard.ngrok.com/get-started/your-authtoken[/link]\n"
+    )
 
     token = console.input("[bold]Enter your ngrok auth token:[/bold] ").strip()
 
@@ -63,21 +70,24 @@ def get_ngrok_token():
         return None
 
     # Save token
-    config['ngrok_token'] = token
+    config["ngrok_token"] = token
     if save_config(config):
         console.print("[green]✓ Token saved successfully[/green]\n")
 
     return token
 
+
 def set_ngrok_auth(token):
     """Set ngrok auth token."""
     try:
         from pyngrok import ngrok
+
         ngrok.set_auth_token(token)
         return True
     except Exception as e:
         console.print(f"[red]Error setting ngrok auth token: {e}[/red]")
         return False
+
 
 def start_dev_server(port=8001, host="0.0.0.0"):
     """Start development server with ngrok tunnel."""
@@ -85,7 +95,9 @@ def start_dev_server(port=8001, host="0.0.0.0"):
     # Check if we're in a FastApps project
     if not Path("server/main.py").exists():
         console.print("[red]Error: Not in a FastApps project directory[/red]")
-        console.print("[yellow]Run this command from your project root (where server/main.py exists)[/yellow]")
+        console.print(
+            "[yellow]Run this command from your project root (where server/main.py exists)[/yellow]"
+        )
         return False
 
     # Get ngrok token
@@ -130,7 +142,7 @@ def start_dev_server(port=8001, host="0.0.0.0"):
             f"[green]{ngrok_url}[/green]\n\n"
             f"[dim]Use this URL in your MCP client configuration[/dim]",
             title="📡 Model Context Protocol",
-            border_style="blue"
+            border_style="blue",
         )
         console.print(mcp_panel)
         console.print()
@@ -143,12 +155,7 @@ def start_dev_server(port=8001, host="0.0.0.0"):
         from server.main import app
 
         # Run uvicorn
-        uvicorn.run(
-            app,
-            host=host,
-            port=port,
-            log_level="info"
-        )
+        uvicorn.run(app, host=host, port=port, log_level="info")
 
     except KeyboardInterrupt:
         console.print("\n[yellow]Shutting down server...[/yellow]")
@@ -165,18 +172,21 @@ def start_dev_server(port=8001, host="0.0.0.0"):
             console.print("[yellow]Install it with: pip install pyngrok[/yellow]")
         else:
             console.print(f"[red]Error: Could not import server: {e}[/red]")
-            console.print("[yellow]Make sure you're in a FastApps project and dependencies are installed[/yellow]")
+            console.print(
+                "[yellow]Make sure you're in a FastApps project and dependencies are installed[/yellow]"
+            )
         return False
 
     except Exception as e:
         console.print(f"[red]Error starting server: {e}[/red]")
         return False
 
+
 def reset_ngrok_token():
     """Reset stored ngrok token."""
     config = load_config()
-    if 'ngrok_token' in config:
-        del config['ngrok_token']
+    if "ngrok_token" in config:
+        del config["ngrok_token"]
         save_config(config)
         console.print("[green]✓ ngrok token cleared[/green]")
     else:

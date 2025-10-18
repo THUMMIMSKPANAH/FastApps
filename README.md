@@ -7,7 +7,13 @@
 <p align="center">
   <a href="https://pypi.org/project/fastapps/"><img src="https://img.shields.io/pypi/v/fastapps.svg" alt="PyPI"></a>
   <a href="https://pypi.org/project/fastapps/"><img src="https://img.shields.io/pypi/pyversions/fastapps.svg" alt="Python"></a>
-  <a href="https://github.com/fastapps-framework/fastapps/blob/main/LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="License"></a>
+  <a href="https://pepy.tech/projects/fastapps"><img src="https://static.pepy.tech/personalized-badge/fastapps?period=total&units=INTERNATIONAL_SYSTEM&left_color=GREY&right_color=GREEN&left_text=downloads" alt="PyPI Downloads"></a>
+  <a href="https://github.com/DooiLabs/FastApps/blob/main/LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="License"></a>
+  <br>
+  <a href="https://github.com/DooiLabs/FastApps/actions"><img src="https://github.com/DooiLabs/FastApps/workflows/CI/badge.svg" alt="CI Status"></a>
+  <a href="https://github.com/psf/black"><img src="https://img.shields.io/badge/code%20style-black-000000.svg" alt="Code style: black"></a>
+  <a href="https://github.com/astral-sh/ruff"><img src="https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json" alt="Ruff"></a>
+  <a href="https://github.com/DooiLabs/FastApps"><img src="https://img.shields.io/github/stars/DooiLabs/FastApps?style=social" alt="GitHub Stars"></a>
 </p>
 
 ---
@@ -251,11 +257,11 @@ function MyWidget() {
 
 ## Documentation
 
-- **[Quick Start Guide](./docs/QUICKSTART.md)** - Detailed setup instructions
-- **[Tutorial](./docs/TUTORIAL.md)** - Step-by-step widget examples
-- **[Python API](./docs/PYTHON_API.md)** - Programmatic dev server control
-- **[API Reference](./docs/API.md)** - Complete API documentation
-- **[Examples](./examples/)** - Real-world code examples
+- **[Quick Start Guide](https://github.com/DooiLabs/FastApps/blob/main/docs/QUICKSTART.md)** - Detailed setup instructions
+- **[Tutorial](https://github.com/DooiLabs/FastApps/blob/main/docs/TUTORIAL.md)** - Step-by-step widget examples
+- **[Python API](https://github.com/DooiLabs/FastApps/blob/main/docs/PYTHON_API.md)** - Programmatic dev server control
+- **[API Reference](https://github.com/DooiLabs/FastApps/blob/main/docs/API.md)** - Complete API documentation
+- **[Examples](https://github.com/DooiLabs/FastApps/tree/main/examples)** - Real-world code examples
 
 ---
 
@@ -610,13 +616,39 @@ pip install --upgrade fastapps
 npm install fastapps@latest
 ```
 
-**Need help?** Check our [docs](./docs/) or [open an issue](https://github.com/fastapps-framework/fastapps/issues)
+**Need help?** Check our [docs](https://github.com/DooiLabs/FastApps/tree/main/docs) or [open an issue](https://github.com/DooiLabs/FastApps/issues)
 
 ---
 
 ## Contributing
 
-See [CONTRIBUTING.md](../../CONTRIBUTING.md)
+We welcome contributions! Please see our contributing guidelines:
+
+- **[Contributing Guide](https://github.com/DooiLabs/FastApps/blob/main/CONTRIBUTING.md)** - How to contribute to FastApps
+- **[Code Style Guide](https://github.com/DooiLabs/FastApps/blob/main/CODE_STYLE.md)** - Code formatting and style standards
+- **[GitHub Workflows](https://github.com/DooiLabs/FastApps/blob/main/.github/WORKFLOWS.md)** - CI/CD documentation
+
+### Quick Start for Contributors
+
+```bash
+# Fork and clone the repository
+git clone https://github.com/YOUR_USERNAME/FastApps.git
+cd FastApps
+
+# Install development dependencies
+pip install -e ".[dev]"
+
+# Install pre-commit hooks
+pip install pre-commit
+pre-commit install
+
+# Make changes and ensure they pass checks
+black .
+ruff check --fix .
+pytest
+
+# Submit a pull request
+```
 
 ## License
 
@@ -626,5 +658,5 @@ MIT © FastApps Team
 
 - **PyPI**: https://pypi.org/project/fastapps/
 - **ChatJS Hooks**: https://www.npmjs.com/package/fastapps
-- **GitHub**: https://github.com/fastapps-framework/fastapps
+- **GitHub**: https://github.com/DooiLabs/FastApps
 - **MCP Spec**: https://modelcontextprotocol.io/

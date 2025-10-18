@@ -24,4 +24,3 @@ __all__ = [
     "no_auth",
     "optional_auth",
 ]
-

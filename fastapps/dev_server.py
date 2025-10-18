@@ -32,6 +32,7 @@ class DevServerConfig:
         auto_reload: Enable auto-reload on code changes (default: False)
         log_level: Uvicorn log level (default: "info")
     """
+
     port: int = 8001
     host: str = "0.0.0.0"
     ngrok_token: Optional[str] = None
@@ -57,6 +58,7 @@ class ServerInfo:
         host: Server host
         mcp_endpoint: MCP server endpoint URL
     """
+
     local_url: str
     public_url: str
     port: int
@@ -78,16 +80,19 @@ class ServerInfo:
 
 class DevServerError(Exception):
     """Base exception for dev server errors."""
+
     pass
 
 
 class ProjectNotFoundError(DevServerError):
     """Raised when FastApps project not found."""
+
     pass
 
 
 class NgrokError(DevServerError):
     """Raised when ngrok fails."""
+
     pass
 
 
@@ -103,7 +108,7 @@ def _load_saved_config() -> Dict[str, Any]:
     config_file = _get_config_dir() / "config.json"
     if config_file.exists():
         try:
-            with open(config_file, 'r') as f:
+            with open(config_file, "r") as f:
                 return json.load(f)
         except Exception:
             return {}
@@ -114,7 +119,7 @@ def _save_config(config: Dict[str, Any]) -> bool:
     """Save configuration."""
     config_file = _get_config_dir() / "config.json"
     try:
-        with open(config_file, 'w') as f:
+        with open(config_file, "w") as f:
             json.dump(config, f, indent=2)
         return True
     except Exception:
@@ -127,7 +132,7 @@ def _get_ngrok_token(provided_token: Optional[str] = None) -> Optional[str]:
         return provided_token
 
     config = _load_saved_config()
-    return config.get('ngrok_token')
+    return config.get("ngrok_token")
 
 
 def _setup_ngrok(token: str, port: int) -> str:
@@ -167,7 +172,7 @@ def start_dev_server(
     project_root: Optional[Path] = None,
     auto_reload: bool = False,
     log_level: str = "info",
-    return_info: bool = False
+    return_info: bool = False,
 ) -> Optional[ServerInfo]:
     """Start FastApps development server with ngrok tunnel.
 
@@ -209,7 +214,7 @@ def start_dev_server(
         ngrok_token=ngrok_token,
         project_root=project_root,
         auto_reload=auto_reload,
-        log_level=log_level
+        log_level=log_level,
     )
 
     # Validate project
@@ -237,7 +242,7 @@ def start_dev_server(
             public_url=public_url,
             port=config.port,
             host=config.host,
-            mcp_endpoint=public_url
+            mcp_endpoint=public_url,
         )
 
         print(f"✅ Tunnel created!")
@@ -262,7 +267,7 @@ def start_dev_server(
                 host=config.host,
                 port=config.port,
                 log_level=config.log_level,
-                reload=config.auto_reload
+                reload=config.auto_reload,
             )
 
         except ImportError as e:
@@ -300,14 +305,12 @@ def start_dev_server_with_config(config: DevServerConfig) -> Optional[ServerInfo
         ngrok_token=config.ngrok_token,
         project_root=config.project_root,
         auto_reload=config.auto_reload,
-        log_level=config.log_level
+        log_level=config.log_level,
     )
 
 
 def get_server_info(
-    port: int = 8001,
-    host: str = "0.0.0.0",
-    ngrok_token: Optional[str] = None
+    port: int = 8001, host: str = "0.0.0.0", ngrok_token: Optional[str] = None
 ) -> ServerInfo:
     """Get server info without starting the server.
 
@@ -341,7 +344,7 @@ def get_server_info(
         public_url=public_url,
         port=port,
         host=host,
-        mcp_endpoint=public_url
+        mcp_endpoint=public_url,
     )
 
 

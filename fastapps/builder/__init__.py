@@ -3,4 +3,3 @@
 from .compiler import WidgetBuilder, WidgetBuildResult
 
 __all__ = ["WidgetBuilder", "WidgetBuildResult"]
-
