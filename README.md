@@ -1,4 +1,5 @@
 # FastApps Framework
+<img width="1024" height="390" alt="image 39" src="https://github.com/user-attachments/assets/9404c861-8bfd-4f24-ba5c-543fe27f3d3e" />
 
 <p align="center">
   <strong>A zero-boilerplate framework for building interactive ChatGPT widgets</strong>
