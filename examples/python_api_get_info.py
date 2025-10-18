@@ -5,6 +5,8 @@ This example shows how to get server URLs without actually starting the server.
 Useful for testing, automation, or displaying URLs before starting.
 """
 
+import time
+
 from fastapps import get_server_info
 
 if __name__ == "__main__":
@@ -33,7 +35,6 @@ if __name__ == "__main__":
 
         # Keep tunnel alive
         print("\nPress Ctrl+C to close tunnel...")
-        import time
 
         while True:
             time.sleep(1)
