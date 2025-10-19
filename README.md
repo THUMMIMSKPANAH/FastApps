@@ -178,8 +178,6 @@ You'll see:
 📡 MCP Server Endpoint: https://xyz.ngrok.io
 ```
 
-Use the public URL in ChatGPT Settings > Connectors.
-
 **Option B: Manual Setup**
 
 ```bash
@@ -189,6 +187,22 @@ python server/main.py
 # In a separate terminal, create tunnel
 ngrok http 8001
 ```
+
+### 8. Test
+
+**Option A: Test on ChatGPT**
+
+Add your public URL with a “/mcp” to ChatGPT in Settings > Connectors.
+For example: https://<custom_endpoint>.ngrok-free.app/mcp
+​
+
+**Option B: Test on MCPJam Inspector**
+
+```bash
+# Start server
+npx @mcpjam/inspector@beta
+```
+
 
 ---
 
