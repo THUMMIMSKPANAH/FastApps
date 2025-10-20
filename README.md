@@ -200,7 +200,7 @@ For example: https://<custom_endpoint>.ngrok-free.app/mcp
 
 ```bash
 # Start server
-npx @mcpjam/inspector@beta
+npx @mcpjam/inspector@latest
 ```
 
 
