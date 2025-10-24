@@ -6,15 +6,18 @@ from rich.console import Console
 console = Console()
 
 
-METORIAL_TEMPLATE = '''"""Metorial MCP Integration for FastApps.
+METORIAL_TEMPLATE = '''"""Metorial MCP API Wrapper for FastApps.
 
 Setup:
   export METORIAL_API_KEY="your_metorial_api_key"
   export OPENAI_API_KEY="your_openai_api_key"
   export METORIAL_DEPLOYMENT_ID="your_deployment_id"
 
-Then run:
-  python server/api/metorial_mcp.py
+Usage:
+  from server.api.metorial_mcp import call_metorial
+  
+  result = await call_metorial("Search for AI news")
+  print(result)
 """
 
 import os
@@ -23,16 +26,31 @@ from metorial import Metorial
 from openai import AsyncOpenAI
 
 
-async def main():
-    # Get credentials from environment variables
+async def call_metorial(
+    message: str,
+    deployment_id: str = None,
+    model: str = "gpt-4o",
+    max_steps: int = 25
+):
+    """
+    Call Metorial API to query MCP server deployments.
+    
+    Args:
+        message: Search query or instruction
+        deployment_id: Deployment ID (defaults to METORIAL_DEPLOYMENT_ID env var)
+        model: OpenAI model to use (default: gpt-4o)
+        max_steps: Maximum processing steps (default: 25)
+    
+    Returns:
+        Response text from Metorial
+    """
+    # Get credentials from environment
     metorial_api_key = os.getenv('METORIAL_API_KEY')
     openai_api_key = os.getenv('OPENAI_API_KEY')
-    deployment_id = os.getenv('METORIAL_DEPLOYMENT_ID')
+    deployment_id = deployment_id or os.getenv('METORIAL_DEPLOYMENT_ID')
     
     if not all([metorial_api_key, openai_api_key, deployment_id]):
-        print("Error: Missing environment variables!")
-        print("Please set: METORIAL_API_KEY, OPENAI_API_KEY, METORIAL_DEPLOYMENT_ID")
-        return
+        raise ValueError("Missing environment variables: METORIAL_API_KEY, OPENAI_API_KEY, METORIAL_DEPLOYMENT_ID")
     
     # Initialize clients
     metorial = Metorial(api_key=metorial_api_key)
@@ -40,14 +58,20 @@ async def main():
     
     # Run query
     response = await metorial.run(
-        message="Search Hackernews for the latest AI discussions.",
+        message=message,
         server_deployments=[deployment_id],
         client=openai,
-        model="gpt-4o",
-        max_steps=25
+        model=model,
+        max_steps=max_steps
     )
     
-    print("Response:", response.text)
+    return response.text
+
+
+# Example usage
+async def main():
+    result = await call_metorial("Search Hackernews for the latest AI discussions.")
+    print("Response:", result)
 
 
 if __name__ == "__main__":
@@ -115,10 +139,13 @@ def use_metorial():
     console.print("   export OPENAI_API_KEY='your_openai_api_key'")
     console.print("   export METORIAL_DEPLOYMENT_ID='your_deployment_id'")
     
-    console.print("\n[yellow]3. Test the integration:[/yellow]")
+    console.print("\n[yellow]3. Usage in your code:[/yellow]")
+    console.print("   from server.api.metorial_mcp import call_metorial")
+    console.print("")
+    console.print("   result = await call_metorial('Search for AI news')")
+    console.print("   print(result)")
+    console.print("\n[yellow]4. Test the integration:[/yellow]")
     console.print("   python server/api/metorial_mcp.py")
-    console.print("\n[yellow]4. Customize the query:[/yellow]")
-    console.print("   Edit server/api/metorial_mcp.py to change the message or model")
     
     console.print("\n[dim]Documentation: https://metorial.ai/docs[/dim]")
     console.print()
