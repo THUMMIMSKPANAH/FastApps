@@ -5,6 +5,7 @@ from rich.console import Console
 from .commands.create import create_widget
 from .commands.init import init_project
 from .commands.dev import start_dev_server, reset_ngrok_token
+from .commands.use import use_integration
 
 console = Console()
 
@@ -170,6 +171,22 @@ def reset_token():
         fastapps reset-token
     """
     reset_ngrok_token()
+
+
+@cli.command()
+@click.argument("integration_name")
+def use(integration_name):
+    """Add integrations to your FastApps project.
+
+    Available integrations:
+        metorial - Add Metorial MCP integration for querying data sources
+
+    Example:
+        fastapps use metorial
+    
+    This will create server/api/metorial_mcp.py with environment variable support.
+    """
+    use_integration(integration_name)
 
 
 if __name__ == "__main__":

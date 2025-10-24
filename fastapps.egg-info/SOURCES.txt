@@ -34,6 +34,7 @@ test_dev_command.py
 ./fastapps/cli/commands/create.py
 ./fastapps/cli/commands/dev.py
 ./fastapps/cli/commands/init.py
+./fastapps/cli/commands/use.py
 ./fastapps/core/__init__.py
 ./fastapps/core/server.py
 ./fastapps/core/widget.py
@@ -118,3 +119,7 @@ tests/__init__.py
 tests/conftest.py
 tests/test_import.py
 tests/test_widget.py
+tests/__pycache__/__init__.cpython-312.pyc
+tests/__pycache__/conftest.cpython-312-pytest-8.4.2.pyc
+tests/__pycache__/test_import.cpython-312-pytest-8.4.2.pyc
+tests/__pycache__/test_widget.cpython-312-pytest-8.4.2.pyc
