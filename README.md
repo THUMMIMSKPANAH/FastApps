@@ -42,27 +42,7 @@ That's it! Your example widget is now running at a public URL.
 On first run, you'll need an [ngrok auth token](https://dashboard.ngrok.com/get-started/your-authtoken) (free).
 
 
-### Project Structure
-
-```
-my-app/
-├── server/
-│   ├── main.py                    # Auto-discovery server
-│   └── tools/
-│       └── my_widget_tool.py      # Widget backend (Python)
-└── widgets/
-    └── my_widget/
-        └── index.jsx              # Widget frontend (React)
-```
-
-### Creating More Widgets
-
-```bash
-fastapps create another-widget
-fastapps dev  # Auto-builds and runs
-```
-
-### Test App
+## Test App
 
 **Option A: Test on MCPJam Inspector**
 Add your public URL + /mcp to ChatGPT:
@@ -75,6 +55,14 @@ npx @mcpjam/inspector@latest
 
 Add your public URL + /mcp to ChatGPT on "Settings > Connectors":
 Example: https://xyz.ngrok-free.app/mcp
+
+
+
+## Creating More Widgets
+
+```bash
+fastapps create another-widget
+```
 
 
 ### Editing Your Widget
