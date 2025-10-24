@@ -27,66 +27,41 @@
 
 ## Quick Start
 
-### 1. Create Virtual Environment (Recommended)
-
 ```bash
-python -m venv venv
-source venv/bin/activate    # macOS/Linux
-venv\Scripts\activate       # Windows
-```
-
-### 2. Install FastApps & Create Project
-
-```bash
+# 1. Install
 pip install fastapps
+
+# 2. Create project (includes example widget + auto npm install)
 fastapps init my-app
-```
 
-This generates the complete project structure:
-
-```
-my-app/
-├── server/
-│   ├── __init__.py
-│   ├── main.py              # Auto-discovery server
-│   ├── tools/               # Widget backends
-│   │   └── __init__.py
-│   └── api/                 # (optional) Shared APIs
-│       └── __init__.py
-├── widgets/                 # Widget frontends (empty initially)
-├── requirements.txt         # Python dependencies
-├── package.json             # JavaScript dependencies
-├── .gitignore
-└── README.md
-```
-
-### 3. Install Dependencies
-
-```bash
+# 3. Run
 cd my-app
-pip install -r requirements.txt
-npm install
+fastapps dev
 ```
 
-### 4. Create Your First Widget
+That's it! Your example widget is now running at a public URL.
 
-```bash
-fastapps create my-widget
-```
-
-This adds to your project:
+### Project Structure
 
 ```
 my-app/
 ├── server/
+│   ├── main.py                    # Auto-discovery server
 │   └── tools/
-│       └── my_widget_tool.py # ← Generated: Widget backend
+│       └── my_widget_tool.py      # Widget backend (Python)
 └── widgets/
-    └── my-widget/
-        └── index.jsx         # ← Generated: Widget frontend
+    └── my_widget/
+        └── index.jsx              # Widget frontend (React)
 ```
 
-### 5. Edit Your Widget Code
+### Creating More Widgets
+
+```bash
+fastapps create another-widget
+fastapps dev  # Auto-builds and runs
+```
+
+### Editing Your Widget
 
 **You only need to edit these 2 files:**
 
@@ -147,56 +122,21 @@ export default function MyWidget() {
 
 **That's it! These are the only files you need to write.**
 
-### 6. Build Widgets
+### Run & Test
 
 ```bash
-npm run build
+fastapps dev  # Auto-builds, starts server, creates public URL
 ```
 
-### 7. Start Development Server with Public Access
+On first run, you'll need an [ngrok auth token](https://dashboard.ngrok.com/get-started/your-authtoken) (free).
 
-**Option A: Using `fastapps dev` (Recommended)**
+### Test on ChatGPT
 
-The easiest way to run and expose your server:
+Add your public URL + `/mcp` to ChatGPT:
+- Settings > Connectors
+- Example: `https://xyz.ngrok-free.app/mcp`
 
-```bash
-fastapps dev
-```
-
-On first run, you'll be prompted for your ngrok auth token:
-- Get it free at: https://dashboard.ngrok.com/get-started/your-authtoken
-- Token is saved and won't be asked again
-
-You'll see:
-```
-🚀 FastApps Development Server
-┌─────────┬─────────────────────────┐
-│ Local   │ http://0.0.0.0:8001    │
-│ Public  │ https://xyz.ngrok.io   │
-└─────────┴─────────────────────────┘
-
-📡 MCP Server Endpoint: https://xyz.ngrok.io
-```
-
-**Option B: Manual Setup**
-
-```bash
-# Start server
-python server/main.py
-
-# In a separate terminal, create tunnel
-ngrok http 8001
-```
-
-### 8. Test
-
-**Option A: Test on ChatGPT**
-
-Add your public URL with a “/mcp” to ChatGPT in Settings > Connectors.
-For example: https://<custom_endpoint>.ngrok-free.app/mcp
-​
-
-**Option B: Test on MCPJam Inspector**
+Or test with [MCPJam Inspector](https://inspector.mcpjam.com/):
 
 ```bash
 # Start server
