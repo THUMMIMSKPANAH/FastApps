@@ -28,6 +28,11 @@
 ## Quick Start
 
 ```bash
+# 0. Set virtual environment (recommended)
+python -m venv .venv
+source .venv/bin/activate # Mac/Linux
+.venv\Scripts\Activate.ps1 # Windows PowerShell
+
 # 1. Install
 pip install fastapps
 
