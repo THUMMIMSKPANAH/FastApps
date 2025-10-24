@@ -1,5 +1,10 @@
 """Initialize new FastApps project command."""
 
+import subprocess
+import sys
+import os
+import io
+import contextlib
 from pathlib import Path
 from rich.console import Console
 
@@ -71,8 +76,8 @@ if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=8001)
 '''
 
-REQUIREMENTS_TXT = """fastapps>=1.0.1
-httpx>=0.28.0
+REQUIREMENTS_TXT = """# All dependencies included in fastapps package
+# pip install fastapps is all you need!
 """
 
 
@@ -110,30 +115,19 @@ ChatGPT widgets built with [FastApps](https://pypi.org/project/fastapps/).
 
 ## Quick Start
 
-### 1. Install Dependencies
+Your project includes an example widget (`my_widget`) to get you started!
 
 ```bash
-# Python
-pip install -r requirements.txt
-
-# JavaScript
-npm install
+fastapps dev
 ```
 
-### 2. Create Your First Widget
+This will build your widgets and start the development server.
+
+## Creating More Widgets
 
 ```bash
-python -m fastapps.cli.main create mywidget
-```
-
-### 3. Build and Run
-
-```bash
-# Build widgets
-npm run build
-
-# Start server
-python server/main.py
+fastapps create another_widget
+fastapps dev
 ```
 
 ## Project Structure
@@ -143,30 +137,14 @@ python server/main.py
 ├── server/
 │   ├── main.py              # Server (auto-discovery)
 │   └── tools/               # Widget backends
-│       └── *_tool.py        # Your widget logic
+│       └── my_widget_tool.py   # Example widget
 │
 ├── widgets/                 # Widget frontends
-│   └── */
-│       └── index.jsx        # Your React components
+│   └── my_widget/
+│       └── index.jsx        # Example React component
 │
 ├── assets/                  # Built widgets (auto-generated)
-├── requirements.txt
 └── package.json
-```
-
-## Creating Widgets
-
-```bash
-# Generate new widget
-python -m floydr.cli.main create mywidget
-
-# Then edit:
-# - server/tools/mywidget_tool.py   (backend)
-# - widgets/mywidget/index.jsx      (frontend)
-
-# Build and run
-npm run build
-python server/main.py
 ```
 
 ## Learn More
@@ -276,13 +254,40 @@ def init_project(project_name: str):
         console.print(
             f"\n[green][OK] Project '{project_name}' created successfully![/green]"
         )
+
+        # Create example widget
+        console.print("\n[cyan]Creating example widget...[/cyan]")
+        original_cwd = os.getcwd()
+        try:
+            os.chdir(project_path)
+            from .create import create_widget
+            # Suppress the verbose output from create_widget
+            with contextlib.redirect_stdout(io.StringIO()):
+                create_widget("my_widget", auth_type=None, scopes=None)
+            console.print("[green]Example widget created (my_widget)[/green]")
+        finally:
+            os.chdir(original_cwd)
+
+        # Auto-install npm packages
+        console.print("\n[cyan]Installing npm packages...[/cyan]")
+        try:
+            result = subprocess.run(
+                ["npm", "install"],
+                cwd=project_path,
+                capture_output=True,
+                text=True,
+                check=True
+            )
+            console.print("[green]npm packages installed[/green]")
+        except FileNotFoundError:
+            console.print("[yellow]npm not found. Run 'npm install' manually[/yellow]")
+        except subprocess.CalledProcessError as e:
+            console.print("[yellow]npm install failed. Run manually if needed[/yellow]")
+
+        console.print(f"\n[green]All set![/green]")
         console.print(f"\n[cyan]Next steps:[/cyan]")
         console.print(f"  [bold]cd {project_name}[/bold]")
-        console.print(f"  [bold]pip install -r requirements.txt[/bold]")
-        console.print(f"  [bold]npm install[/bold]")
-        console.print(f"  [bold]fastapps create mywidget[/bold]")
-        console.print(f"  [bold]npm run build[/bold]")
-        console.print(f"  [bold]python server/main.py[/bold]")
+        console.print(f"  [bold]fastapps dev[/bold]")
         console.print(f"\n[green]Happy building![/green]\n")
 
         return True

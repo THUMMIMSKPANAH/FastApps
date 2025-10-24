@@ -72,7 +72,7 @@ def get_ngrok_token():
     # Save token
     config["ngrok_token"] = token
     if save_config(config):
-        console.print("[green]✓ Token saved successfully[/green]\n")
+        console.print("[green]Token saved successfully[/green]\n")
 
     return token
 
@@ -98,6 +98,15 @@ def start_dev_server(port=8001, host="0.0.0.0"):
         console.print(
             "[yellow]Run this command from your project root (where server/main.py exists)[/yellow]"
         )
+        return False
+
+    # Build widgets first
+    console.print("[cyan]Building widgets...[/cyan]")
+    try:
+        subprocess.run(["npm", "run", "build"], check=True, capture_output=True)
+        console.print("[green]Widgets built[/green]\n")
+    except Exception as e:
+        console.print("[yellow]Build failed. Make sure npm packages are installed[/yellow]")
         return False
 
     # Get ngrok token
@@ -126,7 +135,7 @@ def start_dev_server(port=8001, host="0.0.0.0"):
         console.print()
 
         # Display connection info
-        table = Table(title="🚀 FastApps Development Server", title_style="bold green")
+        table = Table(title="FastApps Development Server", title_style="bold green")
         table.add_column("Type", style="cyan", no_wrap=True)
         table.add_column("URL", style="white")
 
@@ -141,7 +150,7 @@ def start_dev_server(port=8001, host="0.0.0.0"):
             f"[bold]MCP Server Endpoint:[/bold]\n"
             f"[green]{ngrok_url}[/green]\n\n"
             f"[dim]Use this URL in your MCP client configuration[/dim]",
-            title="📡 Model Context Protocol",
+            title="Model Context Protocol",
             border_style="blue",
         )
         console.print(mcp_panel)
@@ -161,7 +170,7 @@ def start_dev_server(port=8001, host="0.0.0.0"):
         console.print("\n[yellow]Shutting down server...[/yellow]")
         try:
             ngrok.disconnect(public_url.public_url)
-            console.print("[green]✓ Server stopped[/green]")
+            console.print("[green]Server stopped[/green]")
         except:
             pass
         return True
@@ -188,6 +197,6 @@ def reset_ngrok_token():
     if "ngrok_token" in config:
         del config["ngrok_token"]
         save_config(config)
-        console.print("[green]✓ ngrok token cleared[/green]")
+        console.print("[green]ngrok token cleared[/green]")
     else:
         console.print("[yellow]No token stored[/yellow]")
