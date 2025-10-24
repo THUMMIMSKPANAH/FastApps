@@ -6,22 +6,7 @@ from rich.console import Console
 console = Console()
 
 
-METORIAL_TEMPLATE = '''"""Metorial MCP API Wrapper for FastApps.
-
-Setup:
-  export METORIAL_API_KEY="your_metorial_api_key"
-  export OPENAI_API_KEY="your_openai_api_key"
-  export METORIAL_DEPLOYMENT_ID="your_deployment_id"
-
-Usage:
-  from server.api.metorial_mcp import call_metorial
-  
-  result = await call_metorial("Search for AI news")
-  print(result)
-"""
-
-import os
-import asyncio
+METORIAL_TEMPLATE = '''import os
 from metorial import Metorial
 from openai import AsyncOpenAI
 
@@ -32,19 +17,6 @@ async def call_metorial(
     model: str = "gpt-4o",
     max_steps: int = 25
 ):
-    """
-    Call Metorial API to query MCP server deployments.
-    
-    Args:
-        message: Search query or instruction
-        deployment_id: Deployment ID (defaults to METORIAL_DEPLOYMENT_ID env var)
-        model: OpenAI model to use (default: gpt-4o)
-        max_steps: Maximum processing steps (default: 25)
-    
-    Returns:
-        Response text from Metorial
-    """
-    # Get credentials from environment
     metorial_api_key = os.getenv('METORIAL_API_KEY')
     openai_api_key = os.getenv('OPENAI_API_KEY')
     deployment_id = deployment_id or os.getenv('METORIAL_DEPLOYMENT_ID')
@@ -52,11 +24,9 @@ async def call_metorial(
     if not all([metorial_api_key, openai_api_key, deployment_id]):
         raise ValueError("Missing environment variables: METORIAL_API_KEY, OPENAI_API_KEY, METORIAL_DEPLOYMENT_ID")
     
-    # Initialize clients
     metorial = Metorial(api_key=metorial_api_key)
     openai = AsyncOpenAI(api_key=openai_api_key)
     
-    # Run query
     response = await metorial.run(
         message=message,
         server_deployments=[deployment_id],
@@ -66,16 +36,6 @@ async def call_metorial(
     )
     
     return response.text
-
-
-# Example usage
-async def main():
-    result = await call_metorial("Search Hackernews for the latest AI discussions.")
-    print("Response:", result)
-
-
-if __name__ == "__main__":
-    asyncio.run(main())
 '''
 
 
@@ -144,8 +104,6 @@ def use_metorial():
     console.print("")
     console.print("   result = await call_metorial('Search for AI news')")
     console.print("   print(result)")
-    console.print("\n[yellow]4. Test the integration:[/yellow]")
-    console.print("   python server/api/metorial_mcp.py")
     
     console.print("\n[dim]Documentation: https://metorial.ai/docs[/dim]")
     console.print()
