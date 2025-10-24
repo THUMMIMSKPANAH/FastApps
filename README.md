@@ -45,6 +45,7 @@ On first run, you'll need an [ngrok auth token](https://dashboard.ngrok.com/get-
 ## Test App
 
 **Option A: Test on MCPJam Inspector**
+
 Add your public URL + /mcp to ChatGPT:
 Example: https://xyz.ngrok-free.app/mcp
 ```bash
@@ -53,7 +54,7 @@ npx @mcpjam/inspector@latest
 
 **Option B: Test on ChatGPT**
 
-Add your public URL + /mcp to ChatGPT on "Settings > Connectors":
+Add your public URL + /mcp to ChatGPT's "Settings > Connectors":
 Example: https://xyz.ngrok-free.app/mcp
 
 
@@ -160,7 +161,7 @@ pytest
 
 ## License
 
-MIT © Dooilabs
+MIT © Dooi Labs
 
 ## Links
 
