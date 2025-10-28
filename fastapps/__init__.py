@@ -20,7 +20,7 @@ try:
     from importlib.metadata import version
     __version__ = version("fastapps")
 except Exception:
-    __version__ = "1.1.1"  # Fallback version
+    __version__ = "1.1.2"  # Fallback version
 
 __author__ = "FastApps Team"
 
@@ -56,14 +56,4 @@ __all__ = [
     "WidgetBuildResult",
     "Field",
     "ConfigDict",
-    # Dev server API
-    "start_dev_server",
-    "start_dev_server_with_config",
-    "get_server_info",
-    "run_dev_server",
-    "DevServerConfig",
-    "ServerInfo",
-    "DevServerError",
-    "ProjectNotFoundError",
-    "NgrokError",
 ] + _auth_exports

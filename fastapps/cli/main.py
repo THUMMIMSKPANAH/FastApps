@@ -4,7 +4,8 @@ import click
 from rich.console import Console
 
 from .commands.create import create_widget
-from .commands.dev import reset_ngrok_token, start_dev_server
+from .commands.deploy import deploy_command
+from .commands.dev import start_dev_server
 from .commands.init import init_project
 from .commands.use import use_integration
 
@@ -97,17 +98,20 @@ def create(widget_name, auth, public, optional_auth, scopes):
     "--host", default="0.0.0.0", help="Host to bind the server to (default: 0.0.0.0)"
 )
 def dev(port, host):
-    """Start development server with ngrok tunnel.
+    """Start development server with Cloudflare Tunnel.
 
     This command will:
-    1. Prompt for ngrok auth token (first time only)
-    2. Start a public ngrok tunnel
-    3. Launch the FastApps development server
-    4. Display public and local URLs
+    1. Build widgets
+    2. Install cloudflared if needed (automatic, no token required)
+    3. Start a public Cloudflare Tunnel
+    4. Launch the FastApps development server
+    5. Display public and local URLs
 
     Example:
         fastapps dev
         fastapps dev --port 8080
+
+    Note: Uses Cloudflare Tunnel (free, unlimited, no sign-up required)
     """
     start_dev_server(port=port, host=host)
 
@@ -119,6 +123,36 @@ def build():
     console.print("[yellow]This feature will be implemented in Phase 4[/yellow]")
     console.print("\n[cyan]For now, use:[/cyan]")
     console.print("  npm run build")
+
+
+@cli.command()
+@click.option("--yes", "-y", is_flag=True, help="Skip confirmation prompt")
+@click.option("--no-build", is_flag=True, help="Skip widget build step")
+def deploy(yes, no_build):
+    """Deploy your FastApps project to production.
+
+    This command will:
+    1. Validate project structure
+    2. Build widgets (unless --no-build)
+    3. Authenticate with OAuth (if needed)
+    4. Package artifacts (server, widgets, configs)
+    5. Upload to deployment server
+    6. Display deployment URL
+
+    Examples:
+        fastapps deploy
+        fastapps deploy --yes
+        fastapps deploy --no-build --yes
+
+    Configuration:
+        Set FASTAPPS_DEPLOY_URL in .env file to configure deployment server.
+        Default: https://deploy.fastapps.org
+
+    Authentication:
+        First time: Opens browser for OAuth authentication
+        Subsequent: Uses saved token from ~/.fastapps/config.json
+    """
+    deploy_command(yes=yes, no_build=no_build)
 
 
 @cli.command()
@@ -166,19 +200,6 @@ def auth_info():
     console.print("  Server auth: docs/08-AUTH.md")
     console.print("  Per-widget auth: docs/09-PER-WIDGET-AUTH.md")
     console.print()
-
-
-@cli.command()
-def reset_token():
-    """Reset stored ngrok auth token.
-
-    Use this command if you want to change your ngrok auth token.
-    The next time you run 'fastapps dev', you'll be prompted for a new token.
-
-    Example:
-        fastapps reset-token
-    """
-    reset_ngrok_token()
 
 
 @cli.command()

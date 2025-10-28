@@ -10,7 +10,7 @@ try:
     from importlib.metadata import version
     __version__ = version("fastapps")
 except Exception:
-    __version__ = "1.1.1"  # Fallback version
+    __version__ = "1.1.2"  # Fallback version
 
 # Auth imports (optional, graceful degradation if not available)
 try:

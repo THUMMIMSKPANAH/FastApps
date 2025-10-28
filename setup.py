@@ -5,7 +5,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setup(
     name="fastapps",
-    version="1.1.1",
+    version="1.1.2",
     author="FastApps Team",
     author_email="david@dooi.ai",
     description="A zero-boilerplate framework for building interactive ChatGPT widgets",
@@ -32,7 +32,8 @@ setup(
         "httpx>=0.28.0",
         "PyJWT>=2.8.0",
         "cryptography>=41.0.0",
-        "pyngrok>=7.4.0",
+        "aiohttp>=3.8.0",
+        "python-dotenv>=1.0.0",
     ],
     entry_points={
         "console_scripts": [
