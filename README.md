@@ -1,5 +1,5 @@
 # FastApps
-<img width="1024" height="390" alt="image 39" src="https://github.com/user-attachments/assets/9404c861-8bfd-4f24-ba5c-543fe27f3d3e" />
+<img src="https://github.com/user-attachments/assets/c8766217-427f-4566-8dcb-480f8db12352" width="100%" />
 
 <p align="center">
   <strong>The python framework for ChatGPT apps</strong>
