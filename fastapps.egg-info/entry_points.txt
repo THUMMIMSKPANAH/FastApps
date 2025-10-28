@@ -1,2 +1,0 @@
-[console_scripts]
-fastapps = fastapps.cli.main:cli
