@@ -10,9 +10,16 @@ from .commands.use import use_integration
 
 console = Console()
 
+# Get version from package metadata
+try:
+    from importlib.metadata import version
+    __version__ = version("fastapps")
+except Exception:
+    __version__ = "unknown"
+
 
 @click.group()
-@click.version_option(version="1.0.8", prog_name="fastapps")
+@click.version_option(version=__version__, prog_name="fastapps")
 def cli():
     """FastApps - ChatGPT Widget Framework
 

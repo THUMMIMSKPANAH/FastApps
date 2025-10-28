@@ -44,9 +44,18 @@ source venv/bin/activate
 
 # Install FastApps
 echo "📦 Installing FastApps..."
-pip install -q --upgrade pip
-pip install -q -e ../FastApps
-pip install -q httpx PyJWT cryptography
+
+# Detect if uv is available
+if command -v uv &> /dev/null; then
+    echo "Using uv for package installation..."
+    uv pip install -q -e ../FastApps
+    uv pip install -q httpx PyJWT cryptography
+else
+    echo "Using pip for package installation..."
+    pip install -q --upgrade pip
+    pip install -q -e ../FastApps
+    pip install -q httpx PyJWT cryptography
+fi
 
 # Initialize project
 echo "🏗️  Initializing FastApps project..."

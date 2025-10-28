@@ -15,6 +15,7 @@ Black is the uncompromising Python code formatter. It reformats entire files in 
 **Installation**:
 ```bash
 pip install black
+# Or with uv: uv pip install black
 ```
 
 **Usage**:
@@ -59,6 +60,7 @@ Ruff is an extremely fast Python linter that replaces multiple tools (Flake8, is
 **Installation**:
 ```bash
 pip install ruff
+# Or with uv: uv pip install ruff
 ```
 
 **Usage**:
@@ -370,6 +372,7 @@ Install pre-commit hooks to automatically format/lint before commits:
 
 ```bash
 pip install pre-commit
+# Or with uv: uv pip install pre-commit
 pre-commit install
 ```
 
@@ -412,7 +415,7 @@ repos:
 ### PyCharm
 
 1. **Black**:
-   - Install Black: `pip install black`
+   - Install Black: `pip install black` or `uv pip install black`
    - Settings → Tools → Black → Enable
    - Settings → Tools → Actions on Save → Run Black
 

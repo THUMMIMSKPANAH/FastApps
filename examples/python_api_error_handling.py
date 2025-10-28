@@ -34,7 +34,7 @@ if __name__ == "__main__":
     except DevServerError as e:
         print(f"\n❌ Server Error: {e}")
         print("\n💡 Check:")
-        print("   1. All dependencies are installed (pip install -r requirements.txt)")
+        print("   1. All dependencies are installed (pip install -r requirements.txt or uv pip install -r requirements.txt)")
         print("   2. Port is not already in use")
         print("   3. Project structure is correct")
 
@@ -45,5 +45,5 @@ if __name__ == "__main__":
         print(f"\n❌ Unexpected Error: {e}")
         print("\n💡 Try:")
         print("   1. Check error message above")
-        print("   2. Verify FastApps installation: pip install --upgrade fastapps")
+        print("   2. Verify FastApps installation: pip install --upgrade fastapps or uv pip install --upgrade fastapps")
         print("   3. Report issue if problem persists")

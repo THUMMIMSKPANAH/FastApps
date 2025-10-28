@@ -342,6 +342,7 @@ class MonitoredVerifier(TokenVerifier):
 **Solution**: Upgrade fastmcp:
 ```bash
 pip install --upgrade fastmcp
+# Or: uv pip install --upgrade fastmcp
 ```
 
 ### Issue: "Failed to initialize JWKS"

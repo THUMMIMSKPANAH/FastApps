@@ -245,6 +245,7 @@ Widget receives UserContext:
 **Solution**:
 ```bash
 pip install --upgrade fastmcp
+# Or: uv pip install --upgrade fastmcp
 ```
 
 ### Issue: "Failed to initialize JWKS"

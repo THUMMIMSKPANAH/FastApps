@@ -35,6 +35,25 @@ By participating in this project, you agree to maintain a respectful and inclusi
 
 ### Initial Setup
 
+**Recommended: Using uv (matches CI pipeline)**
+
+```bash
+# Clone your fork
+git clone https://github.com/YOUR_USERNAME/fastapps.git
+cd fastapps
+
+# Install uv if not already installed
+# curl -LsSf https://astral.sh/uv/install.sh | sh
+
+# Install development dependencies
+uv sync --dev
+
+# Install pre-commit hooks (already installed via uv sync --dev)
+pre-commit install
+```
+
+**Alternative: Using pip (traditional approach)**
+
 ```bash
 # Clone your fork
 git clone https://github.com/YOUR_USERNAME/fastapps.git
@@ -71,11 +90,15 @@ pytest -v
 ### Building the Package
 
 ```bash
-# Build distribution packages
-python -m build
+# With uv (recommended)
+uv build
 
 # Check package validity
-twine check dist/*
+uv run twine check dist/*
+
+# Or with pip/build (traditional)
+# python -m build
+# twine check dist/*
 ```
 
 ## Code Style and Formatting
@@ -146,7 +169,8 @@ We use mypy for type checking (not strictly enforced but encouraged):
 
 ```bash
 # Install mypy
-pip install mypy
+uv pip install mypy
+# Or: pip install mypy
 
 # Run type checking
 mypy fastapps --ignore-missing-imports
@@ -166,14 +190,16 @@ For React components in the `widgets/` directory:
 We recommend using pre-commit hooks to automatically format and lint code:
 
 ```bash
-# Install pre-commit
-pip install pre-commit
-
-# Install hooks
+# If you used uv sync --dev or pip install -e ".[dev]", pre-commit is already installed.
+# Just install the git hooks:
 pre-commit install
 
 # Run manually on all files
 pre-commit run --all-files
+
+# If pre-commit is not installed (standalone installation):
+# uv pip install pre-commit
+# Or: pip install pre-commit
 ```
 
 Create `.pre-commit-config.yaml`:
@@ -235,6 +261,30 @@ start htmlcov/index.html  # Windows
 ### Running CI Checks Locally
 
 Before submitting a PR, run all CI checks locally:
+
+**With uv (matches CI exactly):**
+
+```bash
+# Install dependencies
+uv sync --dev
+
+# Format code
+black .
+
+# Lint code
+ruff check .
+
+# Run tests
+pytest --cov=fastapps
+
+# Build package
+uv build
+
+# Check package
+uv run twine check dist/*
+```
+
+**Or with pip (traditional):**
 
 ```bash
 # Format code

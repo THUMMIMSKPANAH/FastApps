@@ -36,6 +36,7 @@ my-widgets/
 
 ```bash
 pip install fastapps
+# Or with uv (faster): uv pip install fastapps
 ```
 
 ## Step 2: Create Project Structure
@@ -138,6 +139,8 @@ httpx>=0.28.0
 
 ```bash
 pip install -r requirements.txt
+# Or with uv: uv pip install -r requirements.txt
+
 npm install
 ```
 
@@ -210,6 +213,7 @@ Your server runs on `http://localhost:8001`. For ChatGPT testing, you'll need to
 
 ```bash
 pip install --upgrade fastapps
+# Or with uv: uv pip install --upgrade fastapps
 ```
 
 ### Build fails

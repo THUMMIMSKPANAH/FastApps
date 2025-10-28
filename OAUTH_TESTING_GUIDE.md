@@ -90,9 +90,11 @@ source venv/bin/activate  # On Windows: venv\Scripts\activate
 
 # Install FastApps
 pip install -e ../FastApps
+# Or with uv: uv pip install -e ../FastApps
 
 # Install dependencies
 pip install httpx PyJWT cryptography
+# Or with uv: uv pip install httpx PyJWT cryptography
 
 # Initialize project
 fastapps init auth-test-project

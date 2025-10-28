@@ -88,12 +88,14 @@ def use_metorial():
             console.print("  echo 'metorial' >> requirements.txt")
             console.print("  echo 'openai' >> requirements.txt")
             console.print("  pip install -r requirements.txt")
+            console.print("  # Or: uv pip install -r requirements.txt")
 
     # Display setup instructions
     console.print("\n[bold green]✓ Metorial MCP integration added![/bold green]")
     console.print("\n[cyan]Setup Instructions:[/cyan]")
     console.print("\n[yellow]1. Install dependencies:[/yellow]")
     console.print("   pip install metorial openai")
+    console.print("   # Or: uv pip install metorial openai")
 
     console.print("\n[yellow]2. Set environment variables:[/yellow]")
     console.print("   export METORIAL_API_KEY='your_metorial_api_key'")

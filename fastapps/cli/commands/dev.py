@@ -177,7 +177,9 @@ def start_dev_server(port=8001, host="0.0.0.0"):
     except ImportError as e:
         if "pyngrok" in str(e):
             console.print("[red]Error: pyngrok not installed[/red]")
-            console.print("[yellow]Install it with: pip install pyngrok[/yellow]")
+            console.print("[yellow]Install it with:[/yellow]")
+            console.print("  pip install pyngrok")
+            console.print("  # Or: uv pip install pyngrok")
         else:
             console.print(f"[red]Error: Could not import server: {e}[/red]")
             console.print(

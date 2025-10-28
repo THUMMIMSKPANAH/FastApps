@@ -57,7 +57,7 @@ class JWTVerifier(TokenVerifier):
         if not MCP_AUTH_AVAILABLE:
             raise ImportError(
                 "Authentication dependencies not available. "
-                "Install with: pip install 'PyJWT>=2.8.0' 'cryptography>=41.0.0'"
+                "Install with: pip install 'PyJWT>=2.8.0' 'cryptography>=41.0.0' or uv pip install 'PyJWT>=2.8.0' 'cryptography>=41.0.0'"
             )
 
         self.issuer_url = issuer_url.rstrip("/")

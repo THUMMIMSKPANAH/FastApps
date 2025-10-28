@@ -149,7 +149,7 @@ def _setup_ngrok(token: str, port: int) -> str:
 
     except ImportError:
         raise NgrokError(
-            "pyngrok is not installed. Install it with: pip install pyngrok"
+            "pyngrok is not installed. Install it with: pip install pyngrok or uv pip install pyngrok"
         ) from None
     except Exception as e:
         raise NgrokError(f"Failed to create ngrok tunnel: {e}") from e

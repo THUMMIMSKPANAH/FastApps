@@ -15,7 +15,13 @@ Example:
             return {"message": "Hello from FastApps!"}
 """
 
-__version__ = "1.1.1"
+# Get version from package metadata
+try:
+    from importlib.metadata import version
+    __version__ = version("fastapps")
+except Exception:
+    __version__ = "1.1.1"  # Fallback version
+
 __author__ = "FastApps Team"
 
 from .builder.compiler import WidgetBuilder, WidgetBuildResult

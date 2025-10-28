@@ -100,8 +100,8 @@ See `docs/API.md` for complete API documentation.
 ## Requirements
 
 - Python 3.11+
-- FastApps installed (`pip install fastapps`)
-- pyngrok installed (`pip install pyngrok`)
+- FastApps installed (`pip install fastapps` or `uv pip install fastapps`)
+- pyngrok installed (`pip install pyngrok` or `uv pip install pyngrok`)
 - ngrok auth token (get free at https://ngrok.com)
 
 ## Need Help?

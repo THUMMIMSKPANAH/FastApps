@@ -21,12 +21,14 @@ The Python API is included with FastApps:
 
 ```bash
 pip install fastapps
+# Or with uv: uv pip install fastapps
 ```
 
 Make sure pyngrok is also installed:
 
 ```bash
 pip install pyngrok
+# Or with uv: uv pip install pyngrok
 ```
 
 ---

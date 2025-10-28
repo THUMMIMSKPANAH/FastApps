@@ -77,7 +77,7 @@ if __name__ == "__main__":
 '''
 
 REQUIREMENTS_TXT = """# All dependencies included in fastapps package
-# pip install fastapps is all you need!
+# pip install fastapps (or: uv pip install fastapps) is all you need!
 """
 
 
