@@ -4,7 +4,6 @@ import click
 from rich.console import Console
 
 from .commands.create import create_widget
-from .commands.deploy import deploy_command
 from .commands.dev import start_dev_server
 from .commands.init import init_project
 from .commands.use import use_integration
@@ -123,37 +122,6 @@ def build():
     console.print("[yellow]This feature will be implemented in Phase 4[/yellow]")
     console.print("\n[cyan]For now, use:[/cyan]")
     console.print("  npm run build")
-
-
-@cli.command()
-@click.option("--yes", "-y", is_flag=True, help="Skip confirmation prompt")
-@click.option("--no-build", is_flag=True, help="Skip widget build step")
-def deploy(yes, no_build):
-    """Deploy your FastApps project to production.
-
-    This command will:
-    1. Validate project structure
-    2. Build widgets (unless --no-build)
-    3. Authenticate with OAuth (if needed)
-    4. Package artifacts (server, widgets, configs)
-    5. Upload to deployment server
-    6. Display deployment URL
-
-    Examples:
-        fastapps deploy
-        fastapps deploy --yes
-        fastapps deploy --no-build --yes
-
-    Configuration:
-        Set FASTAPPS_DEPLOY_URL in .env file to configure deployment server.
-        Default: https://deploy.fastapps.org
-
-    Authentication:
-        First time: Opens browser for OAuth authentication
-        Subsequent: Uses saved token from ~/.fastapps/config.json
-    """
-    deploy_command(yes=yes, no_build=no_build)
-
 
 @cli.command()
 def auth_info():
