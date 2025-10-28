@@ -1,12 +1,14 @@
-from typing import List, Any, Dict, Optional
+from typing import Any, Dict, List, Optional
+
 from fastmcp import FastMCP
 from mcp import types
+
 from .widget import BaseWidget, ClientContext, UserContext
 
 # Auth imports (optional, graceful degradation if not available)
 try:
-    from mcp.server.auth.settings import AuthSettings
     from mcp.server.auth.provider import TokenVerifier
+    from mcp.server.auth.settings import AuthSettings
 
     MCP_AUTH_AVAILABLE = True
 except ImportError:

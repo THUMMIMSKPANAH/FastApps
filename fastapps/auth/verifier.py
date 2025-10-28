@@ -5,13 +5,14 @@ Provides automatic JWT validation with JWKS discovery for Auth0, Okta, Azure AD,
 and other OAuth 2.1 providers.
 """
 
-from typing import Optional, List
+from typing import List, Optional
+
 import httpx
 
 try:
-    from mcp.server.auth.provider import TokenVerifier, AccessToken
     import jwt
     from jwt import PyJWKClient
+    from mcp.server.auth.provider import AccessToken, TokenVerifier
 
     MCP_AUTH_AVAILABLE = True
 except ImportError:
@@ -87,7 +88,7 @@ class JWTVerifier(TokenVerifier):
             self.jwks_client = PyJWKClient(jwks_uri)
 
         except Exception as e:
-            raise RuntimeError(f"Failed to initialize JWKS from {self.issuer_url}: {e}")
+            raise RuntimeError(f"Failed to initialize JWKS from {self.issuer_url}: {e}") from e
 
     async def verify_token(self, token: str) -> Optional[AccessToken]:
         """

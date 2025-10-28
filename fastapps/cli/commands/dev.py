@@ -1,11 +1,10 @@
 """Development server command with ngrok integration."""
 
 import json
-import os
-import sys
 import subprocess
-import time
+import sys
 from pathlib import Path
+
 from rich.console import Console
 from rich.panel import Panel
 from rich.table import Table
@@ -105,7 +104,7 @@ def start_dev_server(port=8001, host="0.0.0.0"):
     try:
         subprocess.run(["npm", "run", "build"], check=True, capture_output=True)
         console.print("[green]Widgets built[/green]\n")
-    except Exception as e:
+    except Exception:
         console.print("[yellow]Build failed. Make sure npm packages are installed[/yellow]")
         return False
 
@@ -121,8 +120,8 @@ def start_dev_server(port=8001, host="0.0.0.0"):
         return False
 
     try:
-        from pyngrok import ngrok
         import uvicorn
+        from pyngrok import ngrok
 
         # Import project server
         sys.path.insert(0, str(Path.cwd()))
@@ -171,7 +170,7 @@ def start_dev_server(port=8001, host="0.0.0.0"):
         try:
             ngrok.disconnect(public_url.public_url)
             console.print("[green]Server stopped[/green]")
-        except:
+        except Exception:
             pass
         return True
 

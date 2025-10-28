@@ -6,6 +6,7 @@ Useful for CI/CD or when you don't want to save token to config file.
 """
 
 import os
+
 from fastapps import start_dev_server
 
 if __name__ == "__main__":

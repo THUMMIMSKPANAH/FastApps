@@ -15,9 +15,9 @@ Example:
 
 import json
 import sys
+from dataclasses import asdict, dataclass
 from pathlib import Path
-from typing import Optional, Dict, Any
-from dataclasses import dataclass, asdict
+from typing import Any, Dict, Optional
 
 
 @dataclass
@@ -150,9 +150,9 @@ def _setup_ngrok(token: str, port: int) -> str:
     except ImportError:
         raise NgrokError(
             "pyngrok is not installed. Install it with: pip install pyngrok"
-        )
+        ) from None
     except Exception as e:
-        raise NgrokError(f"Failed to create ngrok tunnel: {e}")
+        raise NgrokError(f"Failed to create ngrok tunnel: {e}") from e
 
 
 def _validate_project(project_root: Path) -> None:
@@ -245,7 +245,7 @@ def start_dev_server(
             mcp_endpoint=public_url,
         )
 
-        print(f"✅ Tunnel created!")
+        print("✅ Tunnel created!")
         print(f"\n{server_info}\n")
 
         # Return info if requested (for testing/integration)
@@ -256,7 +256,7 @@ def start_dev_server(
         sys.path.insert(0, str(config.project_root))
 
         # Import and run server
-        print(f"🚀 Starting FastApps server...\n")
+        print("🚀 Starting FastApps server...\n")
 
         try:
             import uvicorn
@@ -274,7 +274,7 @@ def start_dev_server(
             raise DevServerError(
                 f"Failed to import server: {e}\n"
                 f"Make sure you're in a FastApps project with dependencies installed."
-            )
+            ) from e
 
     except KeyboardInterrupt:
         print("\n⏹️  Server stopped")
@@ -282,7 +282,7 @@ def start_dev_server(
     except NgrokError:
         raise
     except Exception as e:
-        raise DevServerError(f"Server error: {e}")
+        raise DevServerError(f"Server error: {e}") from e
 
 
 def start_dev_server_with_config(config: DevServerConfig) -> Optional[ServerInfo]:

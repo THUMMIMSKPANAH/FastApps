@@ -2,9 +2,10 @@
 
 import click
 from rich.console import Console
+
 from .commands.create import create_widget
+from .commands.dev import reset_ngrok_token, start_dev_server
 from .commands.init import init_project
-from .commands.dev import start_dev_server, reset_ngrok_token
 from .commands.use import use_integration
 
 console = Console()
@@ -183,7 +184,7 @@ def use(integration_name):
 
     Example:
         fastapps use metorial
-    
+
     This will create server/api/metorial_mcp.py with environment variable support.
     """
     use_integration(integration_name)

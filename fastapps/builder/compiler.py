@@ -1,9 +1,9 @@
-import subprocess
+import platform
 import re
 import shutil
-import platform
-from pathlib import Path
+import subprocess
 from dataclasses import dataclass
+from pathlib import Path
 from typing import Dict
 
 

@@ -1,7 +1,10 @@
 from abc import ABC, abstractmethod
-from typing import Any, Dict, Optional, List
-from pydantic import BaseModel
+from typing import Any, Dict, List, Optional
+
 import mcp.types as types
+from pydantic import BaseModel
+
+from fastapps.builder.compiler import WidgetBuildResult
 
 
 class UserContext:
@@ -128,7 +131,7 @@ class BaseWidget(ABC):
     )
     default_locale: str = "en"
 
-    def __init__(self, build_result: "WidgetBuildResult"):
+    def __init__(self, build_result: WidgetBuildResult):
         self.build_result = build_result
         self.template_uri = f"ui://widget/{self.identifier}.html"
         self.resolved_locale = self.default_locale

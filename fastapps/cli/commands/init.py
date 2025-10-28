@@ -1,11 +1,11 @@
 """Initialize new FastApps project command."""
 
-import subprocess
-import sys
-import os
-import io
 import contextlib
+import io
+import os
+import subprocess
 from pathlib import Path
+
 from rich.console import Console
 
 console = Console()
@@ -271,7 +271,7 @@ def init_project(project_name: str):
         # Auto-install npm packages
         console.print("\n[cyan]Installing npm packages...[/cyan]")
         try:
-            result = subprocess.run(
+            subprocess.run(
                 ["npm", "install"],
                 cwd=project_path,
                 capture_output=True,
@@ -281,14 +281,14 @@ def init_project(project_name: str):
             console.print("[green]npm packages installed[/green]")
         except FileNotFoundError:
             console.print("[yellow]npm not found. Run 'npm install' manually[/yellow]")
-        except subprocess.CalledProcessError as e:
+        except subprocess.CalledProcessError:
             console.print("[yellow]npm install failed. Run manually if needed[/yellow]")
 
-        console.print(f"\n[green]All set![/green]")
-        console.print(f"\n[cyan]Next steps:[/cyan]")
+        console.print("\n[green]All set![/green]")
+        console.print("\n[cyan]Next steps:[/cyan]")
         console.print(f"  [bold]cd {project_name}[/bold]")
-        console.print(f"  [bold]fastapps dev[/bold]")
-        console.print(f"\n[green]Happy building![/green]\n")
+        console.print("  [bold]fastapps dev[/bold]")
+        console.print("\n[green]Happy building![/green]\n")
 
         return True
 
