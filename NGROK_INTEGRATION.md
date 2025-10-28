@@ -16,6 +16,7 @@ The `fastapps dev` command now:
 1. **Install dependencies:**
    ```bash
    pip install -e .
+   # Or with uv: uv sync --dev
    ```
    This will install pyngrok and all other required dependencies.
 
@@ -112,11 +113,13 @@ Alternatively, you can manually edit `~/.fastapps/config.json`:
 Install pyngrok:
 ```bash
 pip install pyngrok
+# Or with uv: uv pip install pyngrok
 ```
 
 Or reinstall FastApps with all dependencies:
 ```bash
 pip install -e .
+# Or with uv: uv sync --dev
 ```
 
 ### "Not in a FastApps project directory" Error
@@ -128,6 +131,7 @@ If you haven't initialized a project yet:
 fastapps init myproject
 cd myproject
 pip install -r requirements.txt
+# Or with uv: uv pip install -r requirements.txt
 npm install
 fastapps create mywidget
 npm run build

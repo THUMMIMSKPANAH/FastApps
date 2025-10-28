@@ -1,6 +1,7 @@
 """Create widget command."""
 
 from pathlib import Path
+
 from rich.console import Console
 
 console = Console()
@@ -57,7 +58,7 @@ def generate_tool_code(
                 "user_id": user.subject,
                 "scopes": user.scopes,
             }
-        
+
         return {
             "message": "Welcome to FastApps"
         }"""
@@ -94,12 +95,12 @@ class {class_name}Tool(BaseWidget):
     input_schema = {class_name}Input
     invoking = "Loading widget..."
     invoked = "Widget ready!"
-    
+
     widget_csp = {{
         "connect_domains": [],
         "resource_domains": []
     }}
-    
+
     async def execute(self, input_data: {class_name}Input, context=None, user=None) -> Dict[str, Any]:
 {execute_body}
 """
@@ -129,12 +130,12 @@ class {ClassName}Tool(BaseWidget):
     input_schema = {ClassName}Input
     invoking = "Loading widget..."
     invoked = "Widget ready!"
-    
+
     widget_csp = {{
         "connect_domains": [],
         "resource_domains": []
     }}
-    
+
     async def execute(self, input_data: {ClassName}Input, context=None, user=None) -> Dict[str, Any]:
         # Access authenticated user (if present)
         # if user and user.is_authenticated:
@@ -143,7 +144,7 @@ class {ClassName}Tool(BaseWidget):
         #         "scopes": user.scopes,
         #         "user_data": user.claims
         #     }}
-        
+
         return {{
             "message": "Welcome to FastApps"
         }}
@@ -154,7 +155,7 @@ import {{ useWidgetProps }} from 'fastapps';
 
 export default function {ClassName}() {{
   const props = useWidgetProps();
-  
+
   return (
     <div style={{{{
       background: '#000',
@@ -223,8 +224,8 @@ def create_widget(name: str, auth_type: str = None, scopes: list = None):
     tool_file.write_text(tool_content)
     widget_file.write_text(widget_content)
 
-    console.print(f"\n[green][OK] Widget created successfully![/green]")
-    console.print(f"\n[cyan]Created files:[/cyan]")
+    console.print("\n[green][OK] Widget created successfully![/green]")
+    console.print("\n[cyan]Created files:[/cyan]")
     console.print(f"  - {tool_file}")
     console.print(f"  - {widget_file}")
 
@@ -233,25 +234,25 @@ def create_widget(name: str, auth_type: str = None, scopes: list = None):
         scope_str = f" with scopes: {', '.join(scopes)}" if scopes else ""
         console.print(f"\n[yellow]🔒 Authentication: Required{scope_str}[/yellow]")
     elif auth_type == "none":
-        console.print(f"\n[yellow]🌐 Authentication: Public (no auth)[/yellow]")
+        console.print("\n[yellow]🌐 Authentication: Public (no auth)[/yellow]")
     elif auth_type == "optional":
         scope_str = f" (scopes: {', '.join(scopes)})" if scopes else ""
         console.print(f"\n[yellow]🔓 Authentication: Optional{scope_str}[/yellow]")
     else:
         console.print(
-            f"\n[yellow]ℹ️  Authentication: Not configured (will inherit from server)[/yellow]"
+            "\n[yellow]ℹ️  Authentication: Not configured (will inherit from server)[/yellow]"
         )
 
-    console.print(f"\n[yellow]Next steps:[/yellow]")
-    console.print(f"  1. npm run build")
-    console.print(f"  2. python server/main.py")
+    console.print("\n[yellow]Next steps:[/yellow]")
+    console.print("  1. npm run build")
+    console.print("  2. python server/main.py")
     console.print(
-        f"\n[green]Your widget will be automatically discovered by FastApps![/green]"
+        "\n[green]Your widget will be automatically discovered by FastApps![/green]"
     )
 
     if not auth_type:
         console.print(
-            f"\n[dim]Tip: Use --auth, --public, or --optional-auth flags for authentication[/dim]"
+            "\n[dim]Tip: Use --auth, --public, or --optional-auth flags for authentication[/dim]"
         )
         console.print(
             f"[dim]Example: fastapps create {name} --auth --scopes user,read:data[/dim]"

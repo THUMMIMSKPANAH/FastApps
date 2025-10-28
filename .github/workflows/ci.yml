@@ -24,14 +24,17 @@ jobs:
       with:
         python-version: ${{ matrix.python-version }}
 
+    - name: Install uv
+      uses: astral-sh/setup-uv@v2
+      with:
+        enable-cache: true
+
     - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install -e ".[dev]"
+      run: uv sync --all-extras --dev
 
     - name: Run tests with pytest
       run: |
-        pytest --verbose --cov=fastapps --cov-report=xml --cov-report=term
+        uv run --with pytest --with pytest-cov pytest --verbose --cov=fastapps --cov-report=xml --cov-report=term
 
     - name: Upload coverage to Codecov
       uses: codecov/codecov-action@v4
@@ -51,15 +54,16 @@ jobs:
       with:
         python-version: '3.11'
 
+    - name: Install uv
+      uses: astral-sh/setup-uv@v2
+      with:
+        enable-cache: true
+
     - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install -e ".[dev]"
-        pip install mypy
+      run: uv sync --all-extras --dev
 
     - name: Type check with mypy
-      run: |
-        mypy fastapps --ignore-missing-imports
+      run: uv run --with mypy mypy fastapps --ignore-missing-imports
       continue-on-error: true
 
   build:
@@ -73,16 +77,16 @@ jobs:
       with:
         python-version: '3.11'
 
-    - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install build twine
+    - name: Install uv
+      uses: astral-sh/setup-uv@v2
+      with:
+        enable-cache: true
 
     - name: Build package
-      run: python -m build
+      run: uv build
 
     - name: Check package
-      run: twine check dist/*
+      run: uv run --with twine twine check dist/*
 
     - name: Upload artifacts
       uses: actions/upload-artifact@v4

@@ -129,6 +129,7 @@ httpx>=0.28.0
 ```bash
 # Python
 pip install -r requirements.txt
+# Or with uv: uv pip install -r requirements.txt
 
 # JavaScript
 npm install

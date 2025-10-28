@@ -35,6 +35,8 @@ source .venv/bin/activate # Mac/Linux
 
 # 1. Install
 pip install fastapps
+# Or with uv (faster, modern alternative):
+# uv pip install fastapps
 
 # 2. Create project (includes example widget + auto npm install)
 fastapps init my-app
@@ -149,11 +151,16 @@ We welcome contributions! Please see our contributing guidelines:
 git clone https://github.com/YOUR_USERNAME/FastApps.git
 cd FastApps
 
-# Install development dependencies
-pip install -e ".[dev]"
+# Install uv (if not already installed)
+# curl -LsSf https://astral.sh/uv/install.sh | sh
 
-# Install pre-commit hooks
-pip install pre-commit
+# Install development dependencies (recommended - matches CI)
+uv sync --dev
+
+# Or use pip (traditional approach)
+# pip install -e ".[dev]"
+
+# Install pre-commit hooks (already installed via uv sync --dev)
 pre-commit install
 
 # Make changes and ensure they pass checks

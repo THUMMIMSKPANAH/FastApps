@@ -101,7 +101,7 @@ Add these secrets in GitHub Settings → Secrets and variables → Actions:
 4. **Automatic Publishing**
    - `publish.yml` triggers on release publish
    - Package builds and publishes to PyPI
-   - Users can install with `pip install fastapps`
+   - Users can install with `pip install fastapps` or `uv pip install fastapps`
 
 ### Testing Releases (Optional)
 
@@ -109,7 +109,7 @@ Before publishing to production PyPI:
 
 1. Create a **draft** release
 2. `test-publish.yml` publishes to Test PyPI
-3. Test installation: `pip install -i https://test.pypi.org/simple/ fastapps`
+3. Test installation: `pip install -i https://test.pypi.org/simple/ fastapps` or `uv pip install --index-url https://test.pypi.org/simple/ fastapps`
 4. If successful, publish the release
 
 ## PR Labels for Release Notes
@@ -136,8 +136,11 @@ Configured in `.github/dependabot.yml`:
 ## Running Tests Locally
 
 ```bash
-# Install dev dependencies
-pip install -e ".[dev]"
+# Install dev dependencies (recommended - matches CI)
+uv sync --dev
+
+# Or with pip (traditional)
+# pip install -e ".[dev]"
 
 # Run tests
 pytest

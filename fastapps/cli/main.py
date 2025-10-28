@@ -2,16 +2,24 @@
 
 import click
 from rich.console import Console
+
 from .commands.create import create_widget
+from .commands.dev import start_dev_server
 from .commands.init import init_project
-from .commands.dev import start_dev_server, reset_ngrok_token
 from .commands.use import use_integration
 
 console = Console()
 
+# Get version from package metadata
+try:
+    from importlib.metadata import version
+    __version__ = version("fastapps")
+except Exception:
+    __version__ = "unknown"
+
 
 @click.group()
-@click.version_option(version="1.0.8", prog_name="fastapps")
+@click.version_option(version=__version__, prog_name="fastapps")
 def cli():
     """FastApps - ChatGPT Widget Framework
 
@@ -89,17 +97,20 @@ def create(widget_name, auth, public, optional_auth, scopes):
     "--host", default="0.0.0.0", help="Host to bind the server to (default: 0.0.0.0)"
 )
 def dev(port, host):
-    """Start development server with ngrok tunnel.
+    """Start development server with Cloudflare Tunnel.
 
     This command will:
-    1. Prompt for ngrok auth token (first time only)
-    2. Start a public ngrok tunnel
-    3. Launch the FastApps development server
-    4. Display public and local URLs
+    1. Build widgets
+    2. Install cloudflared if needed (automatic, no token required)
+    3. Start a public Cloudflare Tunnel
+    4. Launch the FastApps development server
+    5. Display public and local URLs
 
     Example:
         fastapps dev
         fastapps dev --port 8080
+
+    Note: Uses Cloudflare Tunnel (free, unlimited, no sign-up required)
     """
     start_dev_server(port=port, host=host)
 
@@ -111,7 +122,6 @@ def build():
     console.print("[yellow]This feature will be implemented in Phase 4[/yellow]")
     console.print("\n[cyan]For now, use:[/cyan]")
     console.print("  npm run build")
-
 
 @cli.command()
 def auth_info():
@@ -161,19 +171,6 @@ def auth_info():
 
 
 @cli.command()
-def reset_token():
-    """Reset stored ngrok auth token.
-
-    Use this command if you want to change your ngrok auth token.
-    The next time you run 'fastapps dev', you'll be prompted for a new token.
-
-    Example:
-        fastapps reset-token
-    """
-    reset_ngrok_token()
-
-
-@cli.command()
 @click.argument("integration_name")
 def use(integration_name):
     """Add integrations to your FastApps project.
@@ -183,7 +180,7 @@ def use(integration_name):
 
     Example:
         fastapps use metorial
-    
+
     This will create server/api/metorial_mcp.py with environment variable support.
     """
     use_integration(integration_name)

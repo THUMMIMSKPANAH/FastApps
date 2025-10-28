@@ -15,30 +15,25 @@ Example:
             return {"message": "Hello from FastApps!"}
 """
 
-__version__ = "1.1.1"
+# Get version from package metadata
+try:
+    from importlib.metadata import version
+    __version__ = version("fastapps")
+except Exception:
+    __version__ = "1.1.2"  # Fallback version
+
 __author__ = "FastApps Team"
 
-from .core.widget import BaseWidget, ClientContext, UserContext
-from .core.server import WidgetMCPServer
 from .builder.compiler import WidgetBuilder, WidgetBuildResult
-from .types.schema import Field, ConfigDict
-from .dev_server import (
-    start_dev_server,
-    start_dev_server_with_config,
-    get_server_info,
-    run_dev_server,
-    DevServerConfig,
-    ServerInfo,
-    DevServerError,
-    ProjectNotFoundError,
-    NgrokError,
-)
+from .core.server import WidgetMCPServer
+from .core.widget import BaseWidget, ClientContext, UserContext
+from .types.schema import ConfigDict, Field
 
 # Auth exports (optional, graceful if not available)
 try:
-    from .auth.verifier import JWTVerifier
-    from .auth import TokenVerifier, AccessToken
+    from .auth import AccessToken, TokenVerifier
     from .auth.decorators import auth_required, no_auth, optional_auth
+    from .auth.verifier import JWTVerifier
 
     _auth_exports = [
         "JWTVerifier",
@@ -61,14 +56,4 @@ __all__ = [
     "WidgetBuildResult",
     "Field",
     "ConfigDict",
-    # Dev server API
-    "start_dev_server",
-    "start_dev_server_with_config",
-    "get_server_info",
-    "run_dev_server",
-    "DevServerConfig",
-    "ServerInfo",
-    "DevServerError",
-    "ProjectNotFoundError",
-    "NgrokError",
 ] + _auth_exports
