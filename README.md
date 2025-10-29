@@ -19,7 +19,7 @@
 
 ---
 
-📚 **Documentation**: [https://www.fastapps.org/](https://www.fastapps.org/)
+📚 **Documentation**: [https://docs.fastapps.org/](https://docs.fastapps.org/)
 
 👥 **Community**: [Join Our Discord](https://discord.gg/5cEy3Jqek3)
 
