@@ -20,7 +20,7 @@ try:
     from importlib.metadata import version
     __version__ = version("fastapps")
 except Exception:
-    __version__ = "1.1.2"  # Fallback version
+    __version__ = "1.2.0"  # Fallback version
 
 __author__ = "FastApps Team"
 
