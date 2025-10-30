@@ -61,10 +61,10 @@ export default function Greeting() {
       fontFamily: 'Arial, sans-serif'
     }}>
       <h1 style={{ fontSize: '48px', margin: 0 }}>
-        {props.emoji} {props.message}
+        {props?.emoji} {props?.message || 'Loading...'}
       </h1>
       <p style={{ fontSize: '18px', marginTop: '10px', opacity: 0.9 }}>
-        Welcome, {props.name}!
+        Welcome, {props?.name || 'Guest'}!
       </p>
     </div>
   );

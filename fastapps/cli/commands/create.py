@@ -165,7 +165,7 @@ export default function {ClassName}() {{
       borderRadius: '8px',
       fontFamily: 'monospace'
     }}}}>
-      <h1>{{props.message || 'Welcome to FastApps'}}</h1>
+      <h1>{{props?.message || 'Welcome to FastApps'}}</h1>
     </div>
   );
 }}

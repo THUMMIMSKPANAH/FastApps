@@ -23,7 +23,7 @@ export default function MyWidget() {
   // 2. Render UI
   return (
     <div style={{ padding: '20px' }}>
-      <h1>{props.message}</h1>
+      <h1>{props?.message || 'Loading...'}</h1>
     </div>
   );
 }
@@ -53,7 +53,7 @@ export default function MyWidget() {
   const props = useWidgetProps<MyWidgetProps>();
   // props is now typed!
   
-  return <div>{props.message}</div>;
+  return <div>{props?.message || 'Loading...'}</div>;
 }
 ```
 
@@ -63,8 +63,8 @@ export default function MyWidget() {
 export default function MyWidget() {
   const props = useWidgetProps();
   
-  // Use defaults
-  const message = props.message || 'No message';
+  // Use defaults with optional chaining
+  const message = props?.message || 'No message';
   
   // Or conditional rendering
   if (!props.data) {

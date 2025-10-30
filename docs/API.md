@@ -252,7 +252,7 @@ function MyWidget() {
   const props = useWidgetProps();
   // props contains data from execute()
   
-  return <div>{props.message}</div>;
+  return <div>{props?.message || 'Loading...'}</div>;
 }
 ```
 
@@ -265,7 +265,7 @@ interface MyProps {
 
 function MyWidget() {
   const props = useWidgetProps<MyProps>();
-  return <div>{props.message}</div>;
+  return <div>{props?.message || 'Loading...'}</div>;
 }
 ```
 

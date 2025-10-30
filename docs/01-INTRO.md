@@ -111,7 +111,7 @@ export default function MyWidget() {
       color: 'white',
       borderRadius: '12px'
     }}>
-      <h1>{props.message}</h1>
+      <h1>{props?.message || 'Welcome!'}</h1>
     </div>
   );
 }
